@@ -14,6 +14,7 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Key<Comment> id;
+    public Key<Task> task;
     public String content;
     public Key<Account> postedBy;
     public LocalDateTime postedAt;

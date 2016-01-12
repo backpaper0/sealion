@@ -20,5 +20,6 @@ public class Task {
     public TaskStatus status;
     public Key<Account> postedBy;
     public LocalDateTime postedAt;
+    public Key<Project> project;
     public Key<Milestone> milestone;
 }
