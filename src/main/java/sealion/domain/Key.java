@@ -2,20 +2,20 @@ package sealion.domain;
 
 import org.seasar.doma.Domain;
 
-@Domain(valueType = Integer.class, factoryMethod = "of")
+@Domain(valueType = Long.class, factoryMethod = "of")
 public class Key<ENTITY> {
 
-    private final Integer value;
+    private final Long value;
 
-    private Key(Integer value) {
+    private Key(Long value) {
         this.value = value;
     }
 
-    public Integer getValue() {
+    public Long getValue() {
         return value;
     }
 
-    public static <ENTITY> Key<ENTITY> of(Integer value) {
+    public static <ENTITY> Key<ENTITY> of(Long value) {
         return new Key<>(value);
     }
 }
