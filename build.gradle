@@ -4,6 +4,7 @@ ext {
     h2Version = '1.4.190'
     flywayVersion = '3.2.1'
     superagentVersion = '1.4.0'
+    pureVersion = '0.6.0'
 }
 
 apply plugin: 'java'
@@ -29,4 +30,5 @@ dependencies {
     compile "com.h2database:h2:${h2Version}"
     compile "org.flywaydb:flyway-core:${flywayVersion}"
     compile "org.webjars:superagent:${superagentVersion}"
+    compile "org.webjars:pure:${pureVersion}"
 }
