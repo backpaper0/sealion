@@ -12,7 +12,7 @@ import org.seasar.doma.jdbc.dialect.H2Dialect;
 @ApplicationScoped
 public class DomaConfig implements Config {
 
-    @Resource
+    @Resource(name = "java:app/jdbc/sealion")
     private DataSource dataSource;
     private Dialect dialect;
 
