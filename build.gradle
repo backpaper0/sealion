@@ -1,0 +1,32 @@
+ext {
+    javaeeVersion = '7.0'
+    domaVersion = '2.6.1'
+    h2Version = '1.4.190'
+    flywayVersion = '3.2.1'
+    superagentVersion = '1.4.0'
+}
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply from: 'eclipse.gradle'
+
+tasks.withType(JavaCompile) {
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+    options.encoding = 'UTF-8'
+}
+
+compileJava.dependsOn processResources
+processResources.destinationDir = compileJava.destinationDir
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile "javax:javaee-api:${javaeeVersion}"
+    compile "org.seasar.doma:doma:${domaVersion}"
+    compile "com.h2database:h2:${h2Version}"
+    compile "org.flywaydb:flyway-core:${flywayVersion}"
+    compile "org.webjars:superagent:${superagentVersion}"
+}
