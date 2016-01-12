@@ -3,8 +3,11 @@ package sealion.config;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.Initialized;
+import javax.enterprise.event.Observes;
 import javax.sql.DataSource;
 
+import org.flywaydb.core.Flyway;
 import org.seasar.doma.jdbc.Config;
 import org.seasar.doma.jdbc.dialect.Dialect;
 import org.seasar.doma.jdbc.dialect.H2Dialect;
@@ -19,6 +22,13 @@ public class DomaConfig implements Config {
     @PostConstruct
     public void init() {
         dialect = new H2Dialect();
+    }
+
+    public void migrate(
+            @Observes @Initialized(ApplicationScoped.class) Object context) {
+        Flyway flyway = new Flyway();
+        flyway.setDataSource(dataSource);
+        flyway.migrate();
     }
 
     @Override
