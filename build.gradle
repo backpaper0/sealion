@@ -41,3 +41,8 @@ task run(type:Exec) {
 }
 
 run.dependsOn war
+
+task h2(type: Exec) {
+    def h2Jar = configurations.compile.find { it.name ==~ /h2.*/ }
+    commandLine 'java', '-jar', "${h2Jar}"
+}
