@@ -11,7 +11,7 @@ CREATE TABLE Task (
     postedBy BIGINT NOT NULL,
     postedAt TIMESTAMP NOT NULL,
     project BIGINT NOT NULL,
-    Milestone BIGINT
+    Milestone BIGINT NOT NULL
 );
 
 CREATE TABLE Comment (
