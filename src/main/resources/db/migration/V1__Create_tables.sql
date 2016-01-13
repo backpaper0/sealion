@@ -27,6 +27,14 @@ CREATE TABLE Account (
     username VARCHAR(50)
 );
 
+CREATE TABLE Password (
+    account BIGINT NOT NULL,
+    hash VARCHAR(200) NOT NULL,
+    salt VARCHAR(200) NOT NULL,
+    hashAlgorithm VARCHAR(50) NOT NULL,
+    PRIMARY KEY (account)
+);
+
 CREATE TABLE Assignment (
     task BIGINT NOT NULL,
     account BIGINT NOT NULL,
