@@ -31,4 +31,13 @@ dependencies {
     compile "org.flywaydb:flyway-core:${flywayVersion}"
     compile "org.webjars:superagent:${superagentVersion}"
     compile "org.webjars:pure:${pureVersion}"
+    archives 'fish.payara.extras:payara-micro:4.1.1.154'
 }
+
+task run(type:Exec) {
+    def payaraJar = configurations.archives.find { it.name ==~ /payara-micro.*/ }
+    def warFile = war.archivePath
+    commandLine 'java', '-jar', "${payaraJar}", '--noCluster', '--deploy', "${warFile}"
+}
+
+run.dependsOn war
