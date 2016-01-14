@@ -38,10 +38,10 @@ CREATE TABLE Task (
     postedBy BIGINT NOT NULL,
     postedAt TIMESTAMP NOT NULL,
     project BIGINT NOT NULL,
-    Milestone BIGINT NOT NULL,
+    milestone BIGINT NOT NULL,
     FOREIGN KEY (postedBy) REFERENCES Account (id),
     FOREIGN KEY (project) REFERENCES Project (id),
-    FOREIGN KEY (Milestone) REFERENCES Milestone (id)
+    FOREIGN KEY (milestone) REFERENCES Milestone (id)
 );
 
 CREATE TABLE Comment (
