@@ -3,7 +3,7 @@ package sealion.domain;
 import org.seasar.doma.Domain;
 
 @Domain(valueType = String.class, factoryMethod = "of")
-public enum Role {
+public enum AccountRole {
 
     USER, ADMIN;
 
@@ -11,7 +11,7 @@ public enum Role {
         return name();
     }
 
-    public static Role of(String value) {
+    public static AccountRole of(String value) {
         return valueOf(value);
     }
 }
