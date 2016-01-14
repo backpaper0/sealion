@@ -38,7 +38,7 @@ CREATE TABLE Task (
     postedBy BIGINT NOT NULL,
     postedAt TIMESTAMP NOT NULL,
     project BIGINT NOT NULL,
-    milestone BIGINT NOT NULL,
+    milestone BIGINT,
     FOREIGN KEY (postedBy) REFERENCES Account (id),
     FOREIGN KEY (project) REFERENCES Project (id),
     FOREIGN KEY (milestone) REFERENCES Milestone (id)
