@@ -3,6 +3,8 @@ ext {
     domaVersion = '2.6.1'
     h2Version = '1.4.190'
     flywayVersion = '3.2.1'
+    thymeleafVersion = '2.1.4.RELEASE'
+    slf4jVersion = '1.6.6'
     superagentVersion = '1.4.0'
     pureVersion = '0.6.0'
 }
@@ -29,6 +31,8 @@ dependencies {
     compile "org.seasar.doma:doma:${domaVersion}"
     compile "com.h2database:h2:${h2Version}"
     compile "org.flywaydb:flyway-core:${flywayVersion}"
+    compile "org.thymeleaf:thymeleaf:${thymeleafVersion}"
+    runtime "org.slf4j:slf4j-jdk14:${slf4jVersion}"
     compile "org.webjars:superagent:${superagentVersion}"
     compile "org.webjars:pure:${pureVersion}"
     archives 'fish.payara.extras:payara-micro:4.1.1.154'
