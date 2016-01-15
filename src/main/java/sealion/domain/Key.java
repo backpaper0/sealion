@@ -18,4 +18,8 @@ public class Key<ENTITY> {
     public static <ENTITY> Key<ENTITY> of(Long value) {
         return new Key<>(value);
     }
+
+    public static <ENTITY> Key<ENTITY> valueOf(String value) {
+        return new Key<>(Long.valueOf(value));
+    }
 }
