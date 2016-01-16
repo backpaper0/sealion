@@ -9,11 +9,10 @@ import sealion.dao.ProjectDao;
 import sealion.dao.TaskDao;
 import sealion.domain.Key;
 import sealion.entity.Project;
-import sealion.entity.Task;
 
 public class TasksModel {
     public Project project;
-    public List<Task> tasks;
+    public List<TaskView> tasks;
 
     @Dependent
     public static class Builder {

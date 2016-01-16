@@ -13,7 +13,7 @@ import org.seasar.doma.Select;
 
 import sealion.domain.Key;
 import sealion.entity.Project;
-import sealion.entity.Task;
+import sealion.model.TaskView;
 
 @Dao
 @AnnotateWith(annotations = {
@@ -22,5 +22,5 @@ import sealion.entity.Task;
 public interface TaskDao {
 
     @Select
-    List<Task> selectByProject(Key<Project> project);
+    List<TaskView> selectByProject(Key<Project> project);
 }

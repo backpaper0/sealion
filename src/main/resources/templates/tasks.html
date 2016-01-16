@@ -27,10 +27,11 @@
                 <th>Milestone</th>
             </tr>
             <tr data-th-each="task : ${model.tasks}">
-                <td><a href="task.html" data-th-href="${'/sealion/projects/' + task.project + '/tasks/' + task.id}"
+                <td><a href="task.html" data-th-href="${'/sealion/projects/' + model.project.id + '/tasks/' + task.id}"
                         data-th-text="${task.title}">サンプルタスク</a></td>
                 <td data-th-text="${task.status}">OPEN</td>
-                <td><a href="milestone.html">v1.0</a></td>
+                <td><a href="milestone.html" data-th-href="${'/sealion/projects/' + model.project.id + '/milestones/' + task.milestone}"
+                        data-th-text="${task.milestoneName}">v1.0</a></td>
             </tr>
         </table>
     </body>
