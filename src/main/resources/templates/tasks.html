@@ -26,19 +26,10 @@
                 <th>Status</th>
                 <th>Milestone</th>
             </tr>
-            <tr>
-                <td><a href="task.html">サンプルタスク</a></td>
-                <td>OPEN</td>
-                <td><a href="milestone.html">v1.0</a></td>
-            </tr>
-            <tr>
-                <td><a href="task.html">サンプルタスク</a></td>
-                <td>OPEN</td>
-                <td><a href="milestone.html">v1.0</a></td>
-            </tr>
-            <tr>
-                <td><a href="task.html">サンプルタスク</a></td>
-                <td>OPEN</td>
+            <tr data-th-each="task : ${model.tasks}">
+                <td><a href="task.html" data-th-href="${'/sealion/projects/' + task.project.value + '/tasks/' + task.id.value}"
+                        data-th-text="${task.title}">サンプルタスク</a></td>
+                <td data-th-text="${task.status}">OPEN</td>
                 <td><a href="milestone.html">v1.0</a></td>
             </tr>
         </table>
