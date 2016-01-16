@@ -5,7 +5,7 @@ Java EE 7とDoma、ThymeleafでITSを作っています。
 ## URL
 
 |URL|概要|
-|-|-|
+|---|----|
 |`/`|プロジェクト一覧へリダイレクト|
 |`/projects`|プロジェクト一覧|
 |`/projects/new`|プロジェクト作成|
