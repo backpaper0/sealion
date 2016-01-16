@@ -14,8 +14,8 @@
         </ul>
         <p data-th-text="${model.project.name}">サンプルプロジェクト</p>
         <ul>
-            <li><a href="tasks.html" data-th-href="${'/sealion/projects/' + model.project.id.value + '/tasks'}">Tasks</a></li>
-            <li><a href="milestones.html" data-th-href="${'/sealion/projects/' + model.project.id.value + '/milestones'}">Milestones</a></li>
+            <li><a href="tasks.html" data-th-href="${'/sealion/projects/' + model.project.id + '/tasks'}">Tasks</a></li>
+            <li><a href="milestones.html" data-th-href="${'/sealion/projects/' + model.project.id + '/milestones'}">Milestones</a></li>
         </ul>
         <ul>
             <li><a href="new-task.html">New Task</a></li>
@@ -27,7 +27,7 @@
                 <th>Milestone</th>
             </tr>
             <tr data-th-each="task : ${model.tasks}">
-                <td><a href="task.html" data-th-href="${'/sealion/projects/' + task.project.value + '/tasks/' + task.id.value}"
+                <td><a href="task.html" data-th-href="${'/sealion/projects/' + task.project + '/tasks/' + task.id}"
                         data-th-text="${task.title}">サンプルタスク</a></td>
                 <td data-th-text="${task.status}">OPEN</td>
                 <td><a href="milestone.html">v1.0</a></td>

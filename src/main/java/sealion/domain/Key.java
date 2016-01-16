@@ -15,6 +15,11 @@ public class Key<ENTITY> {
         return value;
     }
 
+    @Override
+    public String toString() {
+        return value.toString();
+    }
+
     public static <ENTITY> Key<ENTITY> of(Long value) {
         return new Key<>(value);
     }
