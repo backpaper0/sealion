@@ -24,8 +24,7 @@ public class TaskResource {
 
     @GET
     public UIResponse list() {
-        TasksModel model = new TasksModel();
-        model.tasks = service.findByProject(project);
+        TasksModel model = service.findByProject(project);
         return UIResponse.render("tasks", model);
     }
 

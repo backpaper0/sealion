@@ -1,6 +1,7 @@
 package sealion.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -11,6 +12,7 @@ import org.seasar.doma.AnnotationTarget;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Select;
 
+import sealion.domain.Key;
 import sealion.entity.Project;
 
 @Dao
@@ -21,4 +23,7 @@ public interface ProjectDao {
 
     @Select
     List<Project> selectAll();
+
+    @Select
+    Optional<Project> selectById(Key<Project> id);
 }

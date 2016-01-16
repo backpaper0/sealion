@@ -12,10 +12,10 @@
             <li><a href="accounts.html" data-th-href="${'/sealion/accounts'}">System Settings</a></li>
             <li><a href="#">Sign out</a></li>
         </ul>
-        <p>サンプルプロジェクト</p>
+        <p data-th-text="${model.project.name}">サンプルプロジェクト</p>
         <ul>
-            <li><a href="tasks.html">Tasks</a></li>
-            <li><a href="milestones.html">Milestones</a></li>
+            <li><a href="tasks.html" data-th-href="${'/sealion/projects/' + model.project.id.value + '/tasks'}">Tasks</a></li>
+            <li><a href="milestones.html" data-th-href="${'/sealion/projects/' + model.project.id.value + '/milestones'}">Milestones</a></li>
         </ul>
         <ul>
             <li><a href="new-task.html">New Task</a></li>
