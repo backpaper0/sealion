@@ -3,6 +3,7 @@ package sealion.ui;
 import java.net.URI;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -12,14 +13,21 @@ import javax.ws.rs.core.UriInfo;
 
 import sealion.domain.Key;
 import sealion.entity.Project;
+import sealion.model.ProjectsModel;
+import sealion.service.ProjectService;
 
 @RequestScoped
 @Path("projects")
 public class ProjectResource {
 
+    @Inject
+    private ProjectService service;
+
     @GET
     public UIResponse list() {
-        return UIResponse.render("projects");
+        ProjectsModel model = new ProjectsModel();
+        model.projects = service.findAll();
+        return UIResponse.render("projects", model);
     }
 
     @Path("new")

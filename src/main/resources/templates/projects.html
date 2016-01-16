@@ -16,14 +16,9 @@
             <tr>
                 <th>Name</th>
             </tr>
-            <tr>
-                <td><a href="tasks.html">サンプルプロジェクト</a></td>
-            </tr>
-            <tr>
-                <td><a href="tasks.html">サンプルプロジェクト</a></td>
-            </tr>
-            <tr>
-                <td><a href="tasks.html">サンプルプロジェクト</a></td>
+            <tr data-th-each="project : ${model.projects}">
+                <td><a href="tasks.html" data-th-href="${'/sealion/projects/' + project.id.value}"
+                        data-th-text="${project.name}">サンプルプロジェクト</a></td>
             </tr>
         </table>
     </body>
