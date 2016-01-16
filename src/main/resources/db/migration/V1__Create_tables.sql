@@ -1,6 +1,7 @@
 CREATE TABLE Account (
     id IDENTITY,
-    username VARCHAR(50)
+    username VARCHAR(50),
+    email VARCHAR(100)
 );
 
 CREATE TABLE Grant (

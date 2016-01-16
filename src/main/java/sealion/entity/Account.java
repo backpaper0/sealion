@@ -13,4 +13,5 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Key<Account> id;
     public String username;
+    public String email;
 }
