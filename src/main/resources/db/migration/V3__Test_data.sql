@@ -15,3 +15,5 @@ SET @m = SELECT id FROM Project WHERE name = 'ほげプロジェクト';
 
 INSERT INTO Task (title, content, status, postedBy, postedAt, project, milestone) VALUES ('あれやる', 'あれをやる。がんばる。', 'OPEN', @foo, CURRENT_DATE(), @hoge, @m);
 INSERT INTO Task (title, content, status, postedBy, postedAt, project, milestone) VALUES ('これやる', 'これをやる。がんばらない程度に。', 'DOING', @bar, CURRENT_DATE(), @hoge, @m);
+-- マイルストーン設定していないタスク
+INSERT INTO Task (title, content, status, postedBy, postedAt, project, milestone) VALUES ('それやる', NULL, 'DONE', @foo, CURRENT_DATE(), @hoge, NULL);
