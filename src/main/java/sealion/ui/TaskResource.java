@@ -10,7 +10,6 @@ import sealion.domain.Key;
 import sealion.entity.Project;
 import sealion.entity.Task;
 import sealion.model.TasksModel;
-import sealion.service.TaskService;
 
 @RequestScoped
 @Path("projects/{project:\\d+}/tasks")
@@ -20,11 +19,11 @@ public class TaskResource {
     private Key<Project> project;
 
     @Inject
-    private TaskService service;
+    private TasksModel.Builder tasksModelBuilder;
 
     @GET
     public UIResponse list() {
-        TasksModel model = service.findByProject(project);
+        TasksModel model = tasksModelBuilder.build(project);
         return UIResponse.render("tasks", model);
     }
 

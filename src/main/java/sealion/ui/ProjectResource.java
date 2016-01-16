@@ -14,19 +14,17 @@ import javax.ws.rs.core.UriInfo;
 import sealion.domain.Key;
 import sealion.entity.Project;
 import sealion.model.ProjectsModel;
-import sealion.service.ProjectService;
 
 @RequestScoped
 @Path("projects")
 public class ProjectResource {
 
     @Inject
-    private ProjectService service;
+    private ProjectsModel.Builder projectsModelBuilder;
 
     @GET
     public UIResponse list() {
-        ProjectsModel model = new ProjectsModel();
-        model.projects = service.findAll();
+        ProjectsModel model = projectsModelBuilder.build();
         return UIResponse.render("projects", model);
     }
 
