@@ -17,3 +17,9 @@ INSERT INTO Task (title, content, status, postedBy, postedAt, project, milestone
 INSERT INTO Task (title, content, status, postedBy, postedAt, project, milestone) VALUES ('これやる', 'これをやる。がんばらない程度に。', 'DOING', @bar, CURRENT_DATE(), @hoge, @m);
 -- マイルストーン設定していないタスク
 INSERT INTO Task (title, content, status, postedBy, postedAt, project, milestone) VALUES ('それやる', NULL, 'DONE', @foo, CURRENT_DATE(), @hoge, NULL);
+
+SET @are = SELECT id FROM Task WHERE title = 'あれやる';
+SET @kore = SELECT id FROM Task WHERE title = 'これやる';
+
+INSERT INTO Comment (task, content, postedBy, postedAt) VALUES (@are, 'コメントです。', @foo, CURRENT_DATE());
+INSERT INTO Comment (task, content, postedBy, postedAt) VALUES (@kore, 'コメントだす。', @bar, CURRENT_DATE());
