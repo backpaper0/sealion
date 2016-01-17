@@ -13,13 +13,13 @@ INSERT INTO Milestone (name, fixedDate) VALUES ('v32.0-birthday', '2016-02-10');
 
 SET @m = SELECT id FROM Project WHERE name = 'ほげプロジェクト';
 
-INSERT INTO Task (title, content, status, postedBy, postedAt, project, milestone) VALUES ('あれやる', 'あれをやる。がんばる。', 'OPEN', @foo, CURRENT_DATE(), @hoge, @m);
-INSERT INTO Task (title, content, status, postedBy, postedAt, project, milestone) VALUES ('これやる', 'これをやる。がんばらない程度に。', 'DOING', @bar, CURRENT_DATE(), @hoge, @m);
+INSERT INTO Task (title, content, status, postedBy, postedAt, project, milestone) VALUES ('あれやる', 'あれをやる。がんばる。', 'OPEN', @foo, NOW(), @hoge, @m);
+INSERT INTO Task (title, content, status, postedBy, postedAt, project, milestone) VALUES ('これやる', 'これをやる。がんばらない程度に。', 'DOING', @bar, NOW(), @hoge, @m);
 -- マイルストーン設定していないタスク
-INSERT INTO Task (title, content, status, postedBy, postedAt, project, milestone) VALUES ('それやる', NULL, 'DONE', @foo, CURRENT_DATE(), @hoge, NULL);
+INSERT INTO Task (title, content, status, postedBy, postedAt, project, milestone) VALUES ('それやる', NULL, 'DONE', @foo, NOW(), @hoge, NULL);
 
 SET @are = SELECT id FROM Task WHERE title = 'あれやる';
 SET @kore = SELECT id FROM Task WHERE title = 'これやる';
 
-INSERT INTO Comment (task, content, postedBy, postedAt) VALUES (@are, 'コメントです。', @foo, CURRENT_DATE());
-INSERT INTO Comment (task, content, postedBy, postedAt) VALUES (@kore, 'コメントだす。', @bar, CURRENT_DATE());
+INSERT INTO Comment (task, content, postedBy, postedAt) VALUES (@are, 'コメントです。', @foo, NOW());
+INSERT INTO Comment (task, content, postedBy, postedAt) VALUES (@kore, 'コメントだす。', @bar, NOW());
