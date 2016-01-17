@@ -1,6 +1,7 @@
 package sealion.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -23,4 +24,7 @@ public interface MilestoneDao {
 
     @Select
     List<Milestone> selectByProject(Key<Project> project);
+
+    @Select
+    Optional<Milestone> selectById(Key<Milestone> id);
 }

@@ -12,15 +12,15 @@
             <li><a href="accounts.html" data-th-href="${'/sealion/accounts'}">System Settings</a></li>
             <li><a href="#">Sign out</a></li>
         </ul>
-        <p>サンプルプロジェクト</p>
+        <p data-th-text="${model.project.name}">サンプルプロジェクト</p>
         <ul>
-            <li><a href="tasks.html">Tasks</a></li>
-            <li><a href="milestones.html">Milestones</a></li>
+            <li><a href="tasks.html" data-th-href="${'/sealion/projects/' + model.project.id + '/tasks'}">Tasks</a></li>
+            <li><a href="milestones.html" data-th-href="${'/sealion/projects/' + model.project.id + '/milestones'}">Milestones</a></li>
         </ul>
         <ul>
-            <li><a href="new-milestone.html">New Milestone</a></li>
+            <li><a href="new-milestone.html" data-th-href="${'/sealion/projects/' + model.project.id + '/milestones/new'}">New Milestone</a></li>
         </ul>
-        <h1>v1.0</h1>
-        <p>Fixed Date: 2016/01/25</p>
+        <h1 data-th-text="${model.milestone.name}">v1.0</h1>
+        <p>Fixed Date: <span data-th-text="${model.milestone.fixedDate}">2016/01/25</span></p>
     </body>
 </html>

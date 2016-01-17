@@ -9,6 +9,7 @@ import javax.ws.rs.PathParam;
 import sealion.domain.Key;
 import sealion.entity.Milestone;
 import sealion.entity.Project;
+import sealion.model.MilestoneModel;
 import sealion.model.MilestonesModel;
 
 @RequestScoped
@@ -19,6 +20,8 @@ public class MilestoneResource {
     private Key<Project> project;
     @Inject
     private MilestonesModel.Builder milestonesModelBuilder;
+    @Inject
+    private MilestoneModel.Builder milestoneModelBuilder;
 
     @GET
     public UIResponse list() {
@@ -35,6 +38,7 @@ public class MilestoneResource {
     @Path("{id:\\d+}")
     @GET
     public UIResponse get(@PathParam("id") Key<Milestone> id) {
-        return UIResponse.render("milestone");
+        MilestoneModel model = milestoneModelBuilder.build(project, id);
+        return UIResponse.render("milestone", model);
     }
 }
