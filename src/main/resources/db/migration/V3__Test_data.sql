@@ -23,3 +23,5 @@ SET @kore = SELECT id FROM Task WHERE title = 'これやる';
 
 INSERT INTO Comment (task, content, postedBy, postedAt) VALUES (@are, 'コメントです。', @foo, NOW());
 INSERT INTO Comment (task, content, postedBy, postedAt) VALUES (@kore, 'コメントだす。', @bar, NOW());
+INSERT INTO Comment (task, content, postedBy, postedAt) VALUES (@are, 'コメントにょす。', @bar, NOW());
+INSERT INTO Comment (task, content, postedBy, postedAt) VALUES (@are, 'コメントもふもふ。', @foo, NOW());
