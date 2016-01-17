@@ -1,0 +1,1 @@
+SELECT /*%expand*/* FROM Account
