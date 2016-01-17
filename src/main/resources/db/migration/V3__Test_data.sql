@@ -9,7 +9,7 @@ SET @foo = SELECT id FROM Account WHERE username = 'foo';
 SET @bar = SELECT id FROM Account WHERE username = 'bar';
 SET @hoge = SELECT id FROM Project WHERE name = 'ほげプロジェクト';
 
-INSERT INTO Milestone (name, fixedDate) VALUES ('v32.0-birthday', '2016-02-10');
+INSERT INTO Milestone (name, fixedDate, project) VALUES ('v32.0-birthday', '2016-02-10', @hoge);
 
 SET @m = SELECT id FROM Project WHERE name = 'ほげプロジェクト';
 

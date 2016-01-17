@@ -28,7 +28,9 @@ CREATE TABLE Project (
 CREATE TABLE Milestone (
     id IDENTITY,
     name VARCHAR(100) NOT NULL,
-    fixedDate TIMESTAMP
+    fixedDate TIMESTAMP,
+    project BIGINT NOT NULL,
+    FOREIGN KEY (project) REFERENCES Project (id)
 );
 
 CREATE TABLE Task (
