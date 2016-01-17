@@ -1,7 +1,6 @@
 package sealion.dao;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -14,16 +13,14 @@ import org.seasar.doma.Select;
 
 import sealion.domain.Key;
 import sealion.entity.Account;
+import sealion.entity.Grant;
 
 @Dao
 @AnnotateWith(annotations = {
         @Annotation(target = AnnotationTarget.CLASS, type = ApplicationScoped.class),
         @Annotation(target = AnnotationTarget.CONSTRUCTOR, type = Inject.class) })
-public interface AccountDao {
+public interface GrantDao {
 
     @Select
-    List<Account> selectAll();
-
-    @Select
-    Optional<Account> selectById(Key<Account> id);
+    List<Grant> selectByAccount(Key<Account> account);
 }

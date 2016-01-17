@@ -8,6 +8,7 @@ import javax.ws.rs.PathParam;
 
 import sealion.domain.Key;
 import sealion.entity.Account;
+import sealion.model.AccountModel;
 import sealion.model.AccountsModel;
 
 @RequestScoped
@@ -15,6 +16,8 @@ import sealion.model.AccountsModel;
 public class AccountResource {
     @Inject
     private AccountsModel.Builder accountsModelBuilder;
+    @Inject
+    private AccountModel.Builder accountModelBuilder;
 
     @GET
     public UIResponse list() {
@@ -31,6 +34,7 @@ public class AccountResource {
     @Path("{id:\\d+}")
     @GET
     public UIResponse get(@PathParam("id") Key<Account> id) {
-        return UIResponse.render("account");
+        AccountModel model = accountModelBuilder.build(id);
+        return UIResponse.render("account", model);
     }
 }

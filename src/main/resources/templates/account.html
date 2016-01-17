@@ -12,10 +12,11 @@
             <li><a href="accounts.html" data-th-href="${'/sealion/accounts'}">System Settings</a></li>
             <li><a href="#">Sign out</a></li>
         </ul>
-        <h1>sampleuser</h1>
+        <h1 data-th-text="${model.account.username}">sampleuser</h1>
         <ul>
-            <li>USER</li>
-            <li>ADMIN</li>
+            <li data-th-each="grant : ${model.grant}">
+                <span data-th-text="${grant.role}">USERi</span>
+            </li>
         </ul>
     </body>
 </html>
