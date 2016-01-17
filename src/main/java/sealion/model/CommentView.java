@@ -1,17 +1,11 @@
 package sealion.model;
 
-import java.time.LocalDateTime;
-
 import org.seasar.doma.Entity;
 
-import sealion.domain.Key;
-import sealion.entity.Account;
+import sealion.entity.Comment;
 
 @Entity
-public class CommentView {
+public class CommentView extends Comment {
 
-    public String content;
-    public Key<Account> postedBy;
-    public LocalDateTime postedAt;
     public String accountName;
 }
