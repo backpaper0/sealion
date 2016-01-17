@@ -31,7 +31,8 @@
                         data-th-text="${task.title}">サンプルタスク</a></td>
                 <td data-th-text="${task.status}">OPEN</td>
                 <td><a href="milestone.html" data-th-href="${'/sealion/projects/' + model.project.id + '/milestones/' + task.milestone}"
-                        data-th-text="${task.milestoneName}">v1.0</a></td>
+                        data-th-text="${task.milestoneName}"
+                        data-th-if="${task.milestone != null}">v1.0</a></td>
             </tr>
         </table>
     </body>
