@@ -9,6 +9,7 @@ import javax.ws.rs.PathParam;
 import sealion.domain.Key;
 import sealion.entity.Project;
 import sealion.entity.Task;
+import sealion.model.TaskModel;
 import sealion.model.TasksModel;
 
 @RequestScoped
@@ -20,6 +21,8 @@ public class TaskResource {
 
     @Inject
     private TasksModel.Builder tasksModelBuilder;
+    @Inject
+    private TaskModel.Builder taskModelBuilder;
 
     @GET
     public UIResponse list() {
@@ -36,6 +39,7 @@ public class TaskResource {
     @Path("{id:\\d+}")
     @GET
     public UIResponse get(@PathParam("id") Key<Task> id) {
-        return UIResponse.render("task");
+        TaskModel model = taskModelBuilder.build(project, id);
+        return UIResponse.render("task", model);
     }
 }

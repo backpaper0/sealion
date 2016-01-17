@@ -12,35 +12,37 @@
             <li><a href="accounts.html" data-th-href="${'/sealion/accounts'}">System Settings</a></li>
             <li><a href="#">Sign out</a></li>
         </ul>
-        <p>サンプルプロジェクト</p>
+        <p data-th-text="${model.project.name}">サンプルプロジェクト</p>
         <ul>
-            <li><a href="tasks.html">Tasks</a></li>
-            <li><a href="milestones.html">Milestones</a></li>
+            <li><a href="tasks.html" data-th-href="${'/sealion/projects/' + model.project.id + '/tasks'}">Tasks</a></li>
+            <li><a href="milestones.html" data-th-href="${'/sealion/projects/' + model.project.id + '/milestones'}">Milestones</a></li>
         </ul>
         <ul>
-            <li><a href="new-task.html">New Task</a></li>
+            <li><a href="new-task.html" data-th-href="${'/sealion/projects/' + model.project.id + '/tasks/new'}">New Task</a></li>
         </ul>
-        <h1>サンプルタスク</h1>
+        <h1 data-th-text="${model.task.title}">サンプルタスク</h1>
         <ul>
-            <li>OPEN <a href="account.html">sampleuser</a> 2016/01/15 20:00</li>
-            <li><a href="milestone.html">v1.0</a></li>
+            <li>
+                <span data-th-text="${model.task.status}">OPEN</span>
+                <a href="account.html" data-th-href="${'/sealion/accounts/' + model.task.postedBy}"
+                    data-th-text="${model.task.accountName}">sampleuser</a>
+                <span data-th-text="${model.task.postedAt}">2016/01/15 20:00</span>
+            </li>
+            <li><a href="milestone.html" data-th-href="${'/sealion/projects/' + model.project.id + '/milestones/' + model.task.milestone}"
+                    data-th-text="${model.task.milestoneName}">v1.0</a></li>
         </ul>
-        <p>内容のサンプル</p>
-        <hr/>
-        <ul>
-            <li><a href="account.html">sampleuser</a> 2016/01/15 20:10</li>
-        </ul>
-        <p>コメントのサンプル</p>
-        <hr/>
-        <ul>
-            <li><a href="account.html">sampleuser</a> 2016/01/15 20:10</li>
-        </ul>
-        <p>コメントのサンプル</p>
-        <hr/>
-        <ul>
-            <li><a href="account.html">sampleuser</a> 2016/01/15 20:10</li>
-        </ul>
-        <p>コメントのサンプル</p>
+        <p data-th-text="${model.task.content}">内容のサンプル</p>
+        <div data-th-each="comment : ${model.comments}">
+            <hr/>
+            <ul>
+                <li>
+                    <a href="account.html" data-th-href="${'/sealion/accounts/' + comment.postedBy}"
+                        data-th-text="${comment.accountName}">sampleuser</a>
+                    <span data-th-text="${comment.postedAt}">2016/01/15 20:10</span>
+                </li>
+            </ul>
+            <p data-th-text="${comment.content}">コメントのサンプル</p>
+        </div>
         <hr/>
         <form action="task.html" method="POST">
             <p><textarea placeholder="Leave a comment"></textarea></p>

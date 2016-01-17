@@ -2,17 +2,11 @@ package sealion.model;
 
 import org.seasar.doma.Entity;
 
-import sealion.domain.Key;
-import sealion.domain.TaskStatus;
-import sealion.entity.Milestone;
 import sealion.entity.Task;
 
 @Entity
-public class TaskView {
+public class TaskView extends Task {
 
-    public Key<Task> id;
-    public String title;
-    public TaskStatus status;
-    public Key<Milestone> milestone;
     public String milestoneName;
+    public String accountName;
 }
