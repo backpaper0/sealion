@@ -19,3 +19,10 @@ Java EE 7とDoma、ThymeleafでITSを作っています。
 |`/accounts`|アカウント一覧|
 |`/accounts/new`|アカウント作成|
 |`/accounts/{account}`|アカウント詳細|
+
+## 使用フレームワーク
+
+* Java EE 7
+* [Doma](https://github.com/domaframework/doma)
+* [Thymeleaf](http://www.thymeleaf.org/)
+* [Atlassian User Interface](https://docs.atlassian.com/aui/latest/)
