@@ -9,6 +9,7 @@ import javax.ws.rs.PathParam;
 import sealion.domain.Key;
 import sealion.entity.Project;
 import sealion.entity.Task;
+import sealion.model.NewTaskModel;
 import sealion.model.TaskModel;
 import sealion.model.TasksModel;
 
@@ -22,6 +23,8 @@ public class TaskResource {
     @Inject
     private TasksModel.Builder tasksModelBuilder;
     @Inject
+    private NewTaskModel.Builder newTaskModelBuilder;
+    @Inject
     private TaskModel.Builder taskModelBuilder;
 
     @GET
@@ -33,7 +36,8 @@ public class TaskResource {
     @Path("new")
     @GET
     public UIResponse blank() {
-        return UIResponse.render("new-task");
+        NewTaskModel model = newTaskModelBuilder.build(project);
+        return UIResponse.render("new-task", model);
     }
 
     @Path("{id:\\d+}")

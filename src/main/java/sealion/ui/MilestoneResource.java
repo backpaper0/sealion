@@ -11,6 +11,7 @@ import sealion.entity.Milestone;
 import sealion.entity.Project;
 import sealion.model.MilestoneModel;
 import sealion.model.MilestonesModel;
+import sealion.model.NewMilestoneModel;
 
 @RequestScoped
 @Path("projects/{project:\\d+}/milestones")
@@ -20,6 +21,8 @@ public class MilestoneResource {
     private Key<Project> project;
     @Inject
     private MilestonesModel.Builder milestonesModelBuilder;
+    @Inject
+    private NewMilestoneModel.Builder newMilestoneModelBuilder;
     @Inject
     private MilestoneModel.Builder milestoneModelBuilder;
 
@@ -32,7 +35,8 @@ public class MilestoneResource {
     @Path("new")
     @GET
     public UIResponse blank() {
-        return UIResponse.render("new-milestone");
+        NewMilestoneModel model = newMilestoneModelBuilder.build(project);
+        return UIResponse.render("new-milestone", model);
     }
 
     @Path("{id:\\d+}")
