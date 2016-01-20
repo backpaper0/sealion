@@ -3,20 +3,33 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
         <title>Sealion</title>
+        <link rel="stylesheet" href="https://aui-cdn.atlassian.com/aui-adg/5.9.5/css/aui.css" data-th-href="${'/sealion/webjars/aui/5.9.5/css/aui.css'}" media="all"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" data-th-src="${'/sealion/webjars/jquery/1.8.3/jquery.js'}"></script>
+        <script src="https://aui-cdn.atlassian.com/aui-adg/5.9.5/js/aui.js" data-th-src="${'/sealion/webjars/aui/5.9.5/js/aui.js'}"></script>
     </head>
-    <body>
-        <p><a href="projects.html" data-th-href="${'/sealion/'}">Sealion</a></p>
-        <ul>
-            <li><a href="new-project.html" data-th-href="${'/sealion/projects/new'}">New Project</a></li>
-            <li><a href="account.html">Account Settings</a></li>
-            <li><a href="accounts.html" data-th-href="${'/sealion/accounts'}">System Settings</a></li>
-            <li><a href="#">Sign out</a></li>
-        </ul>
-        <h1 data-th-text="${model.account.username}">sampleuser</h1>
-        <ul>
-            <li data-th-each="grant : ${model.grant}">
-                <span data-th-text="${grant.role}">USERi</span>
-            </li>
-        </ul>
+    <body class="aui-page-focused">
+        <header role="banner">
+            <nav class="aui-header">
+                <h1 class="aui-header-logo aui-header-logo-textonly"><a href="projects.html" data-th-href="${'/sealion/'}"><span class="aui-header-logo-device">Sealion</span></a></h1>
+                <ul class="aui-nav">
+                    <li><a href="new-project.html" data-th-href="${'/sealion/projects/new'}">New Project</a></li>
+                    <li><a href="account.html">Account Settings</a></li>
+                    <li><a href="accounts.html" data-th-href="${'/sealion/accounts'}">System Settings</a></li>
+                    <li><a href="#">Sign out</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="aui-page-panel">
+            <div class="aui-page-panel-inner">
+                <section class="aui-page-panel-content">
+                    <h1 data-th-text="${model.account.username}">sampleuser</h1>
+                    <ul>
+                        <li data-th-each="grant : ${model.grant}">
+                            <span data-th-text="${grant.role}">USER</span>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </div>
     </body>
 </html>
