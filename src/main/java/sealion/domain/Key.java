@@ -2,12 +2,12 @@ package sealion.domain;
 
 import org.seasar.doma.Domain;
 
-@Domain(valueType = Long.class, factoryMethod = "of")
+@Domain(valueType = Long.class)
 public class Key<ENTITY> {
 
     private final Long value;
 
-    private Key(Long value) {
+    public Key(Long value) {
         this.value = value;
     }
 
@@ -18,10 +18,6 @@ public class Key<ENTITY> {
     @Override
     public String toString() {
         return value.toString();
-    }
-
-    public static <ENTITY> Key<ENTITY> of(Long value) {
-        return new Key<>(value);
     }
 
     public static <ENTITY> Key<ENTITY> valueOf(String value) {
