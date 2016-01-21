@@ -5,13 +5,15 @@ import org.seasar.doma.GeneratedValue;
 import org.seasar.doma.GenerationType;
 import org.seasar.doma.Id;
 
+import sealion.domain.EmailAddress;
 import sealion.domain.Key;
+import sealion.domain.Username;
 
 @Entity
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Key<Account> id;
-    public String username;
-    public String email;
+    public Username username;
+    public EmailAddress email;
 }

@@ -6,11 +6,12 @@ import org.seasar.doma.GenerationType;
 import org.seasar.doma.Id;
 
 import sealion.domain.Key;
+import sealion.domain.ProjectName;
 
 @Entity
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Key<Project> id;
-    public String name;
+    public ProjectName name;
 }
