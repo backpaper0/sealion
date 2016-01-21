@@ -10,10 +10,14 @@ import java.nio.charset.StandardCharsets;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
@@ -21,7 +25,7 @@ import javax.ws.rs.ext.MessageBodyWriter;
 import javax.ws.rs.ext.Provider;
 
 import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
+import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 @ApplicationScoped
@@ -30,6 +34,12 @@ public class ThymeleafProvider implements ContainerResponseFilter, MessageBodyWr
 
     private MediaType contentType;
     private TemplateEngine templateEngine;
+    @Context
+    private HttpServletRequest request;
+    @Context
+    private HttpServletResponse response;
+    @Context
+    private ServletContext servletContext;
 
     @PostConstruct
     public void init() {
@@ -57,7 +67,7 @@ public class ThymeleafProvider implements ContainerResponseFilter, MessageBodyWr
     public void writeTo(UIResponse t, Class<?> type, Type genericType, Annotation[] annotations,
             MediaType mediaType, MultivaluedMap<String, Object> httpHeaders,
             OutputStream entityStream) throws IOException, WebApplicationException {
-        Context context = new Context();
+        WebContext context = new WebContext(request, response, servletContext);
         context.setVariable("model", t.model);
         try (Writer out = new OutputStreamWriter(entityStream, StandardCharsets.UTF_8)) {
             templateEngine.process(t.template, context, out);
