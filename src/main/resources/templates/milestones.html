@@ -3,18 +3,18 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
         <title>Sealion</title>
-        <link rel="stylesheet" href="https://aui-cdn.atlassian.com/aui-adg/5.9.5/css/aui.css" data-th-href="${'/sealion/webjars/aui/5.9.5/css/aui.css'}" media="all"/>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" data-th-src="${'/sealion/webjars/jquery/1.8.3/jquery.js'}"></script>
-        <script src="https://aui-cdn.atlassian.com/aui-adg/5.9.5/js/aui.js" data-th-src="${'/sealion/webjars/aui/5.9.5/js/aui.js'}"></script>
+        <link rel="stylesheet" href="https://aui-cdn.atlassian.com/aui-adg/5.9.5/css/aui.css" data-th-href="@{'/webjars/aui/5.9.5/css/aui.css'}" media="all"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" data-th-src="@{'/webjars/jquery/1.8.3/jquery.js'}"></script>
+        <script src="https://aui-cdn.atlassian.com/aui-adg/5.9.5/js/aui.js" data-th-src="@{'/webjars/aui/5.9.5/js/aui.js'}"></script>
     </head>
     <body class="aui-page-focused">
         <header role="banner">
             <nav class="aui-header">
-                <h1 class="aui-header-logo aui-header-logo-textonly"><a href="projects.html" data-th-href="${'/sealion/'}"><span class="aui-header-logo-device">Sealion</span></a></h1>
+                <h1 class="aui-header-logo aui-header-logo-textonly"><a href="projects.html" data-th-href="@{'/'}"><span class="aui-header-logo-device">Sealion</span></a></h1>
                 <ul class="aui-nav">
-                    <li><a href="new-project.html" data-th-href="${'/sealion/projects/new'}">New Project</a></li>
+                    <li><a href="new-project.html" data-th-href="@{'/projects/new'}">New Project</a></li>
                     <li><a href="account.html">Account Settings</a></li>
-                    <li><a href="accounts.html" data-th-href="${'/sealion/accounts'}">System Settings</a></li>
+                    <li><a href="accounts.html" data-th-href="@{'/accounts'}">System Settings</a></li>
                     <li><a href="#">Sign out</a></li>
                 </ul>
             </nav>
@@ -26,13 +26,13 @@
                     <div class="aui-toolbar2">
                         <div class="aui-toolbar2-inner">
                             <div class="aui-toolbar2-primary">
-                                <a class="aui-button" href="tasks.html" data-th-href="${'/sealion/projects/' + model.project.id + '/tasks'}">Tasks</a>
+                                <a class="aui-button" href="tasks.html" data-th-href="@{'/projects/' + ${model.project.id} + '/tasks'}">Tasks</a>
                             </div>
                             <div class="aui-toolbar2-primary">
-                                <a class="aui-button" href="milestones.html" data-th-href="${'/sealion/projects/' + model.project.id + '/milestones'}">Milestones</a>
+                                <a class="aui-button" href="milestones.html" data-th-href="@{'/projects/' + ${model.project.id} + '/milestones'}">Milestones</a>
                             </div>
                             <div class="aui-toolbar2-secondary">
-                                <a class="aui-button" href="new-milestone.html" data-th-href="${'/sealion/projects/' + model.project.id + '/milestones/new'}">New Milestone</a>
+                                <a class="aui-button" href="new-milestone.html" data-th-href="@{'/projects/' + ${model.project.id} + '/milestones/new'}">New Milestone</a>
                             </div>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                         </thead>
                         <tbody>
                             <tr data-th-each="milestone : ${model.milestones}">
-                                <td><a href="milestone.html" data-th-href="${'/sealion/projects/' + model.project.id + '/milestones/' + milestone.id}"
+                                <td><a href="milestone.html" data-th-href="@{'/projects/' + ${model.project.id} + '/milestones/' + ${milestone.id}}"
                                         data-th-text="${milestone.name}">v1.0</a></td>
                                 <td data-th-text="${milestone.fixedDate}">2016-02-10</td>
                             </tr>
