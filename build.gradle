@@ -9,7 +9,7 @@ ext {
     auiVersion = '5.9.5'
     jqueryVersion = '1.8.3'
     junitVersion = '4.12'
-    assertjVersion = '2.3.0'
+    assertjVersion = '3.3.0'
 }
 
 apply plugin: 'java'
