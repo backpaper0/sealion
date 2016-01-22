@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.seasar.doma.Dao;
+import org.seasar.doma.Insert;
 import org.seasar.doma.Select;
 
 import sealion.domain.Key;
@@ -20,4 +21,7 @@ public interface TaskDao {
 
     @Select
     Optional<TaskView> selectById(Key<Task> id);
+
+    @Insert
+    int insert(Task entity);
 }

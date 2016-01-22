@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.seasar.doma.Dao;
+import org.seasar.doma.Insert;
 import org.seasar.doma.Select;
 
 import sealion.domain.Key;
@@ -18,4 +19,7 @@ public interface ProjectDao {
 
     @Select
     Optional<Project> selectById(Key<Project> id);
+
+    @Insert
+    int insert(Project entity);
 }

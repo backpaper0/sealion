@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.seasar.doma.Dao;
+import org.seasar.doma.Insert;
 import org.seasar.doma.Select;
 
 import sealion.domain.Key;
@@ -19,4 +20,7 @@ public interface MilestoneDao {
 
     @Select
     Optional<Milestone> selectById(Key<Milestone> id);
+
+    @Insert
+    int insert(Milestone entity);
 }
