@@ -41,9 +41,15 @@ CREATE TABLE Task (
     postedBy BIGINT NOT NULL,
     postedAt TIMESTAMP NOT NULL,
     project BIGINT NOT NULL,
-    milestone BIGINT,
     FOREIGN KEY (postedBy) REFERENCES Account (id),
-    FOREIGN KEY (project) REFERENCES Project (id),
+    FOREIGN KEY (project) REFERENCES Project (id)
+);
+
+CREATE TABLE Bundle (
+    task BIGINT NOT NULL,
+    milestone BIGINT NOT NULL,
+    PRIMARY KEY (task),
+    FOREIGN KEY (task) REFERENCES Task (id),
     FOREIGN KEY (milestone) REFERENCES Milestone (id)
 );
 

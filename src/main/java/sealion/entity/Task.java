@@ -22,5 +22,4 @@ public class Task {
     public Key<Account> postedBy;
     public PostedDate postedAt;
     public Key<Project> project;
-    public Key<Milestone> milestone;
 }

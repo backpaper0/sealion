@@ -36,7 +36,6 @@ public class TaskService {
         entity.postedBy = user.getAccount().id;
         entity.postedAt = new PostedDate(LocalDateTime.now(clock));
         entity.project = project;
-        entity.milestone = null;
         taskDao.insert(entity);
         return entity;
     }
