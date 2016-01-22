@@ -10,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +29,8 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
+import sealion.session.User;
+
 @ApplicationScoped
 @Provider
 public class ThymeleafProvider implements ContainerResponseFilter, MessageBodyWriter<UIResponse> {
@@ -40,6 +43,8 @@ public class ThymeleafProvider implements ContainerResponseFilter, MessageBodyWr
     private HttpServletResponse response;
     @Context
     private ServletContext servletContext;
+    @Inject
+    private User user;
 
     @PostConstruct
     public void init() {
@@ -69,6 +74,7 @@ public class ThymeleafProvider implements ContainerResponseFilter, MessageBodyWr
             OutputStream entityStream) throws IOException, WebApplicationException {
         WebContext context = new WebContext(request, response, servletContext);
         context.setVariable("model", t.model);
+        context.setVariable("user", user);
         try (Writer out = new OutputStreamWriter(entityStream, StandardCharsets.UTF_8)) {
             templateEngine.process(t.template, context, out);
         }
