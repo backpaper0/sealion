@@ -1,4 +1,4 @@
-package sealion.session;
+package sealion.mock;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,6 +14,7 @@ import sealion.domain.AccountRole;
 import sealion.domain.Key;
 import sealion.entity.Account;
 import sealion.entity.Grant;
+import sealion.session.User;
 
 @RequestScoped
 public class MockUserProvider {
