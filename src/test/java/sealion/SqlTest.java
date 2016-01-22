@@ -14,9 +14,7 @@ import java.util.stream.Collectors;
 
 import javax.sql.DataSource;
 
-import org.flywaydb.core.Flyway;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -24,6 +22,7 @@ import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
 import sealion.config.DomaConfig;
+import sealion.test.TestDatabase;
 
 @RunWith(Parameterized.class)
 public class SqlTest {
@@ -32,33 +31,16 @@ public class SqlTest {
     public Path sqlFile;
 
     private static Path root;
-    private static Flyway flyway;
+
+    @ClassRule
+    public static TestDatabase database = new TestDatabase();
 
     @Test
     public void executeSqlFile() throws Exception {
         String sql = new String(Files.readAllBytes(root.resolve(sqlFile)), StandardCharsets.UTF_8);
-        DataSource dataSource = flyway.getDataSource();
+        DataSource dataSource = database.getDataSource();
         try (Connection con = dataSource.getConnection(); Statement st = con.createStatement()) {
             st.execute(sql);
-        }
-    }
-
-    @BeforeClass
-    public static void setUpDatabase() throws Exception {
-        //インメモリモードの場合、通常はコネクションを閉じるとDB自体も破棄されますが、
-        //DB_CLOSE_DELAY=-1オプションを付けるとJVMが終了するまでDBも破棄されません。
-        String url = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1";
-
-        flyway = new Flyway();
-        flyway.setDataSource(url, "sa", "secret");
-        flyway.migrate();
-    }
-
-    @AfterClass
-    public static void dropDatabase() throws Exception {
-        DataSource dataSource = flyway.getDataSource();
-        try (Connection con = dataSource.getConnection(); Statement st = con.createStatement()) {
-            st.execute("DROP ALL OBJECTS");
         }
     }
 
