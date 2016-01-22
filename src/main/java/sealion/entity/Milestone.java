@@ -16,4 +16,5 @@ public class Milestone {
     public Key<Milestone> id;
     public MilestoneName name;
     public FixedDate fixedDate;
+    public Key<Project> project;
 }
