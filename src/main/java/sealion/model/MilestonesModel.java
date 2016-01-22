@@ -2,7 +2,7 @@ package sealion.model;
 
 import java.util.List;
 
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
 import sealion.dao.MilestoneDao;
@@ -15,7 +15,7 @@ public class MilestonesModel {
     public Project project;
     public List<Milestone> milestones;
 
-    @Dependent
+    @RequestScoped
     public static class Builder {
         @Inject
         private MilestoneDao milestoneDao;

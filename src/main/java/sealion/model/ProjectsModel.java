@@ -2,7 +2,7 @@ package sealion.model;
 
 import java.util.List;
 
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
 import sealion.dao.ProjectDao;
@@ -11,7 +11,7 @@ import sealion.entity.Project;
 public class ProjectsModel {
     public List<Project> projects;
 
-    @Dependent
+    @RequestScoped
     public static class Builder {
 
         @Inject

@@ -1,6 +1,6 @@
 package sealion.model;
 
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
 import sealion.dao.ProjectDao;
@@ -10,7 +10,7 @@ import sealion.entity.Project;
 public class NewTaskModel {
     public Project project;
 
-    @Dependent
+    @RequestScoped
     public static class Builder {
         @Inject
         private ProjectDao projectDao;

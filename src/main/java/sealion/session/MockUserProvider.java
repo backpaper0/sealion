@@ -3,7 +3,6 @@ package sealion.session;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
@@ -16,7 +15,7 @@ import sealion.domain.Key;
 import sealion.entity.Account;
 import sealion.entity.Grant;
 
-@Dependent
+@RequestScoped
 public class MockUserProvider {
 
     @Inject
