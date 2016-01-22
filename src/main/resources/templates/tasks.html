@@ -48,11 +48,31 @@
                             <tr data-th-each="task : ${model.tasks}">
                                 <td><a href="task.html" data-th-href="@{'/projects/' + ${model.project.id} + '/tasks/' + ${task.id}}"
                                         data-th-text="${task.title}">サンプルタスク</a></td>
-                                <td data-th-text="${task.status}"><span class="aui-lozenge aui-lozenge-success">OPEN</span></td>
+                                <td>
+                                    <span class="aui-lozenge aui-lozenge-success" data-th-class="${ui.cssClass(task.status)}"
+                                        data-th-text="${task.status}">OPEN</span>
+                                </td>
                                 <td><a href="milestone.html" data-th-href="@{'/projects/' + ${model.project.id} + '/milestones/' + ${task.milestone}}"
                                         data-th-text="${task.milestoneName}"
                                         data-th-if="${task.milestone != null}">v1.0</a></td>
                             </tr>
+                            <!--/*-->
+                            <tr>
+                                <td><a href="task.html">サンプルタスク</a></td>
+                                <td><span class="aui-lozenge aui-lozenge-current">DOING</span></td>
+                                <td><a href="milestone.html">v1.0</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="task.html">サンプルタスク</a></td>
+                                <td><span class="aui-lozenge aui-lozenge-error">DONE</span></td>
+                                <td><a href="milestone.html">v1.0</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="task.html">サンプルタスク</a></td>
+                                <td><span class="aui-lozenge aui-lozenge-default">CLOSED</span></td>
+                                <td><a href="milestone.html">v1.0</a></td>
+                            </tr>
+                            <!--*/-->
                         </tbody>
                     </table>
                 </section>
