@@ -75,6 +75,7 @@ public class ThymeleafProvider implements ContainerResponseFilter, MessageBodyWr
         WebContext context = new WebContext(request, response, servletContext);
         context.setVariable("model", t.model);
         context.setVariable("user", user);
+        context.setVariable("ui", new UIHelper());
         try (Writer out = new OutputStreamWriter(entityStream, StandardCharsets.UTF_8)) {
             templateEngine.process(t.template, context, out);
         }
