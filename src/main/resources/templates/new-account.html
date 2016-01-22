@@ -23,10 +23,9 @@
             <div class="aui-page-panel-inner">
                 <section class="aui-page-panel-content">
                     <form class="aui" action="account.html" data-th-action="@{'/accounts/new'}" method="POST">
-                        <p>
-                            <input class="text" type="text" placeholder="Name" name="username"/>
-                            <input class="aui-button aui-button-primary" type="submit" value="Create user"/>
-                        </p>
+                        <p><input class="text" type="text" placeholder="Name" name="username"/></p>
+                        <p><input class="text" type="email" placeholder="Email" name="email"/></p>
+                        <p><input class="aui-button aui-button-primary" type="submit" value="Create user"/></p>
                     </form>
                 </section>
             </div>
