@@ -21,4 +21,8 @@ public class FixedDate {
     public String toString() {
         return value.toString();
     }
+
+    public static FixedDate valueOf(String text) {
+        return new FixedDate(LocalDate.parse(text));
+    }
 }
