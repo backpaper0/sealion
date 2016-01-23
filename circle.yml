@@ -4,6 +4,9 @@ machine:
     timezone:
         Asia/Tokyo
 
+    environment:
+        GRADLE_OPTS: -Dorg.gradle.daemon=true
+
 dependencies:
     post:
         - ./gradlew --console=plain testClasses war
