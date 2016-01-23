@@ -1,5 +1,6 @@
 package sealion.domain;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import org.seasar.doma.Domain;
@@ -10,6 +11,10 @@ public class ProjectName {
     private final String value;
 
     public ProjectName(String value) {
+        Objects.requireNonNull(value);
+        if (value.isEmpty() || value.length() > 50) {
+            throw new IllegalArgumentException();
+        }
         this.value = value;
     }
 

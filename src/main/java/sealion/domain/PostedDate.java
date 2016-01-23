@@ -1,6 +1,7 @@
 package sealion.domain;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import org.seasar.doma.Domain;
 
@@ -10,6 +11,7 @@ public class PostedDate {
     private final LocalDateTime value;
 
     public PostedDate(LocalDateTime value) {
+        Objects.requireNonNull(value);
         this.value = value;
     }
 

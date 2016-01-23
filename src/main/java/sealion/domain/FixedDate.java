@@ -1,6 +1,7 @@
 package sealion.domain;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import org.seasar.doma.Domain;
 
@@ -10,6 +11,7 @@ public class FixedDate {
     private final LocalDate value;
 
     public FixedDate(LocalDate value) {
+        Objects.requireNonNull(value);
         this.value = value;
     }
 

@@ -1,5 +1,7 @@
 package sealion.domain;
 
+import java.util.Objects;
+
 import org.seasar.doma.Domain;
 
 @Domain(valueType = Long.class)
@@ -8,6 +10,7 @@ public class Key<ENTITY> {
     private final Long value;
 
     public Key(Long value) {
+        Objects.requireNonNull(value);
         this.value = value;
     }
 
