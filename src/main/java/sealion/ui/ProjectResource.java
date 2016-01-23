@@ -4,6 +4,7 @@ import java.net.URI;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -45,7 +46,7 @@ public class ProjectResource {
     @Path("new")
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Response create(@FormParam("name") ProjectName name, @Context UriInfo uriInfo) {
+    public Response create(@NotNull @FormParam("name") ProjectName name, @Context UriInfo uriInfo) {
         Project project = projectService.create(name);
         URI location = uriInfo.getBaseUriBuilder().path(ProjectResource.class)
                 .path(ProjectResource.class, "get").build(project.id);

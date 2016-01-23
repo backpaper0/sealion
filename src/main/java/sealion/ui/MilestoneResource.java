@@ -4,6 +4,7 @@ import java.net.URI;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -56,7 +57,7 @@ public class MilestoneResource {
     @Path("new")
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Response create(@FormParam("name") MilestoneName name,
+    public Response create(@NotNull @FormParam("name") MilestoneName name,
             @FormParam("fixedDate") FixedDate fixedDate, @Context UriInfo uriInfo) {
         Milestone milestone = milestoneService.create(project, name, fixedDate);
         URI location = uriInfo.getBaseUriBuilder().path(MilestoneResource.class)

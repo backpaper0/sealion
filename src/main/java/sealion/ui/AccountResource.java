@@ -4,6 +4,7 @@ import java.net.URI;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -48,8 +49,8 @@ public class AccountResource {
     @Path("new")
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Response create(@FormParam("username") Username username,
-            @FormParam("email") EmailAddress email, @Context UriInfo uriInfo) {
+    public Response create(@NotNull @FormParam("username") Username username,
+            @NotNull @FormParam("email") EmailAddress email, @Context UriInfo uriInfo) {
         Account account = accountService.create(username, email);
         URI location = uriInfo.getBaseUriBuilder().path(AccountResource.class)
                 .path(AccountResource.class, "get").build(account.id);

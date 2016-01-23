@@ -48,6 +48,7 @@ dependencies {
     testCompile "junit:junit:${junitVersion}"
     testCompile "org.assertj:assertj-core:${assertjVersion}"
     testCompile "org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:${jerseyVersion}"
+    testCompile "org.glassfish.jersey.ext:jersey-bean-validation:${jerseyVersion}"
     archives 'fish.payara.extras:payara-micro:4.1.1.154'
 }
 

@@ -4,6 +4,7 @@ import java.net.URI;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
@@ -35,7 +36,8 @@ public class CommentResource {
     @Path("new")
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Response create(@FormParam("content") MarkedText content, @Context UriInfo uriInfo) {
+    public Response create(@NotNull @FormParam("content") MarkedText content,
+            @Context UriInfo uriInfo) {
         commentService.create(task, content);
         URI location = uriInfo.getBaseUriBuilder().path(TaskResource.class)
                 .path(TaskResource.class, "get").build(project, task);

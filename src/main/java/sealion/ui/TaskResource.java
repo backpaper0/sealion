@@ -4,6 +4,7 @@ import java.net.URI;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -57,7 +58,7 @@ public class TaskResource {
     @Path("new")
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Response create(@FormParam("title") TaskTitle title,
+    public Response create(@NotNull @FormParam("title") TaskTitle title,
             @FormParam("content") MarkedText content, @Context UriInfo uriInfo) {
         Task task = taskService.create(project, title, content);
         URI location = uriInfo.getBaseUriBuilder().path(TaskResource.class)

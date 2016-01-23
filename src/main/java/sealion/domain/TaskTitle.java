@@ -1,5 +1,7 @@
 package sealion.domain;
 
+import java.util.Optional;
+
 import org.seasar.doma.Domain;
 
 @Domain(valueType = String.class)
@@ -18,5 +20,10 @@ public class TaskTitle {
     @Override
     public String toString() {
         return value;
+    }
+
+    public static TaskTitle valueOf(String value) {
+        return Optional.ofNullable(value).filter(a -> a.isEmpty() == false).map(TaskTitle::new)
+                .orElse(null);
     }
 }
