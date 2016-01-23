@@ -5,7 +5,7 @@ machine:
         Asia/Tokyo
 
 dependencies:
-    post:
+    override:
         - ./gradlew --console=plain testClasses war
 
 test:
