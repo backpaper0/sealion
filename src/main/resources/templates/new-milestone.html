@@ -35,7 +35,7 @@
                     </div>
                     <form class="aui" action="milestone.html" data-th-action="@{'/projects/' + ${model.project.id} + '/milestones/new'}" method="POST">
                         <p>
-                            <input class="text" type="text" placeholder="Name" name="name"/>
+                            <input class="text" type="text" placeholder="Name" name="name" maxlength="20" required="required"/>
                             <input class="aui-date-picker" type="date" placeholder="Fixed date" name="fixedDate"/>
                             <input class="aui-button aui-button-primary" type="submit" value="Create milestone"/>
                         </p>

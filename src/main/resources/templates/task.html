@@ -62,7 +62,7 @@
                     </div>
                     <hr/>
                     <form class="aui" action="task.html" data-th-action="@{'/projects/' + ${model.project.id} + '/tasks/' + ${model.task.id}} + '/comments/new'" method="POST">
-                        <p><textarea class="textarea" placeholder="Leave a comment" name="content"></textarea></p>
+                        <p><textarea class="textarea" placeholder="Leave a comment" name="content" maxlength="500" required="required"></textarea></p>
                         <p><input class="aui-button aui-button-primary" type="submit" value="Comment"/></p>
                     </form>
                 </section>
