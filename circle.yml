@@ -6,7 +6,7 @@ machine:
 
 dependencies:
     post:
-        - ./gradlew testClasses
+        - ./gradlew testClasses war
 
 test:
     override:
