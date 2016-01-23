@@ -2,6 +2,8 @@
 
 Java EE 7とDoma、ThymeleafでITSを作っています。
 
+[![Circle CI](https://circleci.com/gh/backpaper0/sealion.svg?style=svg)](https://circleci.com/gh/backpaper0/sealion)
+
 ## URL
 
 |URL|概要|
