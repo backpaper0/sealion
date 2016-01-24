@@ -2,6 +2,9 @@ package sealion.ui;
 
 import static org.assertj.core.api.Assertions.*;
 
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Form;
@@ -75,6 +78,26 @@ public class CommentResourceTest {
         public void validate_content_empty() throws Exception {
             Form form = new Form();
             form.param("content", "");
+            Entity<Form> entity = Entity.form(form);
+            Response response = target("/projects/1/tasks/2/comments/new").request().post(entity);
+            assertThat(response.getStatus()).isEqualTo(Status.BAD_REQUEST.getStatusCode());
+        }
+
+        @Test
+        public void validate_content_max_length() throws Exception {
+            Form form = new Form();
+            form.param("content",
+                    IntStream.range(0, 500).mapToObj(a -> "x").collect(Collectors.joining()));
+            Entity<Form> entity = Entity.form(form);
+            Response response = target("/projects/1/tasks/2/comments/new").request().post(entity);
+            assertThat(response.getStatus()).isEqualTo(Status.OK.getStatusCode());
+        }
+
+        @Test
+        public void validate_content_over_max_length() throws Exception {
+            Form form = new Form();
+            form.param("content",
+                    IntStream.range(0, 501).mapToObj(a -> "x").collect(Collectors.joining()));
             Entity<Form> entity = Entity.form(form);
             Response response = target("/projects/1/tasks/2/comments/new").request().post(entity);
             assertThat(response.getStatus()).isEqualTo(Status.BAD_REQUEST.getStatusCode());

@@ -2,6 +2,9 @@ package sealion.ui;
 
 import static org.assertj.core.api.Assertions.*;
 
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Form;
@@ -75,6 +78,26 @@ public class ProjectResourceTest {
         public void validate_name_empty() throws Exception {
             Form form = new Form();
             form.param("name", "");
+            Entity<Form> entity = Entity.form(form);
+            Response response = target("/projects/new").request().post(entity);
+            assertThat(response.getStatus()).isEqualTo(Status.BAD_REQUEST.getStatusCode());
+        }
+
+        @Test
+        public void validate_name_max_length() throws Exception {
+            Form form = new Form();
+            form.param("name",
+                    IntStream.range(0, 50).mapToObj(a -> "x").collect(Collectors.joining()));
+            Entity<Form> entity = Entity.form(form);
+            Response response = target("/projects/new").request().post(entity);
+            assertThat(response.getStatus()).isEqualTo(Status.OK.getStatusCode());
+        }
+
+        @Test
+        public void validate_name_over_max_length() throws Exception {
+            Form form = new Form();
+            form.param("name",
+                    IntStream.range(0, 51).mapToObj(a -> "x").collect(Collectors.joining()));
             Entity<Form> entity = Entity.form(form);
             Response response = target("/projects/new").request().post(entity);
             assertThat(response.getStatus()).isEqualTo(Status.BAD_REQUEST.getStatusCode());

@@ -2,6 +2,9 @@ package sealion.ui;
 
 import static org.assertj.core.api.Assertions.*;
 
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Form;
@@ -87,6 +90,28 @@ public class AccountResourceTest {
         }
 
         @Test
+        public void validate_username_max_length() throws Exception {
+            Form form = new Form();
+            form.param("username",
+                    IntStream.range(0, 20).mapToObj(a -> "x").collect(Collectors.joining()));
+            form.param("email", "hoge@example.com");
+            Entity<Form> entity = Entity.form(form);
+            Response response = target("/accounts/new").request().post(entity);
+            assertThat(response.getStatus()).isEqualTo(Status.OK.getStatusCode());
+        }
+
+        @Test
+        public void validate_username_over_max_length() throws Exception {
+            Form form = new Form();
+            form.param("username",
+                    IntStream.range(0, 21).mapToObj(a -> "x").collect(Collectors.joining()));
+            form.param("email", "hoge@example.com");
+            Entity<Form> entity = Entity.form(form);
+            Response response = target("/accounts/new").request().post(entity);
+            assertThat(response.getStatus()).isEqualTo(Status.BAD_REQUEST.getStatusCode());
+        }
+
+        @Test
         public void validate_email_null() throws Exception {
             Form form = new Form();
             form.param("username", "x");
@@ -101,6 +126,32 @@ public class AccountResourceTest {
             Form form = new Form();
             form.param("username", "x");
             //form.param("email", "hoge@example.com");
+            Entity<Form> entity = Entity.form(form);
+            Response response = target("/accounts/new").request().post(entity);
+            assertThat(response.getStatus()).isEqualTo(Status.BAD_REQUEST.getStatusCode());
+        }
+
+        @Test
+        public void validate_email_max_length() throws Exception {
+            Form form = new Form();
+            form.param("username", "x");
+            //@example.comは12文字
+            form.param("email",
+                    IntStream.range(12, 100).mapToObj(a -> "x").collect(Collectors.joining())
+                            + "@example.com");
+            Entity<Form> entity = Entity.form(form);
+            Response response = target("/accounts/new").request().post(entity);
+            assertThat(response.getStatus()).isEqualTo(Status.OK.getStatusCode());
+        }
+
+        @Test
+        public void validate_email_over_max_length() throws Exception {
+            Form form = new Form();
+            form.param("username", "x");
+            //@example.comは12文字
+            form.param("email",
+                    IntStream.range(12, 101).mapToObj(a -> "x").collect(Collectors.joining())
+                            + "@example.com");
             Entity<Form> entity = Entity.form(form);
             Response response = target("/accounts/new").request().post(entity);
             assertThat(response.getStatus()).isEqualTo(Status.BAD_REQUEST.getStatusCode());

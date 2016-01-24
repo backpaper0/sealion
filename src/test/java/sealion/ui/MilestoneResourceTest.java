@@ -2,6 +2,9 @@ package sealion.ui;
 
 import static org.assertj.core.api.Assertions.*;
 
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Form;
@@ -83,6 +86,28 @@ public class MilestoneResourceTest {
         public void validate_name_empty() throws Exception {
             Form form = new Form();
             form.param("name", "");
+            form.param("fixedDate", "2016-01-22");
+            Entity<Form> entity = Entity.form(form);
+            Response response = target("/projects/1/milestones/new").request().post(entity);
+            assertThat(response.getStatus()).isEqualTo(Status.BAD_REQUEST.getStatusCode());
+        }
+
+        @Test
+        public void validate_name_max_length() throws Exception {
+            Form form = new Form();
+            form.param("name",
+                    IntStream.range(0, 20).mapToObj(a -> "x").collect(Collectors.joining()));
+            form.param("fixedDate", "2016-01-22");
+            Entity<Form> entity = Entity.form(form);
+            Response response = target("/projects/1/milestones/new").request().post(entity);
+            assertThat(response.getStatus()).isEqualTo(Status.OK.getStatusCode());
+        }
+
+        @Test
+        public void validate_name_over_max_length() throws Exception {
+            Form form = new Form();
+            form.param("name",
+                    IntStream.range(0, 21).mapToObj(a -> "x").collect(Collectors.joining()));
             form.param("fixedDate", "2016-01-22");
             Entity<Form> entity = Entity.form(form);
             Response response = target("/projects/1/milestones/new").request().post(entity);
