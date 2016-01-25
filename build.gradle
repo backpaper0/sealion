@@ -23,7 +23,12 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
+//Domaはコンパイル時にクラスパス上のSQLファイルを参照するが、
+//Gradleはデフォルトだとコンパイル後にリソースコピーが行われる。
+//なのでリソースコピーとコンパイルの順番を入れ替える。
 compileJava.dependsOn processResources
+//また、リソースの出力先がクラスパス上に無いのでコンパイルの
+//出力先と同じディレクトリに設定する。
 processResources.destinationDir = compileJava.destinationDir
 
 // Gradleと@RunWith(Enclosed.class)なテストクラスの相性がよろしくない。
