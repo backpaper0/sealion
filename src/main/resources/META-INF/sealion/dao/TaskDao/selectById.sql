@@ -10,6 +10,6 @@ INNER JOIN Account p
 ON p.id = t.postedBy
 LEFT OUTER JOIN Assignment at
 ON at.task = t.id
-INNER JOIN Account a
+LEFT OUTER JOIN Account a
 ON a.id = at.account
 WHERE t.id = /* id */1
