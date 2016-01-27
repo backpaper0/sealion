@@ -6,6 +6,8 @@ import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.function.UnaryOperator;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -15,7 +17,16 @@ import javax.script.SimpleScriptContext;
 import sealion.domain.MarkedText;
 import sealion.domain.TaskStatus;
 
+@ApplicationScoped
 public class UIHelper {
+
+    private ScriptEngine scriptEngine;
+
+    @PostConstruct
+    public void init() {
+        ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
+        scriptEngine = scriptEngineManager.getEngineByName("JavaScript");
+    }
 
     public String cssClass(TaskStatus status) {
         switch (status) {
@@ -35,8 +46,6 @@ public class UIHelper {
         if (text == null) {
             return null;
         }
-        ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
-        ScriptEngine scriptEngine = scriptEngineManager.getEngineByName("JavaScript");
         ScriptContext context = new SimpleScriptContext();
         Reader reader = new BufferedReader(new InputStreamReader(
                 getClass().getResourceAsStream(

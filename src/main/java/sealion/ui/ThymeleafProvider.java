@@ -45,6 +45,8 @@ public class ThymeleafProvider implements ContainerResponseFilter, MessageBodyWr
     private ServletContext servletContext;
     @Inject
     private User user;
+    @Inject
+    private UIHelper uiHelper;
 
     @PostConstruct
     public void init() {
@@ -75,7 +77,7 @@ public class ThymeleafProvider implements ContainerResponseFilter, MessageBodyWr
         WebContext context = new WebContext(request, response, servletContext);
         context.setVariable("model", t.model);
         context.setVariable("user", user);
-        context.setVariable("ui", new UIHelper());
+        context.setVariable("ui", uiHelper);
         try (Writer out = new OutputStreamWriter(entityStream, StandardCharsets.UTF_8)) {
             templateEngine.process(t.template, context, out);
         }
