@@ -37,34 +37,49 @@
                         </div>
                     </div>
                     <h1 data-th-text="${model.task.title}">サンプルタスク</h1>
-                    <ul>
-                        <li>
-                            <span data-th-text="${model.task.status}" class="aui-lozenge aui-lozenge-success"
-                                data-th-class="${ui.cssClass(model.task.status)}">OPEN</span>
-                            <a href="account.html" data-th-href="@{'/accounts/' + ${model.task.postedBy}}"
-                                data-th-text="${model.task.accountName}">sampleuser</a>
-                            <span data-th-text="${model.task.postedAt}">2016/01/15 20:00</span>
-                        </li>
-                        <li><a href="milestone.html" data-th-href="@{'/projects/' + ${model.project.id} + '/milestones/' + ${model.task.milestone}}"
-                                data-th-text="${model.task.milestoneName}">v1.0</a></li>
-                    </ul>
-                    <p data-th-text="${model.task.content}">内容のサンプル</p>
-                    <div data-th-each="comment : ${model.comments}">
-                        <hr/>
-                        <ul>
-                            <li>
-                                <a href="account.html" data-th-href="@{'/accounts/' + ${comment.postedBy}}"
-                                    data-th-text="${comment.accountName}">sampleuser</a>
-                                <span data-th-text="${comment.postedAt}">2016/01/15 20:10</span>
-                            </li>
-                        </ul>
-                        <p data-th-text="${comment.content}">コメントのサンプル</p>
+                    <div class="aui-group aui-group-split">
+                        <div class="aui-item">
+                            <ul>
+                                <li>
+                                    <span data-th-text="${model.task.status}" class="aui-lozenge aui-lozenge-success"
+                                        data-th-class="${ui.cssClass(model.task.status)}">OPEN</span>
+                                    <a href="account.html" data-th-href="@{'/accounts/' + ${model.task.postedBy}}"
+                                        data-th-text="${model.task.accountName}">sampleuser</a>
+                                    <span data-th-text="${model.task.postedAt}">2016/01/15 20:00</span>
+                                </li>
+                            </ul>
+                            <p data-th-text="${model.task.content}">内容のサンプル</p>
+                            <div data-th-each="comment : ${model.comments}">
+                                <hr/>
+                                <ul>
+                                    <li>
+                                        <a href="account.html" data-th-href="@{'/accounts/' + ${comment.postedBy}}"
+                                            data-th-text="${comment.accountName}">sampleuser</a>
+                                        <span data-th-text="${comment.postedAt}">2016/01/15 20:10</span>
+                                    </li>
+                                </ul>
+                                <p data-th-text="${comment.content}">コメントのサンプル</p>
+                            </div>
+                            <hr/>
+                            <form class="aui" action="task.html" data-th-action="@{'/projects/' + ${model.project.id} + '/tasks/' + ${model.task.id}} + '/comments/new'" method="POST">
+                                <p><textarea class="textarea" placeholder="Leave a comment" name="content" maxlength="500" required="required"></textarea></p>
+                                <p><input class="aui-button aui-button-primary" type="submit" value="Comment"/></p>
+                            </form>
+                        </div>
+                        <div class="aui-item" style="width: 20%">
+                            <p><input class="aui-button" type="submit" value="Change status"/></p>
+                            <dl>
+                                <dt>Milestone</dt>
+                                <dd><a href="milestone.html" data-th-href="@{'/projects/' + ${model.project.id} + '/milestones/' + ${model.task.milestone}}"
+                                        data-th-text="${model.task.milestoneName}" data-th-if="${model.task.milestone != null}">v1.0</a></dd>
+                            </dl>
+                            <dl>
+                                <dt>Asignee</dt>
+                                <dd><a href="account.html" data-th-href="@{'/accounts/' + ${model.task.asignee}}"
+                                        data-th-text="${model.task.asigneeName}" data-th-if="${model.task.asignee != null}">sampleuser</a></dd>
+                            </dl>
+                        </div>
                     </div>
-                    <hr/>
-                    <form class="aui" action="task.html" data-th-action="@{'/projects/' + ${model.project.id} + '/tasks/' + ${model.task.id}} + '/comments/new'" method="POST">
-                        <p><textarea class="textarea" placeholder="Leave a comment" name="content" maxlength="500" required="required"></textarea></p>
-                        <p><input class="aui-button aui-button-primary" type="submit" value="Comment"/></p>
-                    </form>
                 </section>
             </div>
         </div>
