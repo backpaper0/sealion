@@ -32,6 +32,9 @@ public class UIHelper {
     }
 
     public String marked(MarkedText text) throws ScriptException {
+        if (text == null) {
+            return null;
+        }
         ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
         ScriptEngine scriptEngine = scriptEngineManager.getEngineByName("JavaScript");
         ScriptContext context = new SimpleScriptContext();
