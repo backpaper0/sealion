@@ -67,7 +67,15 @@
                             </form>
                         </div>
                         <div class="aui-item" style="width: 20%">
-                            <p><input class="aui-button" type="submit" value="Change status"/></p>
+                            <a href="#" class="aui-button aui-dropdown2-trigger" aria-owns="status-list">Change status</a>
+                            <div id="status-list" class="aui-style-default aui-dropdown2">
+                                <ul class="aui-list-truncate">
+                                    <li><a href="#">OPEN</a></li>
+                                    <li><a href="#">DOING</a></li>
+                                    <li><a href="#">DONE</a></li>
+                                    <li><a href="#">CLOSED</a></li>
+                                </ul>
+                            </div>
                             <dl>
                                 <dt>Milestone</dt>
                                 <dd><a href="milestone.html" data-th-href="@{'/projects/' + ${model.project.id} + '/milestones/' + ${model.task.milestone}}"
