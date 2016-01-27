@@ -46,4 +46,21 @@ INSERT INTO Assignment (task, account) VALUES (@are, @foo);
 INSERT INTO Comment (task, content, postedBy, postedAt) VALUES (@are, 'コメントです。', @foo, NOW());
 INSERT INTO Comment (task, content, postedBy, postedAt) VALUES (@kore, 'コメントだす。', @bar, NOW());
 INSERT INTO Comment (task, content, postedBy, postedAt) VALUES (@are, 'コメントにょす。', @bar, NOW());
-INSERT INTO Comment (task, content, postedBy, postedAt) VALUES (@are, 'コメントもふもふ。', @foo, NOW());
+INSERT INTO Comment (task, content, postedBy, postedAt) VALUES (@are, 'コメントもふもふ。
+
+* コメントにも
+* マークダウン！！！
+
+```
+ﾊﾞﾝﾊﾞﾝﾊﾞﾝﾊﾞﾝﾊﾞﾝﾊﾞﾝﾊﾞﾝﾊﾞﾝﾊﾞﾝﾊﾞﾝﾊﾞﾝﾊﾞﾝﾊﾞﾝﾊﾞﾝﾊﾞﾝﾊﾞﾝﾊﾞﾝﾊﾞﾝﾊﾞﾝﾊﾞﾝﾊﾞﾝ
+　　ﾊﾞﾝ（∩`･ω･）ﾊﾞﾝﾊﾞﾝﾊﾞﾝ
+　　　　/ ﾐつ／￣￣＼
+　　　　 　／´･ω･`　 ＼
+　　　　　　　　富士山
+```', @foo, NOW());
+INSERT INTO Comment (task, content, postedBy, postedAt) VALUES (@are, '```
+          (⌒⌒)
+            ii!i!i 　　ﾄﾞｶｰﾝ
+          ﾉ~~~＼
+,,,,,,,／´･ω･` ＼,,,,,,,,,, 
+```', @foo, NOW());

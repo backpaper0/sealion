@@ -58,7 +58,7 @@
                                         <span data-th-text="${comment.postedAt}">2016/01/15 20:10</span>
                                     </li>
                                 </ul>
-                                <p data-th-text="${comment.content}">コメントのサンプル</p>
+                                <div data-th-utext="${ui.marked(comment.content)}">コメントのサンプル</div>
                             </div>
                             <hr/>
                             <form class="aui" action="task.html" data-th-action="@{'/projects/' + ${model.project.id} + '/tasks/' + ${model.task.id}} + '/comments/new'" method="POST">
