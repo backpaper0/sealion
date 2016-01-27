@@ -48,7 +48,7 @@
                                     <span data-th-text="${model.task.postedAt}">2016/01/15 20:00</span>
                                 </li>
                             </ul>
-                            <p data-th-text="${model.task.content}">内容のサンプル</p>
+                            <div data-th-utext="${ui.marked(model.task.content)}">内容のサンプル</div>
                             <div data-th-each="comment : ${model.comments}">
                                 <hr/>
                                 <ul>

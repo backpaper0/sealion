@@ -8,6 +8,7 @@ ext {
     superagentVersion = '1.4.0'
     auiVersion = '5.9.5'
     jqueryVersion = '1.8.3'
+    markedVersion = '0.3.5'
     junitVersion = '4.12'
     jerseyVersion = '2.22.1'
     assertjVersion = '3.3.0'
@@ -50,6 +51,7 @@ dependencies {
     compile "org.webjars:superagent:${superagentVersion}"
     compile "org.webjars:aui:${auiVersion}"
     compile "org.webjars:jquery:${jqueryVersion}"
+    compile "org.webjars.bower:marked:${markedVersion}"
     testCompile "junit:junit:${junitVersion}"
     testCompile "org.assertj:assertj-core:${assertjVersion}"
     testCompile "org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:${jerseyVersion}"

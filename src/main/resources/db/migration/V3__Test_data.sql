@@ -13,7 +13,24 @@ INSERT INTO Milestone (name, fixedDate, project) VALUES ('v32.0-birthday', '2016
 
 SET @m = SELECT id FROM Project WHERE name = 'ほげプロジェクト';
 
-INSERT INTO Task (title, content, status, postedBy, postedAt, project) VALUES ('あれやる', 'あれをやる。がんばる。', 'OPEN', @foo, NOW(), @hoge);
+INSERT INTO Task (title, content, status, postedBy, postedAt, project) VALUES ('あれやる', '### あれをやる
+
+マークダウンがかけるよ！
+
+* リストも
+* かけるぞ！
+* `･:*+.\(( °ω° ))/.:+`
+
+[リンク](https://github.com/backpaper0/sealion)も！！
+
+```java
+public class Hello {
+    public String say(String name) {
+        return "Hello, " + name + "!";
+    }
+}
+```
+', 'OPEN', @foo, NOW(), @hoge);
 INSERT INTO Task (title, content, status, postedBy, postedAt, project) VALUES ('これやる', 'これをやる。がんばらない程度に。', 'DOING', @bar, NOW(), @hoge);
 -- マイルストーン設定しないタスク
 INSERT INTO Task (title, content, status, postedBy, postedAt, project) VALUES ('それやる', NULL, 'DONE', @foo, NOW(), @hoge);
