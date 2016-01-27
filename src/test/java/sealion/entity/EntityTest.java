@@ -6,6 +6,7 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Spliterators;
@@ -79,13 +80,14 @@ public class EntityTest {
 
         //テーブルに1対1の関係でマッピングされているエンティティクラスが
         //格納されているディレクトリを検出しています。
-        Path entityDir = classpathRoot.resolve(Task.class.getPackage().getName().replace('.', '/'));
+        String[] directories = Task.class.getPackage().getName().split("\\.");
+        Path entityDir = classpathRoot.resolve(
+                Paths.get(directories[0], Arrays.copyOfRange(directories, 1, directories.length)));
 
         Function<Path, String> toFQCN = file -> {
-            String s = file.toString();
-            s = s.substring(0, s.length() - ".class".length());
-            s = s.replace('/', '.');
-            return s;
+            String s = StreamSupport.stream(file.spliterator(), false).map(Path::toString)
+                    .collect(Collectors.joining("."));
+            return s.substring(0, s.length() - ".class".length());
         };
 
         Function<String, Optional<Class<?>>> tryToClass = className -> {
