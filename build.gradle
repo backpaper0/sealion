@@ -12,6 +12,7 @@ ext {
     junitVersion = '4.12'
     jerseyVersion = '2.22.1'
     assertjVersion = '3.3.0'
+    payaraVersion = '4.1.1.154'
 }
 
 apply plugin: 'java'
@@ -56,7 +57,7 @@ dependencies {
     testCompile "org.assertj:assertj-core:${assertjVersion}"
     testCompile "org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:${jerseyVersion}"
     testCompile "org.glassfish.jersey.ext:jersey-bean-validation:${jerseyVersion}"
-    archives 'fish.payara.extras:payara-micro:4.1.1.154'
+    archives "fish.payara.extras:payara-micro:${payaraVersion}"
 }
 
 task run(type:Exec) {
