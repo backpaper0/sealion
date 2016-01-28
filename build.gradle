@@ -38,6 +38,19 @@ processResources.destinationDir = compileJava.destinationDir
 // http://d.hatena.ne.jp/shuji_w6e/20120808/1344386399
 test.exclude '**/*$*'
 
+javadoc {
+    options {
+        charSet 'UTF-8'
+        docEncoding 'UTF-8'
+        encoding = 'UTF-8'
+        links 'http://docs.oracle.com/javase/jp/8/docs/api/',
+              'http://docs.oracle.com/javaee/7/api/'
+        //linksOffline "http://static.javadoc.io/org.seasar.doma/doma/${domaVersion}/", 'build'
+        use = true
+    }
+    failOnError = false
+}
+
 repositories {
     jcenter()
 }
