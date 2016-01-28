@@ -53,6 +53,7 @@ javadoc {
 
 repositories {
     jcenter()
+    mavenCentral()
 }
 
 dependencies {
