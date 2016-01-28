@@ -15,7 +15,7 @@ eclipse.jdt.file {
             new groovy.xml.MarkupBuilder(out).factorypath {
                 factorypathentry(
                     kind: 'EXTJAR',
-                    id: configurations.compile.find { it.name ==~ /doma.*/ }.absolutePath,
+                    id: configurations.compile.find { it.name == "doma-${domaVersion}.jar" }.absolutePath,
                     enabled: true,
                     runInBatchMode: false)
             }
