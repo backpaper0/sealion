@@ -1,6 +1,7 @@
 package sealion.ui;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
@@ -42,16 +43,17 @@ public class UIHelper {
         return "";
     }
 
-    public String marked(MarkedText text) throws ScriptException {
+    public String marked(MarkedText text) throws ScriptException, IOException {
         if (text == null) {
             return null;
         }
         ScriptContext context = new SimpleScriptContext();
-        Reader reader = new BufferedReader(new InputStreamReader(
+        try (Reader reader = new BufferedReader(new InputStreamReader(
                 getClass().getResourceAsStream(
                         "/META-INF/resources/webjars/marked/0.3.5/marked.min.js"),
-                StandardCharsets.UTF_8));
-        scriptEngine.eval(reader, context);
+                StandardCharsets.UTF_8))) {
+            scriptEngine.eval(reader, context);
+        }
         UnaryOperator<String> marked = (UnaryOperator<String>) scriptEngine
                 .eval("var F = Java.type('" + UnaryOperator.class.getName() + "');"
                         + "var G = Java.extend(F, { apply: function(s) { return marked(s); }});"
