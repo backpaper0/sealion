@@ -37,7 +37,7 @@
                         </thead>
                         <tbody>
                             <tr data-th-each="account : ${model.accounts}">
-                                <td><a href="account.html" data-th-href="@{'/accounts/' + ${account.id}}"
+                                <td><a href="edit-account.html" data-th-href="@{'/accounts/' + ${account.id} + '/edit'}"
                                         data-th-text="${account.username}">sampleuser</a></td>
                             </tr>
                         </tbody>

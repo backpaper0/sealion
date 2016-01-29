@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+        <title>Sealion</title>
+        <link rel="stylesheet" href="https://aui-cdn.atlassian.com/aui-adg/5.9.5/css/aui.css" data-th-href="@{'/webjars/aui/5.9.5/css/aui.css'}" media="all"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" data-th-src="@{'/webjars/jquery/1.8.3/jquery.js'}"></script>
+        <script src="https://aui-cdn.atlassian.com/aui-adg/5.9.5/js/aui.js" data-th-src="@{'/webjars/aui/5.9.5/js/aui.js'}"></script>
+    </head>
+    <body class="aui-page-focused">
+        <header role="banner">
+            <nav class="aui-header">
+                <h1 class="aui-header-logo aui-header-logo-textonly"><a href="projects.html" data-th-href="@{'/'}"><span class="aui-header-logo-device">Sealion</span></a></h1>
+                <ul class="aui-nav">
+                    <li><a href="new-project.html" data-th-href="@{'/projects/new'}">New Project</a></li>
+                    <li><a href="account.html" data-th-href="@{'/accounts/' + ${user.account.id}}">Account Settings</a></li>
+                    <li><a href="accounts.html" data-th-href="@{'/accounts'}">System Settings</a></li>
+                    <li><a href="#">Sign out</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="aui-page-panel">
+            <div class="aui-page-panel-inner">
+                <section class="aui-page-panel-content">
+                    <h1 data-th-text="${model.account.username}">sampleuser</h1>
+                    <form class="aui" method="POST" action="accounts.html" data-th-action="@{'/accounts/' + ${model.account.id} + '/edit'}">
+                        <div class="field-group">
+                            <label for="email">Email</label>
+                            <input class="text" type="email" placeholder="Email" name="email" id="email" maxlength="100" required="required"
+                                data-th-value="${model.account.email}"/>
+                        </div>
+                        <div class="field-group">
+                            <label>Role</label>
+                            <div class="checkbox" data-th-each="role : ${model.roles}">
+                                <input class="checkbox" type="checkbox" name="roles" data-th-checked="${model.grant.containsRole(role)}"
+                                    id="role-user" data-th-id="${'role-' + role}" data-th-value="${role}"/>
+                                <label for="role-user" data-th-for="${'role-' + role}" data-th-text="${role}">USER</label>
+                            </div>
+                            <!--/*-->
+                            <div class="checkbox">
+                                <input class="checkbox" type="checkbox" name="roles" id="role-admin"/>
+                                <label for="role-admin">ADMIN</label>
+                            </div>
+                            <!--*/-->
+                        </div>
+                        <div class="buttons-container">
+                            <div class="buttons">
+                                <input class="button submit" type="submit" value="Update user"/>
+                                <a class="cancel" href="accounts.html" data-th-href="@{'/accounts'}">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </body>
+</html>

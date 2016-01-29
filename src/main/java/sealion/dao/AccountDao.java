@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Insert;
 import org.seasar.doma.Select;
+import org.seasar.doma.Update;
 
 import sealion.domain.Key;
 import sealion.entity.Account;
@@ -22,4 +23,7 @@ public interface AccountDao {
 
     @Insert
     int insert(Account entity);
+
+    @Update
+    int update(Account entity);
 }
