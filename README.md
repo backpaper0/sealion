@@ -29,7 +29,7 @@ Java EE 7とDoma、ThymeleafでITSを作っています。
 * [Thymeleaf](http://www.thymeleaf.org/)
 * [Atlassian User Interface](https://docs.atlassian.com/aui/latest/)
 * [Marked](https://github.com/chjj/marked)
-* [Payara Micor](http://www.payara.fish/)
+* [Payara Micro](http://www.payara.fish/)
 
 ## License
 
