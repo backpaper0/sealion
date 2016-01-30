@@ -13,7 +13,7 @@
                 <h1 class="aui-header-logo aui-header-logo-textonly"><a href="projects.html" data-th-href="@{'/'}"><span class="aui-header-logo-device">Sealion</span></a></h1>
                 <ul class="aui-nav">
                     <li><a href="new-project.html" data-th-href="@{'/projects/new'}">New Project</a></li>
-                    <li><a href="account.html" data-th-href="@{'/accounts/' + ${user.account.id}}">Account Settings</a></li>
+                    <li><a href="edit-account.html" data-th-href="@{'/accounts/' + ${user.account.id} + '/edit'}">Account Settings</a></li>
                     <li><a href="accounts.html" data-th-href="@{'/accounts'}">System Settings</a></li>
                     <li><a href="#">Sign out</a></li>
                 </ul>
@@ -22,7 +22,7 @@
         <div class="aui-page-panel">
             <div class="aui-page-panel-inner">
                 <section class="aui-page-panel-content">
-                    <form class="aui" action="account.html" data-th-action="@{'/accounts/new'}" method="POST">
+                    <form class="aui" action="edit-account.html" data-th-action="@{'/accounts/new'}" method="POST">
                         <p><input class="text" type="text" placeholder="Name" name="username" maxlength="20" required="required"/></p>
                         <p><input class="text" type="email" placeholder="Email" name="email" maxlength="100" required="required"/></p>
                         <p><input class="aui-button aui-button-primary" type="submit" value="Create user"/></p>
