@@ -20,7 +20,7 @@ Java EE 7とDoma、ThymeleafでITSを作っています。
 |`/projects/{project}/milestones/{milestone}`|マイルストーン詳細|
 |`/accounts`|アカウント一覧|
 |`/accounts/new`|アカウント作成|
-|`/accounts/{account}`|アカウント詳細|
+|`/accounts/{account}/edit`|アカウント編集|
 
 ## 使用フレームワーク
 
