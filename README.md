@@ -28,6 +28,7 @@ Java EE 7とDoma、ThymeleafでITSを作っています。
 * [Doma](https://github.com/domaframework/doma)
 * [Thymeleaf](http://www.thymeleaf.org/)
 * [Atlassian User Interface](https://docs.atlassian.com/aui/latest/)
+* [Marked](https://github.com/chjj/marked)
 
 ## License
 
