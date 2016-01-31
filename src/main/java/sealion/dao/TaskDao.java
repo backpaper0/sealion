@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Insert;
 import org.seasar.doma.Select;
+import org.seasar.doma.Update;
 
 import sealion.domain.Key;
 import sealion.entity.Project;
@@ -20,8 +21,14 @@ public interface TaskDao {
     List<TaskView> selectByProject(Key<Project> project);
 
     @Select
-    Optional<TaskView> selectById(Key<Task> id);
+    Optional<TaskView> selectViewById(Key<Task> id);
+
+    @Select
+    Optional<Task> selectById(Key<Task> id);
 
     @Insert
     int insert(Task entity);
+
+    @Update
+    int update(Task entity);
 }

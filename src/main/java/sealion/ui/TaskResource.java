@@ -4,6 +4,7 @@ import java.net.URI;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.json.JsonObject;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -18,6 +19,7 @@ import javax.ws.rs.core.UriInfo;
 
 import sealion.domain.Key;
 import sealion.domain.MarkedText;
+import sealion.domain.TaskStatus;
 import sealion.domain.TaskTitle;
 import sealion.entity.Project;
 import sealion.entity.Task;
@@ -71,5 +73,13 @@ public class TaskResource {
     public UIResponse get(@PathParam("id") Key<Task> id) {
         TaskModel model = taskModelBuilder.build(project, id);
         return UIResponse.render("task", model);
+    }
+
+    @Path("{id:\\d+}:status")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void changeStatus(@PathParam("id") Key<Task> id, JsonObject root) {
+        TaskStatus status = TaskStatus.valueOf(root.getString("status"));
+        taskService.changeStatus(id, status);
     }
 }

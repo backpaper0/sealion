@@ -39,4 +39,10 @@ public class TaskService {
         taskDao.insert(entity);
         return entity;
     }
+
+    public void changeStatus(Key<Task> id, TaskStatus status) {
+        Task entity = taskDao.selectById(id).get();
+        entity.status = status;
+        taskDao.update(entity);
+    }
 }
