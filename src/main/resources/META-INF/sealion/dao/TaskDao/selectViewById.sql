@@ -1,6 +1,6 @@
 SELECT t.id, t.title, t.content, t.status, t.postedBy, t.postedAt, b.milestone,
        p.username as accountName, m.name as milestoneName,
-       a.id as asignee, a.username as asigneeName      
+       a.id as assignee, a.username as assigneeName      
 FROM Task t
 LEFT OUTER JOIN Bundle b
 ON b.task = t.id

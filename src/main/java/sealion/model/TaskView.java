@@ -15,6 +15,6 @@ public class TaskView extends Task {
     public Key<Milestone> milestone;
     public MilestoneName milestoneName;
     public Username accountName;
-    public Key<Account> asignee;
-    public Username asigneeName;
+    public Key<Account> assignee;
+    public Username assigneeName;
 }

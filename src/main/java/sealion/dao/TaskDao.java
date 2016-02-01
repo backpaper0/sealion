@@ -10,6 +10,7 @@ import org.seasar.doma.Select;
 import org.seasar.doma.Update;
 
 import sealion.domain.Key;
+import sealion.entity.Assignment;
 import sealion.entity.Bundle;
 import sealion.entity.Project;
 import sealion.entity.Task;
@@ -38,8 +39,17 @@ public interface TaskDao {
     List<Bundle> selectBundleByTask(Key<Task> task);
 
     @BatchDelete
-    int[] delete(List<Bundle> entities);
+    int[] deleteBundle(List<Bundle> entities);
 
     @Insert
     int insert(Bundle entity);
+
+    @Select
+    List<Assignment> selectAssignmentByTask(Key<Task> task);
+
+    @BatchDelete
+    int[] deleteAssignment(List<Assignment> entities);
+
+    @Insert
+    int insert(Assignment entity);
 }

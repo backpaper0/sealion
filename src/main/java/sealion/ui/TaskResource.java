@@ -21,6 +21,7 @@ import sealion.domain.Key;
 import sealion.domain.MarkedText;
 import sealion.domain.TaskStatus;
 import sealion.domain.TaskTitle;
+import sealion.entity.Account;
 import sealion.entity.Milestone;
 import sealion.entity.Project;
 import sealion.entity.Task;
@@ -90,5 +91,13 @@ public class TaskResource {
     public void setMilestone(@PathParam("id") Key<Task> id, JsonObject root) {
         Key<Milestone> milestone = new Key<>(Long.valueOf(root.getString("milestone")));
         taskService.setMilestone(id, milestone);
+    }
+
+    @Path("{id:\\d+}:assignee")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void setAssignee(@PathParam("id") Key<Task> id, JsonObject root) {
+        Key<Account> account = new Key<>(Long.valueOf(root.getString("account")));
+        taskService.setAssignee(id, account);
     }
 }

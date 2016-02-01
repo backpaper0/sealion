@@ -13,6 +13,8 @@ import sealion.domain.MarkedText;
 import sealion.domain.PostedDate;
 import sealion.domain.TaskStatus;
 import sealion.domain.TaskTitle;
+import sealion.entity.Account;
+import sealion.entity.Assignment;
 import sealion.entity.Bundle;
 import sealion.entity.Milestone;
 import sealion.entity.Project;
@@ -49,10 +51,18 @@ public class TaskService {
     }
 
     public void setMilestone(Key<Task> id, Key<Milestone> milestone) {
-        taskDao.delete(taskDao.selectBundleByTask(id));
+        taskDao.deleteBundle(taskDao.selectBundleByTask(id));
         Bundle entity = new Bundle();
         entity.task = id;
         entity.milestone = milestone;
+        taskDao.insert(entity);
+    }
+
+    public void setAssignee(Key<Task> id, Key<Account> account) {
+        taskDao.deleteAssignment(taskDao.selectAssignmentByTask(id));
+        Assignment entity = new Assignment();
+        entity.task = id;
+        entity.account = account;
         taskDao.insert(entity);
     }
 }

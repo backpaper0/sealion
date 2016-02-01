@@ -102,9 +102,26 @@
                                         data-th-text="${model.task.milestoneName}" data-th-if="${model.task.milestone != null}">v1.0</a></dd>
                             </dl>
                             <dl>
-                                <dt>Asignee</dt>
-                                <dd><a href="edit-account.html" data-th-href="@{'/accounts/' + ${model.task.asignee}}"
-                                        data-th-text="${model.task.asigneeName}" data-th-if="${model.task.asignee != null}">sampleuser</a></dd>
+                                <dt>
+                                    Assignee
+                                    <button class="aui-button aui-button-subtle aui-dropdown2-trigger aui-dropdown2-trigger-arrowless" aria-owns="accounts">
+                                        <span class="aui-icon aui-icon-small aui-iconfont-configure"></span>
+                                    </button>
+                                    <div id="accounts" class="aui-style-default aui-dropdown2">
+                                        <ul class="aui-list-truncate">
+                                            <li data-th-each="account : ${model.accounts}">
+                                                <a href="#" class="sl-set-assignee" data-th-text="${account.username}"
+                                                    data-th-attr="data-sl-account=${account.id}">sampleuser</a>
+                                            </li>
+                                            <!--/*-->
+                                            <li><a href="#">foo</a></li>
+                                            <li><a href="#">bar</a></li>
+                                            <!--*/-->
+                                        </ul>
+                                    </div>
+                                </dt>
+                                <dd><a href="edit-account.html" data-th-href="@{'/accounts/' + ${model.task.assignee}}"
+                                        data-th-text="${model.task.assigneeName}" data-th-if="${model.task.assignee != null}">sampleuser</a></dd>
                             </dl>
                         </div>
                     </div>
@@ -126,6 +143,15 @@
                 superagent
                     .post(/*[[@{'/projects/' + ${model.project.id} + '/tasks/' + ${model.task.id} + ':milestone'}]]*/'task.html')
                     .send({ milestone: $(this).attr('data-sl-milestone') })
+                    .end(function() {
+                        location.href = /*[[@{'/projects/' + ${model.project.id} + '/tasks/' + ${model.task.id}}]]*/'task.html'
+                    })
+            });
+
+            $('.sl-set-assignee').on('click', function() {
+                superagent
+                    .post(/*[[@{'/projects/' + ${model.project.id} + '/tasks/' + ${model.task.id} + ':assignee'}]]*/'task.html')
+                    .send({ account: $(this).attr('data-sl-account') })
                     .end(function() {
                         location.href = /*[[@{'/projects/' + ${model.project.id} + '/tasks/' + ${model.task.id}}]]*/'task.html'
                     })
