@@ -80,7 +80,24 @@
                                 </ul>
                             </div>
                             <dl>
-                                <dt>Milestone</dt>
+                                <dt>
+                                    Milestone
+                                    <button class="aui-button aui-button-subtle aui-dropdown2-trigger aui-dropdown2-trigger-arrowless" aria-owns="milestones">
+                                        <span class="aui-icon aui-icon-small aui-iconfont-configure"></span>
+                                    </button>
+                                    <div id="milestones" class="aui-style-default aui-dropdown2">
+                                        <ul class="aui-list-truncate">
+                                            <li data-th-each="milestone : ${model.milestones}">
+                                                <a href="#" class="sl-set-milestone" data-th-text="${milestone.name}"
+                                                    data-th-attr="data-sl-milestone=${milestone.id}">v1.0</a>
+                                            </li>
+                                            <!--/*-->
+                                            <li><a href="#">v2.0</a></li>
+                                            <li><a href="#">v2.1</a></li>
+                                            <!--*/-->
+                                        </ul>
+                                    </div>
+                                </dt>
                                 <dd><a href="milestone.html" data-th-href="@{'/projects/' + ${model.project.id} + '/milestones/' + ${model.task.milestone}}"
                                         data-th-text="${model.task.milestoneName}" data-th-if="${model.task.milestone != null}">v1.0</a></dd>
                             </dl>
@@ -100,6 +117,15 @@
                 superagent
                     .post(/*[[@{'/projects/' + ${model.project.id} + '/tasks/' + ${model.task.id} + ':status'}]]*/'task.html')
                     .send({ status: $(this).text() })
+                    .end(function() {
+                        location.href = /*[[@{'/projects/' + ${model.project.id} + '/tasks/' + ${model.task.id}}]]*/'task.html'
+                    })
+            });
+
+            $('.sl-set-milestone').on('click', function() {
+                superagent
+                    .post(/*[[@{'/projects/' + ${model.project.id} + '/tasks/' + ${model.task.id} + ':milestone'}]]*/'task.html')
+                    .send({ milestone: $(this).attr('data-sl-milestone') })
                     .end(function() {
                         location.href = /*[[@{'/projects/' + ${model.project.id} + '/tasks/' + ${model.task.id}}]]*/'task.html'
                     })
