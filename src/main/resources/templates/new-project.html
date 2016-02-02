@@ -8,16 +8,7 @@
         <script src="https://aui-cdn.atlassian.com/aui-adg/5.9.5/js/aui.js" data-th-src="@{'/webjars/aui/5.9.5/js/aui.js'}"></script>
     </head>
     <body class="aui-page-focused">
-        <header role="banner">
-            <nav class="aui-header">
-                <h1 class="aui-header-logo aui-header-logo-textonly"><a href="projects.html" data-th-href="@{'/'}"><span class="aui-header-logo-device">Sealion</span></a></h1>
-                <ul class="aui-nav">
-                    <li><a href="new-project.html" data-th-href="@{'/projects/new'}">New Project</a></li>
-                    <li><a href="edit-account.html" data-th-href="@{'/accounts/' + ${user.account.id} + '/edit'}">Account Settings</a></li>
-                    <li><a href="accounts.html" data-th-href="@{'/accounts'}">System Settings</a></li>
-                    <li><a href="#">Sign out</a></li>
-                </ul>
-            </nav>
+        <header role="banner" data-th-replace="header :: header">
         </header>
         <div class="aui-page-panel">
             <div class="aui-page-panel-inner">
