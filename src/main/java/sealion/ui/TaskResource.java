@@ -4,7 +4,6 @@ import java.net.URI;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.json.JsonObject;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -79,25 +78,25 @@ public class TaskResource {
 
     @Path("{id:\\d+}:status")
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void changeStatus(@PathParam("id") Key<Task> id, JsonObject root) {
-        TaskStatus status = TaskStatus.valueOf(root.getString("status"));
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public void changeStatus(@PathParam("id") Key<Task> id,
+            @FormParam("status") TaskStatus status) {
         taskService.changeStatus(id, status);
     }
 
     @Path("{id:\\d+}:milestone")
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void setMilestone(@PathParam("id") Key<Task> id, JsonObject root) {
-        Key<Milestone> milestone = new Key<>(Long.valueOf(root.getString("milestone")));
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public void setMilestone(@PathParam("id") Key<Task> id,
+            @FormParam("milestone") Key<Milestone> milestone) {
         taskService.setMilestone(id, milestone);
     }
 
     @Path("{id:\\d+}:assignee")
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void setAssignee(@PathParam("id") Key<Task> id, JsonObject root) {
-        Key<Account> account = new Key<>(Long.valueOf(root.getString("account")));
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public void setAssignee(@PathParam("id") Key<Task> id,
+            @FormParam("account") Key<Account> account) {
         taskService.setAssignee(id, account);
     }
 }

@@ -133,6 +133,7 @@
             $('.sl-change-status').on('click', function() {
                 superagent
                     .post(/*[[@{'/projects/' + ${model.project.id} + '/tasks/' + ${model.task.id} + ':status'}]]*/'task.html')
+                    .type('form')
                     .send({ status: $(this).text() })
                     .end(function() {
                         location.href = /*[[@{'/projects/' + ${model.project.id} + '/tasks/' + ${model.task.id}}]]*/'task.html'
@@ -142,6 +143,7 @@
             $('.sl-set-milestone').on('click', function() {
                 superagent
                     .post(/*[[@{'/projects/' + ${model.project.id} + '/tasks/' + ${model.task.id} + ':milestone'}]]*/'task.html')
+                    .type('form')
                     .send({ milestone: $(this).attr('data-sl-milestone') })
                     .end(function() {
                         location.href = /*[[@{'/projects/' + ${model.project.id} + '/tasks/' + ${model.task.id}}]]*/'task.html'
@@ -151,6 +153,7 @@
             $('.sl-set-assignee').on('click', function() {
                 superagent
                     .post(/*[[@{'/projects/' + ${model.project.id} + '/tasks/' + ${model.task.id} + ':assignee'}]]*/'task.html')
+                    .type('form')
                     .send({ account: $(this).attr('data-sl-account') })
                     .end(function() {
                         location.href = /*[[@{'/projects/' + ${model.project.id} + '/tasks/' + ${model.task.id}}]]*/'task.html'
