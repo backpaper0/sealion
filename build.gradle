@@ -34,7 +34,7 @@ compileJava.dependsOn processResources
 processResources.destinationDir = compileJava.destinationDir
 
 // Gradleと@RunWith(Enclosed.class)なテストクラスの相性がよろしくない。
-// statisにネストしたテストクラスを除外して@RunWith(Enclosed.class)の実行だけに絞る。
+// staticにネストしたテストクラスを除外して@RunWith(Enclosed.class)の実行だけに絞る。
 // http://d.hatena.ne.jp/shuji_w6e/20120808/1344386399
 test.exclude '**/*$*'
 
