@@ -24,6 +24,12 @@ public class FixedDate {
         return value.toString();
     }
 
+    /*
+     * KeyのvalueOfメソッドと同じくJAX-RSのパラメーターで
+     * 使いたいから定義しています。
+     * 詳しくはKeyのvalueOfメソッドのコメントを参照してください。
+     * 
+     */
     public static FixedDate valueOf(String text) {
         return new FixedDate(LocalDate.parse(text));
     }
