@@ -2,6 +2,8 @@
 -- このSQLファイルは実装がある程度落ち着いたら消す
 INSERT INTO Account (username, email) VALUES ('foo', 'foo@localhost');
 INSERT INTO Account (username, email) VALUES ('bar', 'bar@localhost');
+INSERT INTO Password (account, hash, salt, hashAlgorithm) SELECT id, 'foo', 'none', 'PLAIN' FROM Account WHERE username = 'foo';
+INSERT INTO Password (account, hash, salt, hashAlgorithm) SELECT id, 'bar', 'none', 'PLAIN' FROM Account WHERE username = 'bar';
 INSERT INTO Project (name) VALUES ('ほげプロジェクト');
 INSERT INTO Project (name) VALUES ('ふがプロジェクト');
 

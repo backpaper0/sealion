@@ -6,6 +6,7 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -25,6 +26,7 @@ import sealion.entity.Account;
 import sealion.model.AccountsModel;
 import sealion.model.EditAccountModel;
 import sealion.service.AccountService;
+import sealion.service.PasswordService;
 
 @RequestScoped
 @Path("accounts")
@@ -35,6 +37,8 @@ public class AccountResource {
     private EditAccountModel.Builder editAccountModelBuilder;
     @Inject
     private AccountService accountService;
+    @Inject
+    private PasswordService passwordService;
 
     @GET
     public UIResponse list() {
@@ -72,6 +76,24 @@ public class AccountResource {
             @NotNull @FormParam("email") EmailAddress email,
             @NotNull @FormParam("roles") List<AccountRole> roles, @Context UriInfo uriInfo) {
         accountService.update(id, email, roles);
+        URI location = uriInfo.getBaseUriBuilder().path(AccountResource.class).build();
+        return Response.seeOther(location).build();
+    }
+
+    @Path("{id:\\d+}/passwords/update")
+    @POST
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public Response updatePassword(@PathParam("id") Key<Account> id,
+            @NotNull @FormParam("oldPassword") String oldPassword,
+            @NotNull @FormParam("newPassword") String newPassword,
+            @NotNull @FormParam("confirmNewPassword") String confirmNewPassword,
+            @Context UriInfo uriInfo) {
+        if (newPassword.equals(confirmNewPassword) == false) {
+            throw new BadRequestException();
+        }
+        if (passwordService.update(id, oldPassword, newPassword) == false) {
+            throw new BadRequestException();
+        }
         URI location = uriInfo.getBaseUriBuilder().path(AccountResource.class).build();
         return Response.seeOther(location).build();
     }

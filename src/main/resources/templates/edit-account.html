@@ -41,6 +41,27 @@
                             </div>
                         </div>
                     </form>
+                    <h2>Change password</h2>
+                    <form class="aui" method="POST" action="accounts.html" data-th-action="@{'/accounts/' + ${model.account.id} + '/passwords/update'}">
+                        <div class="field-group">
+                            <label for="oldPassword">Old password</label>
+                            <input class="text" type="password" name="oldPassword" id="oldPassword" maxlength="100" required="required"/>
+                        </div>
+                        <div class="field-group">
+                            <label for="newPassword">New password</label>
+                            <input class="text" type="password" name="newPassword" id="newPassword" maxlength="100" required="required"/>
+                        </div>
+                        <div class="field-group">
+                            <label for="confirmNewPassword">Confirm new password</label>
+                            <input class="text" type="password" name="confirmNewPassword" id="confirmNewPassword" maxlength="100" required="required"/>
+                        </div>
+                        <div class="buttons-container">
+                            <div class="buttons">
+                                <input class="button submit" type="submit" value="Change password"/>
+                                <a class="cancel" href="#">I forgot my password</a>
+                            </div>
+                        </div>
+                    </form>
                 </section>
             </div>
         </div>
