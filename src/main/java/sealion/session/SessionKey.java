@@ -20,4 +20,8 @@ public class SessionKey implements Serializable {
     public Optional<Key<Account>> get() {
         return Optional.ofNullable(id).map(Key::new);
     }
+
+    public void clear() {
+        id = null;
+    }
 }

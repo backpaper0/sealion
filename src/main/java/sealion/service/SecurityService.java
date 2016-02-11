@@ -49,4 +49,8 @@ public class SecurityService {
         sessionKey.set(account.id);
         return true;
     }
+
+    public void signout() {
+        sessionKey.clear();
+    }
 }
