@@ -21,6 +21,7 @@ Java EE 7とDoma、ThymeleafでITSを作っています。
 |`/accounts`|アカウント一覧|
 |`/accounts/new`|アカウント作成|
 |`/accounts/{account}/edit`|アカウント編集|
+|`/signin`|ログイン|
 
 ## 使用フレームワーク
 
