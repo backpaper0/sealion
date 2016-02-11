@@ -1,2 +1,2 @@
 SELECT /*%expand*/* FROM Password
-WHERE account = /* account */'root'
+WHERE account = /* account */1
