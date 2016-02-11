@@ -1,6 +1,6 @@
 ext {
     javaeeVersion = '7.0'
-    domaVersion = '2.6.1'
+    domaVersion = '2.6.2'
     h2Version = '1.4.190'
     flywayVersion = '3.2.1'
     thymeleafVersion = '2.1.4.RELEASE'
