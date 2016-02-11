@@ -61,6 +61,8 @@ public class AccountResourceTest {
             assertThat(response.getLocation()).isEqualTo(getBaseUri().resolve("/accounts"));
         }
 
+        //TODO パスワード変更後のルーティングのテスト
+
         @Override
         protected void configureClient(ClientConfig config) {
             config.property(ClientProperties.FOLLOW_REDIRECTS, false);
@@ -253,6 +255,8 @@ public class AccountResourceTest {
                     .register(new Dependencies());
         }
     }
+
+    //TODO パスワード変更のバリデーションのテスト
 
     private static class Dependencies extends AbstractBinder {
         @Override

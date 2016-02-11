@@ -31,6 +31,8 @@ public class SigninResource {
         return UIResponse.render("signin");
     }
 
+    //TODO バリデーションとルーティングのテストを書く
+
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response signin(@NotNull @FormParam("email") EmailAddress email,
