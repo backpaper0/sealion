@@ -7,6 +7,8 @@ import sealion.entity.Account;
 
 public interface User {
 
+    boolean isSignedIn();
+
     Account getAccount();
 
     List<AccountRole> getAccountRoles();

@@ -26,7 +26,7 @@ import sealion.entity.Account;
 import sealion.model.AccountsModel;
 import sealion.model.EditAccountModel;
 import sealion.service.AccountService;
-import sealion.service.PasswordService;
+import sealion.service.SecurityService;
 
 @RequestScoped
 @Path("accounts")
@@ -38,7 +38,7 @@ public class AccountResource {
     @Inject
     private AccountService accountService;
     @Inject
-    private PasswordService passwordService;
+    private SecurityService securityService;
 
     @GET
     public UIResponse list() {
@@ -91,7 +91,7 @@ public class AccountResource {
         if (newPassword.equals(confirmNewPassword) == false) {
             throw new BadRequestException();
         }
-        if (passwordService.update(id, oldPassword, newPassword) == false) {
+        if (securityService.update(id, oldPassword, newPassword) == false) {
             throw new BadRequestException();
         }
         URI location = uriInfo.getBaseUriBuilder().path(AccountResource.class).build();

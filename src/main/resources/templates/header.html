@@ -14,9 +14,10 @@
                 <h1 class="aui-header-logo aui-header-logo-textonly"><a href="projects.html" data-th-href="@{'/'}"><span class="aui-header-logo-device">Sealion</span></a></h1>
                 <ul class="aui-nav">
                     <li><a href="new-project.html" data-th-href="@{'/projects/new'}">New Project</a></li>
-                    <li><a href="edit-account.html" data-th-href="@{'/accounts/' + ${user.account.id} + '/edit'}">Account Settings</a></li>
+                    <li><a href="edit-account.html" data-th-href="@{'/accounts/' + ${user.account.id} + '/edit'}" data-th-if="${user.signedIn}">Account Settings</a></li>
                     <li><a href="accounts.html" data-th-href="@{'/accounts'}">System Settings</a></li>
-                    <li><a href="#">Sign out</a></li>
+                    <li><a href="signin.html" data-th-href="@{'/signin'}" data-th-if="${user.signedIn == false}">Sign in</a></li>
+                    <li><a href="#" data-th-if="${user.signedIn}">Sign out</a></li>
                 </ul>
             </nav>
         </header>
