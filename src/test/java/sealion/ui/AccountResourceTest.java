@@ -30,6 +30,7 @@ import sealion.entity.Account;
 import sealion.model.AccountsModel;
 import sealion.model.EditAccountModel;
 import sealion.service.AccountService;
+import sealion.service.SecurityService;
 import sealion.test.Always200OK;
 
 @RunWith(Enclosed.class)
@@ -270,6 +271,7 @@ public class AccountResourceTest {
                 public void update(Key<Account> id, EmailAddress email, List<AccountRole> roles) {
                 }
             }).to(AccountService.class);
+            bind(new SecurityService()).to(SecurityService.class);
         }
     }
 }
