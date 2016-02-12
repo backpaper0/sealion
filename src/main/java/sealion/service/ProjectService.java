@@ -1,15 +1,12 @@
 package sealion.service;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 
 import sealion.dao.ProjectDao;
 import sealion.domain.ProjectName;
 import sealion.entity.Project;
 
-@ApplicationScoped
-@Transactional
+@Service
 public class ProjectService {
 
     @Inject

@@ -2,9 +2,7 @@ package sealion.service;
 
 import java.util.Optional;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 
 import sealion.dao.AccountDao;
 import sealion.dao.PasswordDao;
@@ -15,8 +13,7 @@ import sealion.entity.Account;
 import sealion.entity.Password;
 import sealion.session.SessionKey;
 
-@ApplicationScoped
-@Transactional
+@Service
 public class SecurityService {
 
     @Inject

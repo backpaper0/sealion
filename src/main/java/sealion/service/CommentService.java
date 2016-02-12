@@ -3,9 +3,7 @@ package sealion.service;
 import java.time.Clock;
 import java.time.LocalDateTime;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 
 import sealion.dao.CommentDao;
 import sealion.domain.Key;
@@ -15,8 +13,7 @@ import sealion.entity.Comment;
 import sealion.entity.Task;
 import sealion.session.User;
 
-@ApplicationScoped
-@Transactional
+@Service
 public class CommentService {
 
     @Inject

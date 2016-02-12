@@ -3,9 +3,7 @@ package sealion.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 
 import sealion.dao.AccountDao;
 import sealion.dao.GrantDao;
@@ -16,8 +14,7 @@ import sealion.domain.Username;
 import sealion.entity.Account;
 import sealion.entity.Grant;
 
-@ApplicationScoped
-@Transactional
+@Service
 public class AccountService {
 
     @Inject

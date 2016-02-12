@@ -3,9 +3,7 @@ package sealion.service;
 import java.time.Clock;
 import java.time.LocalDateTime;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 
 import sealion.dao.TaskDao;
 import sealion.domain.Key;
@@ -21,8 +19,7 @@ import sealion.entity.Project;
 import sealion.entity.Task;
 import sealion.session.User;
 
-@ApplicationScoped
-@Transactional
+@Service
 public class TaskService {
 
     @Inject

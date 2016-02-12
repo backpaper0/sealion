@@ -1,8 +1,6 @@
 package sealion.service;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 
 import sealion.dao.MilestoneDao;
 import sealion.domain.FixedDate;
@@ -11,8 +9,7 @@ import sealion.domain.MilestoneName;
 import sealion.entity.Milestone;
 import sealion.entity.Project;
 
-@ApplicationScoped
-@Transactional
+@Service
 public class MilestoneService {
 
     @Inject
