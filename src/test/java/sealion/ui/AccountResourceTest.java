@@ -43,6 +43,7 @@ public class AccountResourceTest {
             Form form = new Form();
             form.param("username", "x");
             form.param("email", "x");
+            form.param("password", "x");
             Entity<Form> entity = Entity.form(form);
             Response response = target("/accounts/new").request().post(entity);
             assertThat(response.getStatus()).isEqualTo(Status.SEE_OTHER.getStatusCode());
@@ -92,6 +93,7 @@ public class AccountResourceTest {
             Form form = new Form();
             form.param("username", "x");
             form.param("email", "hoge@example.com");
+            form.param("password", "x");
             Entity<Form> entity = Entity.form(form);
             Response response = target("/accounts/new").request().post(entity);
             assertThat(response.getStatus()).isEqualTo(Status.OK.getStatusCode());
@@ -102,6 +104,7 @@ public class AccountResourceTest {
             Form form = new Form();
             //form.param("username", "x");
             form.param("email", "hoge@example.com");
+            form.param("password", "x");
             Entity<Form> entity = Entity.form(form);
             Response response = target("/accounts/new").request().post(entity);
             assertThat(response.getStatus()).isEqualTo(Status.BAD_REQUEST.getStatusCode());
@@ -112,6 +115,7 @@ public class AccountResourceTest {
             Form form = new Form();
             form.param("username", "");
             form.param("email", "hoge@example.com");
+            form.param("password", "x");
             Entity<Form> entity = Entity.form(form);
             Response response = target("/accounts/new").request().post(entity);
             assertThat(response.getStatus()).isEqualTo(Status.BAD_REQUEST.getStatusCode());
@@ -123,6 +127,7 @@ public class AccountResourceTest {
             form.param("username",
                     IntStream.range(0, 20).mapToObj(a -> "x").collect(Collectors.joining()));
             form.param("email", "hoge@example.com");
+            form.param("password", "x");
             Entity<Form> entity = Entity.form(form);
             Response response = target("/accounts/new").request().post(entity);
             assertThat(response.getStatus()).isEqualTo(Status.OK.getStatusCode());
@@ -134,6 +139,7 @@ public class AccountResourceTest {
             form.param("username",
                     IntStream.range(0, 21).mapToObj(a -> "x").collect(Collectors.joining()));
             form.param("email", "hoge@example.com");
+            form.param("password", "x");
             Entity<Form> entity = Entity.form(form);
             Response response = target("/accounts/new").request().post(entity);
             assertThat(response.getStatus()).isEqualTo(Status.BAD_REQUEST.getStatusCode());
@@ -144,6 +150,7 @@ public class AccountResourceTest {
             Form form = new Form();
             form.param("username", "x");
             //form.param("email", "hoge@example.com");
+            form.param("password", "x");
             Entity<Form> entity = Entity.form(form);
             Response response = target("/accounts/new").request().post(entity);
             assertThat(response.getStatus()).isEqualTo(Status.BAD_REQUEST.getStatusCode());
@@ -153,7 +160,8 @@ public class AccountResourceTest {
         public void validate_email_empty() throws Exception {
             Form form = new Form();
             form.param("username", "x");
-            //form.param("email", "hoge@example.com");
+            form.param("email", "");
+            form.param("password", "x");
             Entity<Form> entity = Entity.form(form);
             Response response = target("/accounts/new").request().post(entity);
             assertThat(response.getStatus()).isEqualTo(Status.BAD_REQUEST.getStatusCode());
@@ -167,6 +175,7 @@ public class AccountResourceTest {
             form.param("email",
                     IntStream.range(12, 100).mapToObj(a -> "x").collect(Collectors.joining())
                             + "@example.com");
+            form.param("password", "x");
             Entity<Form> entity = Entity.form(form);
             Response response = target("/accounts/new").request().post(entity);
             assertThat(response.getStatus()).isEqualTo(Status.OK.getStatusCode());
@@ -180,6 +189,29 @@ public class AccountResourceTest {
             form.param("email",
                     IntStream.range(12, 101).mapToObj(a -> "x").collect(Collectors.joining())
                             + "@example.com");
+            form.param("password", "x");
+            Entity<Form> entity = Entity.form(form);
+            Response response = target("/accounts/new").request().post(entity);
+            assertThat(response.getStatus()).isEqualTo(Status.BAD_REQUEST.getStatusCode());
+        }
+
+        @Test
+        public void validate_password_null() throws Exception {
+            Form form = new Form();
+            form.param("username", "x");
+            form.param("email", "hoge@example.com");
+            //form.param("password", "x");
+            Entity<Form> entity = Entity.form(form);
+            Response response = target("/accounts/new").request().post(entity);
+            assertThat(response.getStatus()).isEqualTo(Status.BAD_REQUEST.getStatusCode());
+        }
+
+        @Test
+        public void validate_password_empty() throws Exception {
+            Form form = new Form();
+            form.param("username", "x");
+            form.param("email", "hoge@example.com");
+            form.param("password", "");
             Entity<Form> entity = Entity.form(form);
             Response response = target("/accounts/new").request().post(entity);
             assertThat(response.getStatus()).isEqualTo(Status.BAD_REQUEST.getStatusCode());
@@ -359,7 +391,7 @@ public class AccountResourceTest {
             bind(new EditAccountModel.Builder()).to(EditAccountModel.Builder.class);
             bind(new AccountService() {
                 @Override
-                public Account create(Username username, EmailAddress email) {
+                public Account create(Username username, EmailAddress email, String password) {
                     Account account = new Account();
                     account.id = new Key<>(1L);
                     return account;

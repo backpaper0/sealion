@@ -21,12 +21,17 @@ public class AccountService {
     private AccountDao accountDao;
     @Inject
     private GrantDao grantDao;
+    @Inject
+    private SecurityService securityService;
 
-    public Account create(Username username, EmailAddress email) {
+    public Account create(Username username, EmailAddress email, String password) {
         Account entity = new Account();
         entity.username = username;
         entity.email = email;
         accountDao.insert(entity);
+
+        securityService.create(entity.id, password);
+
         return entity;
     }
 

@@ -57,8 +57,10 @@ public class AccountResource {
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response create(@NotNull @FormParam("username") Username username,
-            @NotNull @FormParam("email") EmailAddress email, @Context UriInfo uriInfo) {
-        Account account = accountService.create(username, email);
+            @NotNull @FormParam("email") EmailAddress email,
+            @NotNull @Size(min = 1) @FormParam("password") String password,
+            @Context UriInfo uriInfo) {
+        Account account = accountService.create(username, email, password);
         URI location = uriInfo.getBaseUriBuilder().path(AccountResource.class).build(account.id);
         return Response.seeOther(location).build();
     }

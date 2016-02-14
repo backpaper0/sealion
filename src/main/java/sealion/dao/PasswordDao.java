@@ -3,6 +3,7 @@ package sealion.dao;
 import java.util.Optional;
 
 import org.seasar.doma.Dao;
+import org.seasar.doma.Insert;
 import org.seasar.doma.Select;
 import org.seasar.doma.Update;
 
@@ -19,4 +20,7 @@ public interface PasswordDao {
 
     @Update
     int update(Password entity);
+
+    @Insert
+    int insert(Password entity);
 }
