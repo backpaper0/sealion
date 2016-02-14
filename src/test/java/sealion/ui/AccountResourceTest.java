@@ -61,7 +61,17 @@ public class AccountResourceTest {
             assertThat(response.getLocation()).isEqualTo(getBaseUri().resolve("/accounts"));
         }
 
-        //TODO パスワード変更後のルーティングのテスト
+        @Test
+        public void redirect_after_updatePassword() throws Exception {
+            Form form = new Form();
+            form.param("oldPassword", "old");
+            form.param("newPassword", "new");
+            form.param("confirmNewPassword", "new");
+            Entity<Form> entity = Entity.form(form);
+            Response response = target("/accounts/1/passwords/update").request().post(entity);
+            assertThat(response.getStatus()).isEqualTo(Status.SEE_OTHER.getStatusCode());
+            assertThat(response.getLocation()).isEqualTo(getBaseUri().resolve("/accounts"));
+        }
 
         @Override
         protected void configureClient(ClientConfig config) {
@@ -206,7 +216,7 @@ public class AccountResourceTest {
         @Test
         public void validate_email_empty() throws Exception {
             Form form = new Form();
-            //form.param("email", "hoge@example.com");
+            form.param("email", "");
             Arrays.stream(AccountRole.values()).forEach(a -> form.param("roles", a.toString()));
             Entity<Form> entity = Entity.form(form);
             Response response = target("/accounts/1/edit").request().post(entity);
@@ -256,7 +266,91 @@ public class AccountResourceTest {
         }
     }
 
-    //TODO パスワード変更のバリデーションのテスト
+    public static class ValidationUpdatePasswordTest extends JerseyTest {
+
+        @Test
+        public void validate() throws Exception {
+            Form form = new Form();
+            form.param("oldPassword", "old");
+            form.param("newPassword", "new");
+            form.param("confirmNewPassword", "new");
+            Entity<Form> entity = Entity.form(form);
+            Response response = target("/accounts/1/passwords/update").request().post(entity);
+            assertThat(response.getStatus()).isEqualTo(Status.OK.getStatusCode());
+        }
+
+        @Test
+        public void validate_oldPassword_null() throws Exception {
+            Form form = new Form();
+            //form.param("oldPassword", "old");
+            form.param("newPassword", "new");
+            form.param("confirmNewPassword", "new");
+            Entity<Form> entity = Entity.form(form);
+            Response response = target("/accounts/1/passwords/update").request().post(entity);
+            assertThat(response.getStatus()).isEqualTo(Status.BAD_REQUEST.getStatusCode());
+        }
+
+        @Test
+        public void validate_oldPassword_empty() throws Exception {
+            Form form = new Form();
+            form.param("oldPassword", "");
+            form.param("newPassword", "new");
+            form.param("confirmNewPassword", "new");
+            Entity<Form> entity = Entity.form(form);
+            Response response = target("/accounts/1/passwords/update").request().post(entity);
+            assertThat(response.getStatus()).isEqualTo(Status.BAD_REQUEST.getStatusCode());
+        }
+
+        @Test
+        public void validate_newPassword_null() throws Exception {
+            Form form = new Form();
+            form.param("oldPassword", "old");
+            //form.param("newPassword", "new");
+            form.param("confirmNewPassword", "new");
+            Entity<Form> entity = Entity.form(form);
+            Response response = target("/accounts/1/passwords/update").request().post(entity);
+            assertThat(response.getStatus()).isEqualTo(Status.BAD_REQUEST.getStatusCode());
+        }
+
+        @Test
+        public void validate_newPassword_empty() throws Exception {
+            Form form = new Form();
+            form.param("oldPassword", "old");
+            form.param("newPassword", "");
+            form.param("confirmNewPassword", "new");
+            Entity<Form> entity = Entity.form(form);
+            Response response = target("/accounts/1/passwords/update").request().post(entity);
+            assertThat(response.getStatus()).isEqualTo(Status.BAD_REQUEST.getStatusCode());
+        }
+
+        @Test
+        public void validate_confirmNewPassword_null() throws Exception {
+            Form form = new Form();
+            form.param("oldPassword", "old");
+            form.param("newPassword", "new");
+            //form.param("confirmNewPassword", "new");
+            Entity<Form> entity = Entity.form(form);
+            Response response = target("/accounts/1/passwords/update").request().post(entity);
+            assertThat(response.getStatus()).isEqualTo(Status.BAD_REQUEST.getStatusCode());
+        }
+
+        @Test
+        public void validate_confirmNewPassword_empty() throws Exception {
+            Form form = new Form();
+            form.param("oldPassword", "old");
+            form.param("newPassword", "new");
+            form.param("confirmNewPassword", "");
+            Entity<Form> entity = Entity.form(form);
+            Response response = target("/accounts/1/passwords/update").request().post(entity);
+            assertThat(response.getStatus()).isEqualTo(Status.BAD_REQUEST.getStatusCode());
+        }
+
+        @Override
+        protected Application configure() {
+            return new ResourceConfig().register(AccountResource.class).register(new Always200OK())
+                    .register(new Dependencies());
+        }
+    }
 
     private static class Dependencies extends AbstractBinder {
         @Override
@@ -275,7 +369,12 @@ public class AccountResourceTest {
                 public void update(Key<Account> id, EmailAddress email, List<AccountRole> roles) {
                 }
             }).to(AccountService.class);
-            bind(new SecurityService()).to(SecurityService.class);
+            bind(new SecurityService() {
+                @Override
+                public boolean update(Key<Account> id, String oldPassword, String newPassword) {
+                    return true;
+                }
+            }).to(SecurityService.class);
         }
     }
 }

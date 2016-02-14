@@ -6,6 +6,7 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -84,9 +85,9 @@ public class AccountResource {
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response updatePassword(@PathParam("id") Key<Account> id,
-            @NotNull @FormParam("oldPassword") String oldPassword,
-            @NotNull @FormParam("newPassword") String newPassword,
-            @NotNull @FormParam("confirmNewPassword") String confirmNewPassword,
+            @NotNull @Size(min = 1) @FormParam("oldPassword") String oldPassword,
+            @NotNull @Size(min = 1) @FormParam("newPassword") String newPassword,
+            @NotNull @Size(min = 1) @FormParam("confirmNewPassword") String confirmNewPassword,
             @Context UriInfo uriInfo) {
         if (newPassword.equals(confirmNewPassword) == false) {
             throw new BadRequestException();

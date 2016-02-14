@@ -5,6 +5,7 @@ import java.net.URI;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -31,12 +32,11 @@ public class SigninResource {
         return UIResponse.render("signin");
     }
 
-    //TODO バリデーションとルーティングのテストを書く
-
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response signin(@NotNull @FormParam("email") EmailAddress email,
-            @NotNull @FormParam("password") String password, @Context UriInfo uriInfo) {
+            @NotNull @Size(min = 1) @FormParam("password") String password,
+            @Context UriInfo uriInfo) {
         if (securityService.signin(email, password) == false) {
             throw new BadRequestException();
         }
