@@ -19,6 +19,7 @@ ext {
 apply plugin: 'java'
 apply plugin: 'war'
 apply from: 'eclipse.gradle'
+apply plugin: 'jacoco'
 
 tasks.withType(JavaCompile) {
     sourceCompatibility = '1.8'
@@ -51,6 +52,9 @@ javadoc {
     }
     failOnError = false
 }
+
+//checkタスクでJaCoCoを走らせてカバレッジをとる
+check.dependsOn jacocoTestReport
 
 repositories {
     jcenter()
