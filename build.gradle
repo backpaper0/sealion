@@ -10,7 +10,7 @@ ext {
     jqueryVersion = '1.8.3'
     markedVersion = '0.3.5'
     junitVersion = '4.12'
-    jerseyVersion = '2.22.1'
+    jerseyVersion = '2.22.2'
     assertjVersion = '3.3.0'
     highlightjsVersion = '9.1.0'
     payaraVersion = '4.1.1.161'
