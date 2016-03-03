@@ -13,6 +13,9 @@
             <div class="aui-page-panel-inner">
                 <section class="aui-page-panel-content">
                     <h1>Sealion</h1>
+                    <div class="aui-message aui-message-error" data-th-if="${model != null}">
+                        <p data-th-text="${model}">エラーメッセージ</p>
+                    </div>
                     <form class="aui" method="POST" action="projects.html" data-th-action="@{'/signin'}">
                         <div>
                             <input class="text" type="email" placeholder="Email" name="email" id="email" maxlength="100" required="required"/>

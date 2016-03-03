@@ -15,6 +15,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 import sealion.domain.EmailAddress;
@@ -38,7 +39,10 @@ public class SigninResource {
             @NotNull @Size(min = 1) @FormParam("password") String password,
             @Context UriInfo uriInfo) {
         if (securityService.signin(email, password) == false) {
-            throw new BadRequestException();
+            String errorMessage = "ログインできませんでした。ユーザーID、またはパスワードをお間違えではありませんか？";
+            Response response = Response.status(Status.BAD_REQUEST)
+                    .entity(UIResponse.render("signin", errorMessage)).build();
+            throw new BadRequestException(response);
         }
         URI location = uriInfo.getBaseUriBuilder().path(ProjectResource.class).build();
         return Response.seeOther(location).build();
