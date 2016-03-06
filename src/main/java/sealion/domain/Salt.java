@@ -1,6 +1,10 @@
 package sealion.domain;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.seasar.doma.Domain;
 
@@ -19,5 +23,17 @@ public class Salt {
 
     public String getValue() {
         return value;
+    }
+
+    public static Salt generate() {
+        byte[] bs = new byte[64];
+        try {
+            SecureRandom.getInstanceStrong().nextBytes(bs);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+        String value = IntStream.range(0, bs.length)
+                .mapToObj(i -> String.format("%02x", bs[i] & 0xff)).collect(Collectors.joining());
+        return new Salt(value);
     }
 }

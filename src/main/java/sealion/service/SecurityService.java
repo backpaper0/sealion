@@ -26,20 +26,24 @@ public class SecurityService {
     private SessionKey sessionKey;
 
     public void create(Key<Account> account, String password) {
+        Salt salt = Salt.generate();
         Password entity = new Password();
         entity.account = account;
-        entity.hash = new PasswordHash(password);
-        entity.salt = new Salt("none");
-        entity.hashAlgorithm = HashAlgorithm.PLAIN;
+        entity.hash = PasswordHash.hash(password, salt);
+        entity.salt = salt;
+        entity.hashAlgorithm = HashAlgorithm.SHA512;
         passwordDao.insert(entity);
     }
 
     public boolean update(Key<Account> account, String oldPassword, String newPassword) {
         Password entity = passwordDao.selectByAccount(account).get();
-        if (entity.hash.getValue().equals(oldPassword) == false) {
+        if (entity.test(oldPassword) == false) {
             return false;
         }
-        entity.hash = new PasswordHash(newPassword);
+        Salt salt = Salt.generate();
+        entity.hash = PasswordHash.hash(newPassword, salt);
+        entity.salt = salt;
+        entity.hashAlgorithm = HashAlgorithm.SHA512;
         passwordDao.update(entity);
         return true;
     }
@@ -51,7 +55,7 @@ public class SecurityService {
         }
         Account account = accountOption.get();
         Password entity = passwordDao.selectByAccount(account.id).get();
-        if (entity.hash.getValue().equals(password) == false) {
+        if (entity.test(password) == false) {
             return false;
         }
         sessionKey.set(account.id);

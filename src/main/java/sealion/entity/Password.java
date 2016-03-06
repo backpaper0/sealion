@@ -15,4 +15,14 @@ public class Password {
     public PasswordHash hash;
     public Salt salt;
     public HashAlgorithm hashAlgorithm;
+
+    public boolean test(String password) {
+        switch (hashAlgorithm) {
+        case PLAIN:
+            return hash.getValue().equals(password);
+        case SHA512:
+            return hash.getValue().equals(PasswordHash.hash(password, salt).getValue());
+        }
+        throw new RuntimeException();
+    }
 }

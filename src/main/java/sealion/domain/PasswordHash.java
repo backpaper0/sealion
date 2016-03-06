@@ -1,6 +1,11 @@
 package sealion.domain;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.seasar.doma.Domain;
 
@@ -19,5 +24,20 @@ public class PasswordHash {
 
     public String getValue() {
         return value;
+    }
+
+    public static PasswordHash hash(String password, Salt salt) {
+        MessageDigest md;
+        try {
+            md = MessageDigest.getInstance("SHA-512");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException();
+        }
+        byte[] input = (password + salt.getValue()).getBytes(StandardCharsets.UTF_8);
+        byte[] digest = md.digest(input);
+        String value = IntStream.range(0, digest.length)
+                .mapToObj(i -> String.format("%02x", digest[i] & 0xff))
+                .collect(Collectors.joining());
+        return new PasswordHash(value);
     }
 }
