@@ -37,6 +37,7 @@
                         </div>
                         <div class="buttons-container">
                             <div class="buttons">
+                                <input type="hidden" name="csrfToken" data-th-value="${user.csrfToken}"/>
                                 <input class="button submit" type="submit" value="Update user"/>
                                 <a class="cancel" href="accounts.html" data-th-href="@{'/accounts'}">Cancel</a>
                             </div>
@@ -58,6 +59,7 @@
                         </div>
                         <div class="buttons-container">
                             <div class="buttons">
+                                <input type="hidden" name="csrfToken" data-th-value="${user.csrfToken}"/>
                                 <input class="button submit" type="submit" value="Change password"/>
                                 <a class="cancel" href="#">I forgot my password</a>
                             </div>

@@ -17,6 +17,7 @@
                     <form class="aui" action="tasks.html" data-th-action="@{'/projects/new'}" method="POST">
                         <p>
                             <input class="text" type="text" placeholder="Name" name="name" maxlength="50" required="required"/>
+                            <input type="hidden" name="csrfToken" data-th-value="${user.csrfToken}"/>
                             <input class="aui-button aui-button-primary" type="submit" value="Create project"/>
                         </p>
                     </form>

@@ -22,6 +22,7 @@ import org.junit.runner.RunWith;
 
 import sealion.domain.EmailAddress;
 import sealion.service.SecurityService;
+import sealion.session.UserProvider;
 import sealion.test.Always200OK;
 
 @RunWith(Enclosed.class)
@@ -145,6 +146,7 @@ public class SigninResourceTest {
                     return true;
                 }
             }).to(SecurityService.class);
+            bind(new UserProvider()).to(UserProvider.class);
         }
     }
 }

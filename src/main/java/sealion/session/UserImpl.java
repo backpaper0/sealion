@@ -10,11 +10,14 @@ public class UserImpl implements User {
     private boolean signedIn;
     private Account account;
     private List<AccountRole> accountRoles;
+    private String csrfToken;
 
-    public UserImpl(boolean signedIn, Account account, List<AccountRole> accountRoles) {
+    public UserImpl(boolean signedIn, Account account, List<AccountRole> accountRoles,
+            String csrfToken) {
         this.signedIn = signedIn;
         this.account = account;
         this.accountRoles = accountRoles;
+        this.csrfToken = csrfToken;
     }
 
     @Override
@@ -30,5 +33,10 @@ public class UserImpl implements User {
     @Override
     public List<AccountRole> getAccountRoles() {
         return accountRoles;
+    }
+
+    @Override
+    public String getCsrfToken() {
+        return csrfToken;
     }
 }

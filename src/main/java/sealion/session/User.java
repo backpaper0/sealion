@@ -12,4 +12,6 @@ public interface User {
     Account getAccount();
 
     List<AccountRole> getAccountRoles();
+
+    String getCsrfToken();
 }

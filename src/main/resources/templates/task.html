@@ -56,7 +56,10 @@
                             <hr/>
                             <form class="aui" action="task.html" data-th-action="@{'/projects/' + ${model.project.id} + '/tasks/' + ${model.task.id}} + '/comments/new'" method="POST">
                                 <p><textarea class="textarea" placeholder="Leave a comment" name="content" maxlength="500" required="required"></textarea></p>
-                                <p><input class="aui-button aui-button-primary" type="submit" value="Comment"/></p>
+                                <p>
+                                    <input type="hidden" name="csrfToken" data-th-value="${user.csrfToken}"/>
+                                    <input class="aui-button aui-button-primary" type="submit" value="Comment"/>
+                                </p>
                             </form>
                         </div>
                         <div class="aui-item" style="width: 20%">
@@ -122,11 +125,13 @@
         </div>
         <script data-th-inline="javascript">
         /*<![CDATA[*/
+            var csrfToken = /*[[${user.csrfToken}]]*/'x';
+
             $('.sl-change-status').on('click', function() {
                 superagent
                     .post(/*[[@{'/projects/' + ${model.project.id} + '/tasks/' + ${model.task.id} + ':status'}]]*/'task.html')
                     .type('form')
-                    .send({ status: $(this).text() })
+                    .send({ status: $(this).text(), 'csrfToken': csrfToken })
                     .end(function() {
                         location.href = /*[[@{'/projects/' + ${model.project.id} + '/tasks/' + ${model.task.id}}]]*/'task.html'
                     })
@@ -136,7 +141,7 @@
                 superagent
                     .post(/*[[@{'/projects/' + ${model.project.id} + '/tasks/' + ${model.task.id} + ':milestone'}]]*/'task.html')
                     .type('form')
-                    .send({ milestone: $(this).attr('data-sl-milestone') })
+                    .send({ milestone: $(this).attr('data-sl-milestone'), 'csrfToken': csrfToken })
                     .end(function() {
                         location.href = /*[[@{'/projects/' + ${model.project.id} + '/tasks/' + ${model.task.id}}]]*/'task.html'
                     })
@@ -146,7 +151,7 @@
                 superagent
                     .post(/*[[@{'/projects/' + ${model.project.id} + '/tasks/' + ${model.task.id} + ':assignee'}]]*/'task.html')
                     .type('form')
-                    .send({ account: $(this).attr('data-sl-account') })
+                    .send({ account: $(this).attr('data-sl-account'), 'csrfToken': csrfToken })
                     .end(function() {
                         location.href = /*[[@{'/projects/' + ${model.project.id} + '/tasks/' + ${model.task.id}}]]*/'task.html'
                     })

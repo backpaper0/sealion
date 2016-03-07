@@ -29,6 +29,7 @@ import sealion.model.MilestoneModel;
 import sealion.model.MilestonesModel;
 import sealion.model.NewMilestoneModel;
 import sealion.service.MilestoneService;
+import sealion.session.UserProvider;
 import sealion.test.Always200OK;
 
 @RunWith(Enclosed.class)
@@ -156,6 +157,7 @@ public class MilestoneResourceTest {
                     return milestone;
                 }
             }).to(MilestoneService.class);
+            bind(new UserProvider()).to(UserProvider.class);
         }
     }
 }

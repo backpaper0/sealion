@@ -25,6 +25,7 @@ import sealion.domain.MarkedText;
 import sealion.entity.Comment;
 import sealion.entity.Task;
 import sealion.service.CommentService;
+import sealion.session.UserProvider;
 import sealion.test.Always200OK;
 
 @RunWith(Enclosed.class)
@@ -121,6 +122,7 @@ public class CommentResourceTest {
                     return comment;
                 }
             }).to(CommentService.class);
+            bind(new UserProvider()).to(UserProvider.class);
         }
     }
 }

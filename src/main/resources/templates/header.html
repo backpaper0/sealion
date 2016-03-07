@@ -33,6 +33,7 @@
                 <footer class="aui-dialog2-footer">
                     <form class="aui" action="projects.html" data-th-action="@{'/signout'}" method="POST">
                         <div class="aui-dialog2-footer-actions">
+                            <input type="hidden" name="csrfToken" data-th-value="${user.csrfToken}"/>
                             <button id="dialog-submit-button" class="aui-button aui-button-primary">Sign out</button>
                             <a id="sl-signout-dialog-close" class="aui-button aui-button-link" href="#">Cancel</a>
                         </div>

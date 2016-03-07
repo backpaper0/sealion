@@ -28,7 +28,10 @@
                     <form class="aui" action="task.html" data-th-action="@{'/projects/' + ${model.project.id} + '/tasks/new'}" method="POST">
                         <p><input class="text" type="text" placeholder="Title" name="title" maxlength="50" required="required"/></p>
                         <p><textarea class="textarea" placeholder="Leave a comment" name="content" maxlength="500"></textarea></p>
-                        <p><input class="aui-button aui-button-primary" type="submit" value="Submit new task"/></p>
+                        <p>
+                            <input type="hidden" name="csrfToken" data-th-value="${user.csrfToken}"/>
+                            <input class="aui-button aui-button-primary" type="submit" value="Submit new task"/>
+                        </p>
                     </form>
                 </section>
             </div>

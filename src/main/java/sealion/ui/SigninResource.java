@@ -20,6 +20,7 @@ import javax.ws.rs.core.UriInfo;
 
 import sealion.domain.EmailAddress;
 import sealion.service.SecurityService;
+import sealion.session.UserProvider;
 
 @RequestScoped
 @Path("signin")
@@ -27,6 +28,8 @@ public class SigninResource {
 
     @Inject
     private SecurityService securityService;
+    @Inject
+    private UserProvider userProvider;
 
     @GET
     public UIResponse get() {
@@ -37,7 +40,10 @@ public class SigninResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response signin(@NotNull @FormParam("email") EmailAddress email,
             @NotNull @Size(min = 1) @FormParam("password") String password,
-            @Context UriInfo uriInfo) {
+            @FormParam("csrfToken") String csrfToken, @Context UriInfo uriInfo) {
+        if (userProvider.validateCsrfToken(csrfToken) == false) {
+            throw new BadRequestException();
+        }
         if (securityService.signin(email, password) == false) {
             String errorMessage = "ログインできませんでした。ユーザーID、またはパスワードをお間違えではありませんか？";
             Response response = Response.status(Status.BAD_REQUEST)
