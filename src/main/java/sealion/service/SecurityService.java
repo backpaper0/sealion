@@ -13,7 +13,7 @@ import sealion.domain.PasswordHash;
 import sealion.domain.Salt;
 import sealion.entity.Account;
 import sealion.entity.Password;
-import sealion.session.SessionKey;
+import sealion.session.UserProvider;
 
 @Service
 public class SecurityService {
@@ -23,7 +23,7 @@ public class SecurityService {
     @Inject
     private PasswordDao passwordDao;
     @Inject
-    private SessionKey sessionKey;
+    private UserProvider userProvider;
 
     public void create(Key<Account> account, String password) {
         Salt salt = Salt.generate();
@@ -58,11 +58,11 @@ public class SecurityService {
         if (entity.test(password) == false) {
             return false;
         }
-        sessionKey.set(account.id);
+        userProvider.set(account.id);
         return true;
     }
 
     public void signout() {
-        sessionKey.clear();
+        userProvider.clear();
     }
 }
