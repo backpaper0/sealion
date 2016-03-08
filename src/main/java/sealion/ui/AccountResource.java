@@ -24,6 +24,7 @@ import sealion.domain.EmailAddress;
 import sealion.domain.Key;
 import sealion.domain.Username;
 import sealion.entity.Account;
+import sealion.exception.DuplicateEmailException;
 import sealion.model.AccountsModel;
 import sealion.model.EditAccountModel;
 import sealion.service.AccountService;
@@ -59,7 +60,7 @@ public class AccountResource {
     public Response create(@NotNull @FormParam("username") Username username,
             @NotNull @FormParam("email") EmailAddress email,
             @NotNull @Size(min = 1) @FormParam("password") String password,
-            @Context UriInfo uriInfo) {
+            @Context UriInfo uriInfo) throws DuplicateEmailException {
         Account account = accountService.create(username, email, password);
         URI location = uriInfo.getBaseUriBuilder().path(AccountResource.class).build(account.id);
         return Response.seeOther(location).build();
@@ -77,7 +78,8 @@ public class AccountResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response update(@PathParam("id") Key<Account> id,
             @NotNull @FormParam("email") EmailAddress email,
-            @NotNull @FormParam("roles") List<AccountRole> roles, @Context UriInfo uriInfo) {
+            @NotNull @FormParam("roles") List<AccountRole> roles, @Context UriInfo uriInfo)
+                    throws DuplicateEmailException {
         accountService.update(id, email, roles);
         URI location = uriInfo.getBaseUriBuilder().path(AccountResource.class).build();
         return Response.seeOther(location).build();
