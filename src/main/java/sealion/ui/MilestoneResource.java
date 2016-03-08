@@ -5,7 +5,6 @@ import java.net.URI;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
-import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -26,7 +25,6 @@ import sealion.model.MilestoneModel;
 import sealion.model.MilestonesModel;
 import sealion.model.NewMilestoneModel;
 import sealion.service.MilestoneService;
-import sealion.session.UserProvider;
 
 @RequestScoped
 @Path("projects/{project:\\d+}/milestones")
@@ -42,8 +40,6 @@ public class MilestoneResource {
     private MilestoneModel.Builder milestoneModelBuilder;
     @Inject
     private MilestoneService milestoneService;
-    @Inject
-    private UserProvider userProvider;
 
     @GET
     public UIResponse list() {
@@ -62,11 +58,7 @@ public class MilestoneResource {
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response create(@NotNull @FormParam("name") MilestoneName name,
-            @FormParam("fixedDate") FixedDate fixedDate, @FormParam("csrfToken") String csrfToken,
-            @Context UriInfo uriInfo) {
-        if (userProvider.validateCsrfToken(csrfToken) == false) {
-            throw new BadRequestException();
-        }
+            @FormParam("fixedDate") FixedDate fixedDate, @Context UriInfo uriInfo) {
         Milestone milestone = milestoneService.create(project, name, fixedDate);
         URI location = uriInfo.getBaseUriBuilder().path(MilestoneResource.class)
                 .path(MilestoneResource.class, "get").build(project, milestone.id);

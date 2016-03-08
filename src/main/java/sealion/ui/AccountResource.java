@@ -28,7 +28,6 @@ import sealion.model.AccountsModel;
 import sealion.model.EditAccountModel;
 import sealion.service.AccountService;
 import sealion.service.SecurityService;
-import sealion.session.UserProvider;
 
 @RequestScoped
 @Path("accounts")
@@ -41,8 +40,6 @@ public class AccountResource {
     private AccountService accountService;
     @Inject
     private SecurityService securityService;
-    @Inject
-    private UserProvider userProvider;
 
     @GET
     public UIResponse list() {
@@ -62,10 +59,7 @@ public class AccountResource {
     public Response create(@NotNull @FormParam("username") Username username,
             @NotNull @FormParam("email") EmailAddress email,
             @NotNull @Size(min = 1) @FormParam("password") String password,
-            @FormParam("csrfToken") String csrfToken, @Context UriInfo uriInfo) {
-        if (userProvider.validateCsrfToken(csrfToken) == false) {
-            throw new BadRequestException();
-        }
+            @Context UriInfo uriInfo) {
         Account account = accountService.create(username, email, password);
         URI location = uriInfo.getBaseUriBuilder().path(AccountResource.class).build(account.id);
         return Response.seeOther(location).build();
@@ -83,11 +77,7 @@ public class AccountResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response update(@PathParam("id") Key<Account> id,
             @NotNull @FormParam("email") EmailAddress email,
-            @NotNull @FormParam("roles") List<AccountRole> roles,
-            @FormParam("csrfToken") String csrfToken, @Context UriInfo uriInfo) {
-        if (userProvider.validateCsrfToken(csrfToken) == false) {
-            throw new BadRequestException();
-        }
+            @NotNull @FormParam("roles") List<AccountRole> roles, @Context UriInfo uriInfo) {
         accountService.update(id, email, roles);
         URI location = uriInfo.getBaseUriBuilder().path(AccountResource.class).build();
         return Response.seeOther(location).build();
@@ -100,10 +90,7 @@ public class AccountResource {
             @NotNull @Size(min = 1) @FormParam("oldPassword") String oldPassword,
             @NotNull @Size(min = 1) @FormParam("newPassword") String newPassword,
             @NotNull @Size(min = 1) @FormParam("confirmNewPassword") String confirmNewPassword,
-            @FormParam("csrfToken") String csrfToken, @Context UriInfo uriInfo) {
-        if (userProvider.validateCsrfToken(csrfToken) == false) {
-            throw new BadRequestException();
-        }
+            @Context UriInfo uriInfo) {
         if (newPassword.equals(confirmNewPassword) == false) {
             throw new BadRequestException();
         }

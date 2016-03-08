@@ -31,7 +31,6 @@ import sealion.model.AccountsModel;
 import sealion.model.EditAccountModel;
 import sealion.service.AccountService;
 import sealion.service.SecurityService;
-import sealion.session.UserProvider;
 import sealion.test.Always200OK;
 
 @RunWith(Enclosed.class)
@@ -408,7 +407,6 @@ public class AccountResourceTest {
                     return true;
                 }
             }).to(SecurityService.class);
-            bind(new UserProvider()).to(UserProvider.class);
         }
     }
 }

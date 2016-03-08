@@ -5,7 +5,6 @@ import java.net.URI;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
-import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -22,7 +21,6 @@ import sealion.domain.ProjectName;
 import sealion.entity.Project;
 import sealion.model.ProjectsModel;
 import sealion.service.ProjectService;
-import sealion.session.UserProvider;
 
 @RequestScoped
 @Path("projects")
@@ -32,8 +30,6 @@ public class ProjectResource {
     private ProjectsModel.Builder projectsModelBuilder;
     @Inject
     private ProjectService projectService;
-    @Inject
-    private UserProvider userProvider;
 
     @GET
     public UIResponse list() {
@@ -50,11 +46,7 @@ public class ProjectResource {
     @Path("new")
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Response create(@NotNull @FormParam("name") ProjectName name,
-            @FormParam("csrfToken") String csrfToken, @Context UriInfo uriInfo) {
-        if (userProvider.validateCsrfToken(csrfToken) == false) {
-            throw new BadRequestException();
-        }
+    public Response create(@NotNull @FormParam("name") ProjectName name, @Context UriInfo uriInfo) {
         Project project = projectService.create(name);
         URI location = uriInfo.getBaseUriBuilder().path(ProjectResource.class)
                 .path(ProjectResource.class, "get").build(project.id);

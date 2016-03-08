@@ -29,7 +29,6 @@ import sealion.model.NewTaskModel;
 import sealion.model.TaskModel;
 import sealion.model.TasksModel;
 import sealion.service.TaskService;
-import sealion.session.UserProvider;
 import sealion.test.Always200OK;
 
 @RunWith(Enclosed.class)
@@ -176,7 +175,6 @@ public class TaskResourceTest {
                     return task;
                 }
             }).to(TaskService.class);
-            bind(new UserProvider()).to(UserProvider.class);
         }
     }
 }

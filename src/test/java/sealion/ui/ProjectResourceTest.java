@@ -25,7 +25,6 @@ import sealion.domain.ProjectName;
 import sealion.entity.Project;
 import sealion.model.ProjectsModel;
 import sealion.service.ProjectService;
-import sealion.session.UserProvider;
 import sealion.test.Always200OK;
 
 @RunWith(Enclosed.class)
@@ -123,7 +122,6 @@ public class ProjectResourceTest {
                     return project;
                 }
             }).to(ProjectService.class);
-            bind(new UserProvider()).to(UserProvider.class);
         }
     }
 }
