@@ -29,8 +29,11 @@
                         </thead>
                         <tbody>
                             <tr data-th-each="account : ${model.accounts}">
-                                <td><a href="edit-account.html" data-th-href="@{'/accounts/' + ${account.id} + '/edit'}"
-                                        data-th-text="${account.username}">sampleuser</a></td>
+                                <td><a href="edit-account.html" data-th-href="@{'/accounts/' + ${account.id} + '/edit'}">
+                                    <img src="https://www.gravatar.com/avatar/e107c65b007e7abb6b2e53054428fb5a?s=20"
+                                         data-th-src="${ui.avatar(account, 20)}"/>
+                                    <span data-th-text="${account.username}">sampleuser</span>
+                                </a></td>
                             </tr>
                         </tbody>
                     </table>
