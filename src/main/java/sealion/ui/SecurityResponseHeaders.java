@@ -29,6 +29,6 @@ public class SecurityResponseHeaders implements ContainerResponseFilter {
         //リソースの取得元を生成元のみに制限する
         //画像は生成元に加えてgravatarも許可する
         headers.add("Content-Security-Policy",
-                "default-src 'self'; img-src 'self' www.gravatar.com");
+                "default-src 'self'; img-src 'self' www.gravatar.com; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'");
     }
 }
