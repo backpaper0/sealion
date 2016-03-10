@@ -40,17 +40,7 @@
                     </form>
                 </footer>
             </section>
-            <script data-th-inline="javascript">
-            /*<![CDATA[*/
-            AJS.$('#sl-signout-dialog-open').on('click', function() {
-                AJS.dialog2("#sl-signout-dialog").show();
-            });
-            AJS.$("#sl-signout-dialog-close").click(function(e) {
-                e.preventDefault();
-                AJS.dialog2("#sl-signout-dialog").hide();
-            });
-            /*]]>*/
-            </script>
+            <script src="#" data-th-src="@{'/static/header.js'}"></script>
         </div>
     </body>
 </html>

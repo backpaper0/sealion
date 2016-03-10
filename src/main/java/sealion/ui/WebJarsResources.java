@@ -39,6 +39,13 @@ public class WebJarsResources implements ContainerRequestFilter {
                 Response response = Response.ok(in, mediaType).build();
                 requestContext.abortWith(response);
             }
+        } else if (path.startsWith("static/")) {
+            InputStream in = getClass().getResourceAsStream("/" + path);
+            if (in != null) {
+                MediaType mediaType = extension.get(path.substring(path.lastIndexOf('.')));
+                Response response = Response.ok(in, mediaType).build();
+                requestContext.abortWith(response);
+            }
         }
     }
 }
