@@ -2,6 +2,7 @@ package sealion.service;
 
 import java.util.Optional;
 
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
 import sealion.dao.AccountDao;
@@ -13,6 +14,7 @@ import sealion.domain.PasswordHash;
 import sealion.domain.Salt;
 import sealion.entity.Account;
 import sealion.entity.Password;
+import sealion.event.SignedInEvent;
 import sealion.session.UserProvider;
 
 @Service
@@ -24,6 +26,8 @@ public class SecurityService {
     private PasswordDao passwordDao;
     @Inject
     private UserProvider userProvider;
+    @Inject
+    private Event<SignedInEvent> signedInEvent;
 
     public void create(Key<Account> account, String password) {
         Salt salt = Salt.generate();
@@ -59,6 +63,7 @@ public class SecurityService {
             return false;
         }
         userProvider.set(account.id);
+        signedInEvent.fire(new SignedInEvent());
         return true;
     }
 
