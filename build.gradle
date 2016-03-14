@@ -62,7 +62,7 @@ repositories {
 }
 
 dependencies {
-    providedCompile "javax:javaee-api:${javaeeVersion}"
+    compileOnly "javax:javaee-api:${javaeeVersion}"
     compile "org.seasar.doma:doma:${domaVersion}"
     compile "com.h2database:h2:${h2Version}"
     compile "org.flywaydb:flyway-core:${flywayVersion}"
