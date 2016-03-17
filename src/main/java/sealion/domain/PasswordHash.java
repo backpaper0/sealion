@@ -31,7 +31,7 @@ public class PasswordHash {
         try {
             md = MessageDigest.getInstance("SHA-512");
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         byte[] input = (password + salt.getValue()).getBytes(StandardCharsets.UTF_8);
         byte[] digest = md.digest(input);

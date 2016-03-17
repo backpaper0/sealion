@@ -23,10 +23,10 @@ public class WebJarsResources implements ContainerRequestFilter {
 
     @PostConstruct
     public void init() {
-        Map<String, MediaType> extension = new HashMap<>();
-        extension.put(".js", MediaType.valueOf("application/javascript"));
-        extension.put(".css", MediaType.valueOf("text/css"));
-        this.extension = extension;
+        Map<String, MediaType> map = new HashMap<>();
+        map.put(".js", MediaType.valueOf("application/javascript"));
+        map.put(".css", MediaType.valueOf("text/css"));
+        extension = map;
     }
 
     @Override

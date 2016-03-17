@@ -50,8 +50,9 @@ public class UIHelper {
             return "aui-lozenge aui-lozenge-error";
         case CLOSED:
             return "aui-lozenge aui-lozenge-default";
+        default:
+            return "";
         }
-        return "";
     }
 
     public String marked(MarkedText text) throws ScriptException, IOException {

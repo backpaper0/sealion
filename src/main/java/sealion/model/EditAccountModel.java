@@ -26,7 +26,7 @@ public class EditAccountModel {
         }
 
         public boolean containsRole(AccountRole role) {
-            return values.stream().anyMatch(grant -> grant.role == role);
+            return values.stream().anyMatch(g -> g.role == role);
         }
     }
 

@@ -22,7 +22,8 @@ public class Password {
             return hash.getValue().equals(password);
         case SHA512:
             return hash.getValue().equals(PasswordHash.hash(password, salt).getValue());
+        default:
+            throw new RuntimeException();
         }
-        throw new RuntimeException();
     }
 }
