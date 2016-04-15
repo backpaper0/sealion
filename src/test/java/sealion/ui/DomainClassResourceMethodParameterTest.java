@@ -2,7 +2,10 @@ package sealion.ui;
 
 import static org.assertj.core.api.Assertions.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -12,6 +15,10 @@ import javax.ws.rs.core.Application;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameter;
+import org.junit.runners.Parameterized.Parameters;
 
 import sealion.domain.EmailAddress;
 import sealion.domain.MarkedText;
@@ -20,113 +27,39 @@ import sealion.domain.ProjectName;
 import sealion.domain.TaskTitle;
 import sealion.domain.Username;
 
+@RunWith(Parameterized.class)
 public class DomainClassResourceMethodParameterTest extends JerseyTest {
 
-    @Test
-    public void string_to_TaskTitle() throws Exception {
-        String response = target("TaskTitle").queryParam("q", "x").request().get(String.class);
-        assertThat(response).isEqualTo("TaskTitle:x");
+    @Parameter(0)
+    public String domainClass;
+
+    @Parameters(name = "{0}")
+    public static List<String> parameters() {
+        Stream.Builder<Class<?>> ps = Stream.builder();
+        ps.add(TaskTitle.class);
+        ps.add(Username.class);
+        ps.add(MilestoneName.class);
+        ps.add(ProjectName.class);
+        ps.add(MarkedText.class);
+        ps.add(EmailAddress.class);
+        return ps.build().map(c -> c.getSimpleName()).collect(Collectors.toList());
     }
 
     @Test
-    public void empty_string_to_TaskTitle() throws Exception {
-        String response = target("TaskTitle").queryParam("q", "").request().get(String.class);
+    public void string_to_domain_class() throws Exception {
+        String response = target(domainClass).queryParam("q", "x").request().get(String.class);
+        assertThat(response).isEqualTo(domainClass + ":x");
+    }
+
+    @Test
+    public void empty_string() throws Exception {
+        String response = target(domainClass).queryParam("q", "").request().get(String.class);
         assertThat(response).isEqualTo("empty");
     }
 
     @Test
-    public void null_to_TaskTitle() throws Exception {
-        String response = target("TaskTitle").request().get(String.class);
-        assertThat(response).isEqualTo("empty");
-    }
-
-    @Test
-    public void string_to_Username() throws Exception {
-        String response = target("Username").queryParam("q", "x").request().get(String.class);
-        assertThat(response).isEqualTo("Username:x");
-    }
-
-    @Test
-    public void empty_string_to_Username() throws Exception {
-        String response = target("Username").queryParam("q", "").request().get(String.class);
-        assertThat(response).isEqualTo("empty");
-    }
-
-    @Test
-    public void null_to_Username() throws Exception {
-        String response = target("Username").request().get(String.class);
-        assertThat(response).isEqualTo("empty");
-    }
-
-    @Test
-    public void string_to_MilestoneName() throws Exception {
-        String response = target("MilestoneName").queryParam("q", "x").request().get(String.class);
-        assertThat(response).isEqualTo("MilestoneName:x");
-    }
-
-    @Test
-    public void empty_string_to_MilestoneName() throws Exception {
-        String response = target("MilestoneName").queryParam("q", "").request().get(String.class);
-        assertThat(response).isEqualTo("empty");
-    }
-
-    @Test
-    public void null_to_MilestoneName() throws Exception {
-        String response = target("MilestoneName").request().get(String.class);
-        assertThat(response).isEqualTo("empty");
-    }
-
-    @Test
-    public void string_to_ProjectName() throws Exception {
-        String response = target("ProjectName").queryParam("q", "x").request().get(String.class);
-        assertThat(response).isEqualTo("ProjectName:x");
-    }
-
-    @Test
-    public void empty_string_to_ProjectName() throws Exception {
-        String response = target("ProjectName").queryParam("q", "").request().get(String.class);
-        assertThat(response).isEqualTo("empty");
-    }
-
-    @Test
-    public void null_to_ProjectName() throws Exception {
-        String response = target("ProjectName").request().get(String.class);
-        assertThat(response).isEqualTo("empty");
-    }
-
-    @Test
-    public void string_to_MarkedText() throws Exception {
-        String response = target("MarkedText").queryParam("q", "x").request().get(String.class);
-        assertThat(response).isEqualTo("MarkedText:x");
-    }
-
-    @Test
-    public void empty_string_to_MarkedText() throws Exception {
-        String response = target("MarkedText").queryParam("q", "").request().get(String.class);
-        assertThat(response).isEqualTo("empty");
-    }
-
-    @Test
-    public void null_to_MarkedText() throws Exception {
-        String response = target("MarkedText").request().get(String.class);
-        assertThat(response).isEqualTo("empty");
-    }
-
-    @Test
-    public void string_to_EmailAddress() throws Exception {
-        String response = target("EmailAddress").queryParam("q", "x").request().get(String.class);
-        assertThat(response).isEqualTo("EmailAddress:x");
-    }
-
-    @Test
-    public void empty_string_to_EmailAddress() throws Exception {
-        String response = target("EmailAddress").queryParam("q", "").request().get(String.class);
-        assertThat(response).isEqualTo("empty");
-    }
-
-    @Test
-    public void null_to_EmailAddress() throws Exception {
-        String response = target("EmailAddress").request().get(String.class);
+    public void null_string() throws Exception {
+        String response = target(domainClass).request().get(String.class);
         assertThat(response).isEqualTo("empty");
     }
 
