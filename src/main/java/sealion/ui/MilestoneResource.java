@@ -1,6 +1,7 @@
 package sealion.ui;
 
 import java.net.URI;
+import java.util.Optional;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -8,7 +9,6 @@ import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
-import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -43,18 +43,16 @@ public class MilestoneResource {
     private MilestoneService milestoneService;
 
     @GET
-    public UIResponse list() {
+    public Optional<UIResponse> list() {
         return milestonesModelBuilder.build(project)
-                .map(model -> UIResponse.render("milestones", model))
-                .orElseThrow(NotFoundException::new);
+                .map(model -> UIResponse.render("milestones", model));
     }
 
     @Path("new")
     @GET
-    public UIResponse blank() {
+    public Optional<UIResponse> blank() {
         return newMilestoneModelBuilder.build(project)
-                .map(model -> UIResponse.render("new-milestone", model))
-                .orElseThrow(NotFoundException::new);
+                .map(model -> UIResponse.render("new-milestone", model));
     }
 
     @Path("new")
@@ -70,9 +68,8 @@ public class MilestoneResource {
 
     @Path("{id:\\d+}")
     @GET
-    public UIResponse get(@PathParam("id") Key<Milestone> id) {
+    public Optional<UIResponse> get(@PathParam("id") Key<Milestone> id) {
         return milestoneModelBuilder.build(project, id)
-                .map(model -> UIResponse.render("milestone", model))
-                .orElseThrow(NotFoundException::new);
+                .map(model -> UIResponse.render("milestone", model));
     }
 }

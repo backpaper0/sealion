@@ -2,6 +2,7 @@ package sealion.ui;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -11,7 +12,6 @@ import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
-import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -69,10 +69,9 @@ public class AccountResource {
 
     @Path("{id:\\d+}/edit")
     @GET
-    public UIResponse edit(@PathParam("id") Key<Account> id) {
+    public Optional<UIResponse> edit(@PathParam("id") Key<Account> id) {
         return editAccountModelBuilder.build(id)
-                .map(model -> UIResponse.render("edit-account", model))
-                .orElseThrow(NotFoundException::new);
+                .map(model -> UIResponse.render("edit-account", model));
     }
 
     @Path("{id:\\d+}/edit")
