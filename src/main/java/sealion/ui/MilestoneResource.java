@@ -44,15 +44,13 @@ public class MilestoneResource {
 
     @GET
     public Optional<UIResponse> list() {
-        return milestonesModelBuilder.build(project)
-                .map(model -> UIResponse.render("milestones", model));
+        return milestonesModelBuilder.build(project).map(UIResponse.factory("milestones"));
     }
 
     @Path("new")
     @GET
     public Optional<UIResponse> blank() {
-        return newMilestoneModelBuilder.build(project)
-                .map(model -> UIResponse.render("new-milestone", model));
+        return newMilestoneModelBuilder.build(project).map(UIResponse.factory("new-milestone"));
     }
 
     @Path("new")
@@ -69,7 +67,6 @@ public class MilestoneResource {
     @Path("{id:\\d+}")
     @GET
     public Optional<UIResponse> get(@PathParam("id") Key<Milestone> id) {
-        return milestoneModelBuilder.build(project, id)
-                .map(model -> UIResponse.render("milestone", model));
+        return milestoneModelBuilder.build(project, id).map(UIResponse.factory("milestone"));
     }
 }

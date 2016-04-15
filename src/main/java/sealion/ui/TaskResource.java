@@ -48,14 +48,13 @@ public class TaskResource {
 
     @GET
     public Optional<UIResponse> list() {
-        return tasksModelBuilder.build(project).map(model -> UIResponse.render("tasks", model));
+        return tasksModelBuilder.build(project).map(UIResponse.factory("tasks"));
     }
 
     @Path("new")
     @GET
     public Optional<UIResponse> blank() {
-        return newTaskModelBuilder.build(project)
-                .map(model -> UIResponse.render("new-task", model));
+        return newTaskModelBuilder.build(project).map(UIResponse.factory("new-task"));
     }
 
     @Path("new")
@@ -72,7 +71,7 @@ public class TaskResource {
     @Path("{id:\\d+}")
     @GET
     public Optional<UIResponse> get(@PathParam("id") Key<Task> id) {
-        return taskModelBuilder.build(project, id).map(model -> UIResponse.render("task", model));
+        return taskModelBuilder.build(project, id).map(UIResponse.factory("task"));
     }
 
     @Path("{id:\\d+}:status")

@@ -70,8 +70,7 @@ public class AccountResource {
     @Path("{id:\\d+}/edit")
     @GET
     public Optional<UIResponse> edit(@PathParam("id") Key<Account> id) {
-        return editAccountModelBuilder.build(id)
-                .map(model -> UIResponse.render("edit-account", model));
+        return editAccountModelBuilder.build(id).map(UIResponse.factory("edit-account"));
     }
 
     @Path("{id:\\d+}/edit")
