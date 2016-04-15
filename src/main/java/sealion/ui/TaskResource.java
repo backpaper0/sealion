@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -47,15 +48,15 @@ public class TaskResource {
 
     @GET
     public UIResponse list() {
-        TasksModel model = tasksModelBuilder.build(project);
-        return UIResponse.render("tasks", model);
+        return tasksModelBuilder.build(project).map(model -> UIResponse.render("tasks", model))
+                .orElseThrow(NotFoundException::new);
     }
 
     @Path("new")
     @GET
     public UIResponse blank() {
-        NewTaskModel model = newTaskModelBuilder.build(project);
-        return UIResponse.render("new-task", model);
+        return newTaskModelBuilder.build(project).map(model -> UIResponse.render("new-task", model))
+                .orElseThrow(NotFoundException::new);
     }
 
     @Path("new")
@@ -72,8 +73,8 @@ public class TaskResource {
     @Path("{id:\\d+}")
     @GET
     public UIResponse get(@PathParam("id") Key<Task> id) {
-        TaskModel model = taskModelBuilder.build(project, id);
-        return UIResponse.render("task", model);
+        return taskModelBuilder.build(project, id).map(model -> UIResponse.render("task", model))
+                .orElseThrow(NotFoundException::new);
     }
 
     @Path("{id:\\d+}:status")

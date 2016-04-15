@@ -11,6 +11,7 @@ import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -69,8 +70,9 @@ public class AccountResource {
     @Path("{id:\\d+}/edit")
     @GET
     public UIResponse edit(@PathParam("id") Key<Account> id) {
-        EditAccountModel model = editAccountModelBuilder.build(id);
-        return UIResponse.render("edit-account", model);
+        return editAccountModelBuilder.build(id)
+                .map(model -> UIResponse.render("edit-account", model))
+                .orElseThrow(NotFoundException::new);
     }
 
     @Path("{id:\\d+}/edit")
@@ -79,7 +81,7 @@ public class AccountResource {
     public Response update(@PathParam("id") Key<Account> id,
             @NotNull @FormParam("email") EmailAddress email,
             @NotNull @FormParam("roles") List<AccountRole> roles, @Context UriInfo uriInfo)
-                    throws DuplicateEmailException {
+            throws DuplicateEmailException {
         accountService.update(id, email, roles);
         URI location = uriInfo.getBaseUriBuilder().path(AccountResource.class).build();
         return Response.seeOther(location).build();

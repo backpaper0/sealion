@@ -2,6 +2,7 @@ package sealion.model;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -37,12 +38,14 @@ public class EditAccountModel {
         @Inject
         private GrantDao grantDao;
 
-        public EditAccountModel build(Key<Account> id) {
-            EditAccountModel model = new EditAccountModel();
-            model.account = accountDao.selectById(id).get();
-            model.grant = new GrantContainer(grantDao.selectByAccount(id));
-            model.roles = Arrays.asList(AccountRole.values());
-            return model;
+        public Optional<EditAccountModel> build(Key<Account> id) {
+            return accountDao.selectById(id).map(a -> {
+                EditAccountModel model = new EditAccountModel();
+                model.account = a;
+                model.grant = new GrantContainer(grantDao.selectByAccount(id));
+                model.roles = Arrays.asList(AccountRole.values());
+                return model;
+            });
         }
     }
 }

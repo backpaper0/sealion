@@ -1,6 +1,7 @@
 package sealion.model;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -22,11 +23,13 @@ public class MilestonesModel {
         @Inject
         private ProjectDao projectDao;
 
-        public MilestonesModel build(Key<Project> project) {
-            MilestonesModel model = new MilestonesModel();
-            model.project = projectDao.selectById(project).get();
-            model.milestones = milestoneDao.selectByProject(project);
-            return model;
+        public Optional<MilestonesModel> build(Key<Project> project) {
+            return projectDao.selectById(project).map(p -> {
+                MilestonesModel model = new MilestonesModel();
+                model.project = p;
+                model.milestones = milestoneDao.selectByProject(project);
+                return model;
+            });
         }
     }
 }

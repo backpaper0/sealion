@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -43,15 +44,17 @@ public class MilestoneResource {
 
     @GET
     public UIResponse list() {
-        MilestonesModel model = milestonesModelBuilder.build(project);
-        return UIResponse.render("milestones", model);
+        return milestonesModelBuilder.build(project)
+                .map(model -> UIResponse.render("milestones", model))
+                .orElseThrow(NotFoundException::new);
     }
 
     @Path("new")
     @GET
     public UIResponse blank() {
-        NewMilestoneModel model = newMilestoneModelBuilder.build(project);
-        return UIResponse.render("new-milestone", model);
+        return newMilestoneModelBuilder.build(project)
+                .map(model -> UIResponse.render("new-milestone", model))
+                .orElseThrow(NotFoundException::new);
     }
 
     @Path("new")
@@ -68,7 +71,8 @@ public class MilestoneResource {
     @Path("{id:\\d+}")
     @GET
     public UIResponse get(@PathParam("id") Key<Milestone> id) {
-        MilestoneModel model = milestoneModelBuilder.build(project, id);
-        return UIResponse.render("milestone", model);
+        return milestoneModelBuilder.build(project, id)
+                .map(model -> UIResponse.render("milestone", model))
+                .orElseThrow(NotFoundException::new);
     }
 }

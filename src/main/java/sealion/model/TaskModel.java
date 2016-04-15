@@ -2,6 +2,7 @@ package sealion.model;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -39,15 +40,19 @@ public class TaskModel {
         @Inject
         private AccountDao accountDao;
 
-        public TaskModel build(Key<Project> project, Key<Task> id) {
-            TaskModel model = new TaskModel();
-            model.project = projectDao.selectById(project).get();
-            model.task = taskDao.selectViewById(id).get();
-            model.comments = commentDao.selectByTask(id);
-            model.status = Arrays.asList(TaskStatus.values());
-            model.milestones = milestoneDao.selectByProject(project);
-            model.accounts = accountDao.selectAll();
-            return model;
+        public Optional<TaskModel> build(Key<Project> project, Key<Task> id) {
+            return projectDao.selectById(project).flatMap(p -> {
+                return taskDao.selectViewById(id).map(t -> {
+                    TaskModel model = new TaskModel();
+                    model.project = p;
+                    model.task = t;
+                    model.comments = commentDao.selectByTask(id);
+                    model.status = Arrays.asList(TaskStatus.values());
+                    model.milestones = milestoneDao.selectByProject(project);
+                    model.accounts = accountDao.selectAll();
+                    return model;
+                });
+            });
         }
     }
 }
