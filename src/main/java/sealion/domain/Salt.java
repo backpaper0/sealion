@@ -28,7 +28,7 @@ public class Salt {
     public static Salt generate() {
         byte[] bs = new byte[64];
         try {
-            SecureRandom.getInstanceStrong().nextBytes(bs);
+            SecureRandom.getInstance("NativePRNGNonBlocking").nextBytes(bs);
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
