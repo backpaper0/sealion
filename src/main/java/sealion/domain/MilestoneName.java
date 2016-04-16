@@ -1,7 +1,6 @@
 package sealion.domain;
 
 import java.util.Objects;
-import java.util.Optional;
 
 import org.seasar.doma.Domain;
 
@@ -25,10 +24,5 @@ public class MilestoneName {
     @Override
     public String toString() {
         return value;
-    }
-
-    public static MilestoneName valueOf(String value) {
-        return Optional.ofNullable(value).filter(a -> a.isEmpty() == false).map(MilestoneName::new)
-                .orElse(null);
     }
 }
