@@ -93,7 +93,7 @@ task h2(type: Exec) {
     commandLine 'java', '-jar', "${h2Jar}"
 }
 
-//Dockerでjava-youというタグを付けてビルドするタスク。
+//Dockerでビルドするタスク。
 task dockerBuild(type:Exec) {
     commandLine 'docker', 'build', '-t', 'backpaper0/sealion', '.'
 }
