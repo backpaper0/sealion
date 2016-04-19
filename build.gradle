@@ -92,3 +92,15 @@ task h2(type: Exec) {
     def h2Jar = configurations.compile.find { it.name == "h2-${h2Version}.jar" }
     commandLine 'java', '-jar', "${h2Jar}"
 }
+
+//Dockerでjava-youというタグを付けてビルドするタスク。
+task dockerBuild(type:Exec) {
+    commandLine 'docker', 'build', '-t', 'backpaper0/sealion', '.'
+}
+
+task copyPayaraJar(type: Copy) {
+    from configurations.archives.find { it.name == "payara-micro-${payaraVersion}.jar" }
+    into file('build')
+}
+
+dockerBuild.dependsOn copyPayaraJar, war
