@@ -4,8 +4,8 @@ machine:
     timezone:
         Asia/Tokyo
     post:
-        - service mysql stop
-        - service postgresql stop
+        - sudo service mysql stop
+        - sudo service postgresql stop
 
 dependencies:
     override:
