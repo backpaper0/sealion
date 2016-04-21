@@ -3,6 +3,9 @@ machine:
         version: oraclejdk8
     timezone:
         Asia/Tokyo
+    post:
+        - service mysql stop
+        - service postgresql stop
 
 dependencies:
     override:
