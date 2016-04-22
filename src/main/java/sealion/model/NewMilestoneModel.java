@@ -22,9 +22,7 @@ public class NewMilestoneModel {
         private ProjectDao projectDao;
 
         public Optional<NewMilestoneModel> build(Key<Project> project) {
-            return projectDao.selectById(project).map(p -> {
-                return new NewMilestoneModel(p);
-            });
+            return projectDao.selectById(project).map(NewMilestoneModel::new);
         }
     }
 }

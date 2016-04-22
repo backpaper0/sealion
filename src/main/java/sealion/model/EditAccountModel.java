@@ -45,11 +45,9 @@ public class EditAccountModel {
         private GrantDao grantDao;
 
         public Optional<EditAccountModel> build(Key<Account> id) {
-            return accountDao.selectById(id).map(a -> {
-                GrantContainer grant = new GrantContainer(grantDao.selectByAccount(id));
-                List<AccountRole> roles = Arrays.asList(AccountRole.values());
-                return new EditAccountModel(a, grant, roles);
-            });
+            GrantContainer grant = new GrantContainer(grantDao.selectByAccount(id));
+            List<AccountRole> roles = Arrays.asList(AccountRole.values());
+            return accountDao.selectById(id).map(a -> new EditAccountModel(a, grant, roles));
         }
     }
 }

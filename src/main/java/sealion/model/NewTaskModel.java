@@ -22,9 +22,7 @@ public class NewTaskModel {
         private ProjectDao projectDao;
 
         public Optional<NewTaskModel> build(Key<Project> project) {
-            return projectDao.selectById(project).map(p -> {
-                return new NewTaskModel(p);
-            });
+            return projectDao.selectById(project).map(NewTaskModel::new);
         }
     }
 }

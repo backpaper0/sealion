@@ -28,11 +28,8 @@ public class MilestoneModel {
         private ProjectDao projectDao;
 
         public Optional<MilestoneModel> build(Key<Project> project, Key<Milestone> id) {
-            return projectDao.selectById(project).flatMap(p -> {
-                return milestoneDao.selectById(id).map(m -> {
-                    return new MilestoneModel(p, m);
-                });
-            });
+            return projectDao.selectById(project)
+                    .flatMap(p -> milestoneDao.selectById(id).map(m -> new MilestoneModel(p, m)));
         }
     }
 }

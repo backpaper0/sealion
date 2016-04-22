@@ -28,10 +28,8 @@ public class TasksModel {
         private ProjectDao projectDao;
 
         public Optional<TasksModel> build(Key<Project> project) {
-            return projectDao.selectById(project).map(p -> {
-                List<TaskView> tasks = taskDao.selectByProject(project);
-                return new TasksModel(p, tasks);
-            });
+            List<TaskView> tasks = taskDao.selectByProject(project);
+            return projectDao.selectById(project).map(p -> new TasksModel(p, tasks));
         }
     }
 }

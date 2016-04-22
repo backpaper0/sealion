@@ -51,15 +51,12 @@ public class TaskModel {
         private AccountDao accountDao;
 
         public Optional<TaskModel> build(Key<Project> project, Key<Task> id) {
-            return projectDao.selectById(project).flatMap(p -> {
-                return taskDao.selectViewById(id).map(t -> {
-                    List<CommentView> comments = commentDao.selectByTask(id);
-                    List<TaskStatus> status = Arrays.asList(TaskStatus.values());
-                    List<Milestone> milestones = milestoneDao.selectByProject(project);
-                    List<Account> accounts = accountDao.selectAll();
-                    return new TaskModel(p, t, comments, status, milestones, accounts);
-                });
-            });
+            List<CommentView> comments = commentDao.selectByTask(id);
+            List<TaskStatus> status = Arrays.asList(TaskStatus.values());
+            List<Milestone> milestones = milestoneDao.selectByProject(project);
+            List<Account> accounts = accountDao.selectAll();
+            return projectDao.selectById(project).flatMap(p -> taskDao.selectViewById(id)
+                    .map(t -> new TaskModel(p, t, comments, status, milestones, accounts)));
         }
     }
 }

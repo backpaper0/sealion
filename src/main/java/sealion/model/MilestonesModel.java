@@ -29,10 +29,8 @@ public class MilestonesModel {
         private ProjectDao projectDao;
 
         public Optional<MilestonesModel> build(Key<Project> project) {
-            return projectDao.selectById(project).map(p -> {
-                List<Milestone> milestones = milestoneDao.selectByProject(project);
-                return new MilestonesModel(p, milestones);
-            });
+            List<Milestone> milestones = milestoneDao.selectByProject(project);
+            return projectDao.selectById(project).map(p -> new MilestonesModel(p, milestones));
         }
     }
 }
