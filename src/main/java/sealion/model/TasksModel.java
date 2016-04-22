@@ -12,8 +12,13 @@ import sealion.domain.Key;
 import sealion.entity.Project;
 
 public class TasksModel {
-    public Project project;
-    public List<TaskView> tasks;
+    public final Project project;
+    public final List<TaskView> tasks;
+
+    private TasksModel(Project project, List<TaskView> tasks) {
+        this.project = project;
+        this.tasks = tasks;
+    }
 
     @RequestScoped
     public static class Builder {
@@ -24,10 +29,8 @@ public class TasksModel {
 
         public Optional<TasksModel> build(Key<Project> project) {
             return projectDao.selectById(project).map(p -> {
-                TasksModel model = new TasksModel();
-                model.project = p;
-                model.tasks = taskDao.selectByProject(project);
-                return model;
+                List<TaskView> tasks = taskDao.selectByProject(project);
+                return new TasksModel(p, tasks);
             });
         }
     }

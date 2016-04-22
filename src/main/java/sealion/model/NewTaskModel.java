@@ -10,7 +10,11 @@ import sealion.domain.Key;
 import sealion.entity.Project;
 
 public class NewTaskModel {
-    public Project project;
+    public final Project project;
+
+    private NewTaskModel(Project project) {
+        this.project = project;
+    }
 
     @RequestScoped
     public static class Builder {
@@ -19,9 +23,7 @@ public class NewTaskModel {
 
         public Optional<NewTaskModel> build(Key<Project> project) {
             return projectDao.selectById(project).map(p -> {
-                NewTaskModel model = new NewTaskModel();
-                model.project = p;
-                return model;
+                return new NewTaskModel(p);
             });
         }
     }

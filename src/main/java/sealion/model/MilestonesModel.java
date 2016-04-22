@@ -13,8 +13,13 @@ import sealion.entity.Milestone;
 import sealion.entity.Project;
 
 public class MilestonesModel {
-    public Project project;
-    public List<Milestone> milestones;
+    public final Project project;
+    public final List<Milestone> milestones;
+
+    private MilestonesModel(Project project, List<Milestone> milestones) {
+        this.project = project;
+        this.milestones = milestones;
+    }
 
     @RequestScoped
     public static class Builder {
@@ -25,10 +30,8 @@ public class MilestonesModel {
 
         public Optional<MilestonesModel> build(Key<Project> project) {
             return projectDao.selectById(project).map(p -> {
-                MilestonesModel model = new MilestonesModel();
-                model.project = p;
-                model.milestones = milestoneDao.selectByProject(project);
-                return model;
+                List<Milestone> milestones = milestoneDao.selectByProject(project);
+                return new MilestonesModel(p, milestones);
             });
         }
     }

@@ -9,7 +9,11 @@ import sealion.dao.AccountDao;
 import sealion.entity.Account;
 
 public class AccountsModel {
-    public List<Account> accounts;
+    public final List<Account> accounts;
+
+    private AccountsModel(List<Account> accounts) {
+        this.accounts = accounts;
+    }
 
     @RequestScoped
     public static class Builder {
@@ -17,9 +21,8 @@ public class AccountsModel {
         private AccountDao accountDao;
 
         public AccountsModel build() {
-            AccountsModel model = new AccountsModel();
-            model.accounts = accountDao.selectAll();
-            return model;
+            List<Account> accounts = accountDao.selectAll();
+            return new AccountsModel(accounts);
         }
     }
 }

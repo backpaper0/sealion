@@ -9,7 +9,11 @@ import sealion.dao.ProjectDao;
 import sealion.entity.Project;
 
 public class ProjectsModel {
-    public List<Project> projects;
+    public final List<Project> projects;
+
+    private ProjectsModel(List<Project> projects) {
+        this.projects = projects;
+    }
 
     @RequestScoped
     public static class Builder {
@@ -18,9 +22,8 @@ public class ProjectsModel {
         private ProjectDao projectDao;
 
         public ProjectsModel build() {
-            ProjectsModel model = new ProjectsModel();
-            model.projects = projectDao.selectAll();
-            return model;
+            List<Project> projects = projectDao.selectAll();
+            return new ProjectsModel(projects);
         }
     }
 }

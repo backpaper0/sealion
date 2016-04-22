@@ -20,12 +20,22 @@ import sealion.entity.Project;
 import sealion.entity.Task;
 
 public class TaskModel {
-    public Project project;
-    public TaskView task;
-    public List<CommentView> comments;
-    public List<TaskStatus> status;
-    public List<Milestone> milestones;
-    public List<Account> accounts;
+    public final Project project;
+    public final TaskView task;
+    public final List<CommentView> comments;
+    public final List<TaskStatus> status;
+    public final List<Milestone> milestones;
+    public final List<Account> accounts;
+
+    private TaskModel(Project project, TaskView task, List<CommentView> comments,
+            List<TaskStatus> status, List<Milestone> milestones, List<Account> accounts) {
+        this.project = project;
+        this.task = task;
+        this.comments = comments;
+        this.status = status;
+        this.milestones = milestones;
+        this.accounts = accounts;
+    }
 
     @RequestScoped
     public static class Builder {
@@ -43,14 +53,11 @@ public class TaskModel {
         public Optional<TaskModel> build(Key<Project> project, Key<Task> id) {
             return projectDao.selectById(project).flatMap(p -> {
                 return taskDao.selectViewById(id).map(t -> {
-                    TaskModel model = new TaskModel();
-                    model.project = p;
-                    model.task = t;
-                    model.comments = commentDao.selectByTask(id);
-                    model.status = Arrays.asList(TaskStatus.values());
-                    model.milestones = milestoneDao.selectByProject(project);
-                    model.accounts = accountDao.selectAll();
-                    return model;
+                    List<CommentView> comments = commentDao.selectByTask(id);
+                    List<TaskStatus> status = Arrays.asList(TaskStatus.values());
+                    List<Milestone> milestones = milestoneDao.selectByProject(project);
+                    List<Account> accounts = accountDao.selectAll();
+                    return new TaskModel(p, t, comments, status, milestones, accounts);
                 });
             });
         }

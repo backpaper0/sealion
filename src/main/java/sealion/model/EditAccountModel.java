@@ -15,9 +15,15 @@ import sealion.entity.Account;
 import sealion.entity.Grant;
 
 public class EditAccountModel {
-    public Account account;
-    public GrantContainer grant;
-    public List<AccountRole> roles;
+    public final Account account;
+    public final GrantContainer grant;
+    public final List<AccountRole> roles;
+
+    private EditAccountModel(Account account, GrantContainer grant, List<AccountRole> roles) {
+        this.account = account;
+        this.grant = grant;
+        this.roles = roles;
+    }
 
     public static class GrantContainer {
         private List<Grant> values;
@@ -40,11 +46,9 @@ public class EditAccountModel {
 
         public Optional<EditAccountModel> build(Key<Account> id) {
             return accountDao.selectById(id).map(a -> {
-                EditAccountModel model = new EditAccountModel();
-                model.account = a;
-                model.grant = new GrantContainer(grantDao.selectByAccount(id));
-                model.roles = Arrays.asList(AccountRole.values());
-                return model;
+                GrantContainer grant = new GrantContainer(grantDao.selectByAccount(id));
+                List<AccountRole> roles = Arrays.asList(AccountRole.values());
+                return new EditAccountModel(a, grant, roles);
             });
         }
     }

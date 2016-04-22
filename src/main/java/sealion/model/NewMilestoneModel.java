@@ -10,7 +10,11 @@ import sealion.domain.Key;
 import sealion.entity.Project;
 
 public class NewMilestoneModel {
-    public Project project;
+    public final Project project;
+
+    private NewMilestoneModel(Project project) {
+        this.project = project;
+    }
 
     @RequestScoped
     public static class Builder {
@@ -19,9 +23,7 @@ public class NewMilestoneModel {
 
         public Optional<NewMilestoneModel> build(Key<Project> project) {
             return projectDao.selectById(project).map(p -> {
-                NewMilestoneModel model = new NewMilestoneModel();
-                model.project = p;
-                return model;
+                return new NewMilestoneModel(p);
             });
         }
     }

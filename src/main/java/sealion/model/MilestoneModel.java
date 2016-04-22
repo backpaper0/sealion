@@ -12,8 +12,13 @@ import sealion.entity.Milestone;
 import sealion.entity.Project;
 
 public class MilestoneModel {
-    public Project project;
-    public Milestone milestone;
+    public final Project project;
+    public final Milestone milestone;
+
+    private MilestoneModel(Project project, Milestone milestone) {
+        this.project = project;
+        this.milestone = milestone;
+    }
 
     @RequestScoped
     public static class Builder {
@@ -25,10 +30,7 @@ public class MilestoneModel {
         public Optional<MilestoneModel> build(Key<Project> project, Key<Milestone> id) {
             return projectDao.selectById(project).flatMap(p -> {
                 return milestoneDao.selectById(id).map(m -> {
-                    MilestoneModel model = new MilestoneModel();
-                    model.project = p;
-                    model.milestone = m;
-                    return model;
+                    return new MilestoneModel(p, m);
                 });
             });
         }
