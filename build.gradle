@@ -14,6 +14,7 @@ ext {
     assertjVersion = '3.3.0'
     highlightjsVersion = '9.1.0'
     payaraVersion = '4.1.1.161.1'
+    mockitoVersion = '1.9.5'
 }
 
 apply plugin: 'java'
@@ -77,6 +78,7 @@ dependencies {
     testCompile "org.assertj:assertj-core:${assertjVersion}"
     testCompile "org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:${jerseyVersion}"
     testCompile "org.glassfish.jersey.ext:jersey-bean-validation:${jerseyVersion}"
+    testCompile "org.mockito:mockito-all:${mockitoVersion}"
     archives "fish.payara.extras:payara-micro:${payaraVersion}"
 }
 
