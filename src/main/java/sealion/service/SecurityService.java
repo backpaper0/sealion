@@ -1,6 +1,6 @@
 package sealion.service;
 
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -52,18 +52,15 @@ public class SecurityService {
     }
 
     public boolean signin(EmailAddress email, String password) {
-        Optional<Account> accountOption = accountDao.selectByEmail(email);
-        if (accountOption.isPresent() == false) {
-            return false;
-        }
-        Account account = accountOption.get();
-        Password entity = passwordDao.selectByAccount(account.id).get();
-        if (entity.test(password) == false) {
-            return false;
-        }
-        userProvider.set(account.id);
-        signedInEvent.fire(new SignedInEvent());
-        return true;
+        return accountDao.selectByEmail(email)
+                .filter(account -> passwordDao.selectByAccount(account.id)
+                        .map(entity -> entity.test(password))
+                        .orElseThrow(NoSuchElementException::new))
+                .map(account -> {
+                    userProvider.set(account.id);
+                    signedInEvent.fire(new SignedInEvent());
+                    return true;
+                }).orElse(false);
     }
 
     public void signout() {
