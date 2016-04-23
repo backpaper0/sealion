@@ -40,16 +40,15 @@ public class SecurityService {
     }
 
     public boolean update(Key<Account> account, String oldPassword, String newPassword) {
-        Password entity = passwordDao.selectByAccount(account).get();
-        if (entity.test(oldPassword) == false) {
-            return false;
-        }
-        Salt salt = Salt.generate();
-        entity.hash = PasswordHash.hash(newPassword, salt);
-        entity.salt = salt;
-        entity.hashAlgorithm = HashAlgorithm.SHA512;
-        passwordDao.update(entity);
-        return true;
+        return passwordDao.selectByAccount(account).filter(entity -> entity.test(oldPassword))
+                .map(entity -> {
+                    Salt salt = Salt.generate();
+                    entity.hash = PasswordHash.hash(newPassword, salt);
+                    entity.salt = salt;
+                    entity.hashAlgorithm = HashAlgorithm.SHA512;
+                    passwordDao.update(entity);
+                    return true;
+                }).orElse(false);
     }
 
     public boolean signin(EmailAddress email, String password) {
