@@ -97,6 +97,39 @@ public class SecurityServiceTest {
         assertThat(signedin).isFalse();
     }
 
+    @Test
+    public void update_success() throws Exception {
+        Password password = new Password();
+        password.hash = new PasswordHash("secret");
+        password.hashAlgorithm = HashAlgorithm.PLAIN;
+        Mockito.when(passwordDao.selectByAccount(Mockito.any())).thenReturn(Optional.of(password));
+
+        Key<Account> account = new Key<>(1L);
+        boolean updated = service.update(account, "secret", "new");
+        assertThat(updated).isTrue();
+    }
+
+    @Test
+    public void update_failure_password_not_found() throws Exception {
+        Mockito.when(passwordDao.selectByAccount(Mockito.any())).thenReturn(Optional.empty());
+
+        Key<Account> account = new Key<>(1L);
+        boolean updated = service.update(account, "secret", "new");
+        assertThat(updated).isFalse();
+    }
+
+    @Test
+    public void update_failure_mistake_old_password() throws Exception {
+        Password password = new Password();
+        password.hash = new PasswordHash("secret");
+        password.hashAlgorithm = HashAlgorithm.PLAIN;
+        Mockito.when(passwordDao.selectByAccount(Mockito.any())).thenReturn(Optional.of(password));
+
+        Key<Account> account = new Key<>(1L);
+        boolean updated = service.update(account, "mistake", "new");
+        assertThat(updated).isFalse();
+    }
+
     @Before
     public void setUp() throws Exception {
         ServiceLocator locator = ServiceLocatorUtilities.createAndPopulateServiceLocator();
