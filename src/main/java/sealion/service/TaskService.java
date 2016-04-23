@@ -2,6 +2,7 @@ package sealion.service;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
+import java.util.NoSuchElementException;
 
 import javax.inject.Inject;
 
@@ -42,7 +43,7 @@ public class TaskService {
     }
 
     public void changeStatus(Key<Task> id, TaskStatus status) {
-        Task entity = taskDao.selectById(id).get();
+        Task entity = taskDao.selectById(id).orElseThrow(NoSuchElementException::new);
         entity.status = status;
         taskDao.update(entity);
     }

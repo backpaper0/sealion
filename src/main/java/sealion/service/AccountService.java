@@ -1,6 +1,7 @@
 package sealion.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -51,7 +52,7 @@ public class AccountService {
             throw new DuplicateEmailException();
         }
 
-        Account entity = accountDao.selectById(id).get();
+        Account entity = accountDao.selectById(id).orElseThrow(NoSuchElementException::new);
         entity.email = email;
         accountDao.update(entity);
 
