@@ -1,5 +1,6 @@
 package sealion.domain;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 import org.seasar.doma.Domain;
@@ -15,6 +16,10 @@ public class EmailAddress {
             throw new IllegalArgumentException();
         }
         this.value = value;
+    }
+
+    public byte[] asBytes() {
+        return value.getBytes(StandardCharsets.UTF_8);
     }
 
     public String getValue() {

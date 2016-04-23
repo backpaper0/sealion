@@ -70,7 +70,7 @@ public class UIHelper {
                 .eval("var F = Java.type('" + UnaryOperator.class.getName() + "');"
                         + "var G = Java.extend(F, { apply: function(s) { return marked(s); }});"
                         + "new G()", context);
-        return marked.apply(text.getValue());
+        return text.applied(marked);
     }
 
     public String avatar(Account account, int size) {
@@ -80,7 +80,7 @@ public class UIHelper {
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
-        byte[] email = account.email.getValue().getBytes(StandardCharsets.UTF_8);
+        byte[] email = account.email.asBytes();
         byte[] digest = md.digest(email);
         String hash = IntStream.range(0, digest.length)
                 .mapToObj(i -> String.format("%02x", digest[i] & 0xff))

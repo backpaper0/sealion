@@ -1,6 +1,7 @@
 package sealion.domain;
 
 import java.util.Objects;
+import java.util.function.Function;
 
 import org.seasar.doma.Domain;
 
@@ -15,6 +16,10 @@ public class MarkedText {
             throw new IllegalArgumentException();
         }
         this.value = value;
+    }
+
+    public <T> T applied(Function<? super String, ? extends T> f) {
+        return f.apply(value);
     }
 
     public String getValue() {

@@ -1,6 +1,5 @@
 package sealion.domain;
 
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
@@ -22,6 +21,10 @@ public class PasswordHash {
         this.value = value;
     }
 
+    public boolean is(PasswordHash other) {
+        return value.equals(other.value);
+    }
+
     public String getValue() {
         return value;
     }
@@ -33,7 +36,7 @@ public class PasswordHash {
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
-        byte[] input = (password + salt.getValue()).getBytes(StandardCharsets.UTF_8);
+        byte[] input = salt.join(password);
         byte[] digest = md.digest(input);
         String value = IntStream.range(0, digest.length)
                 .mapToObj(i -> String.format("%02x", digest[i] & 0xff))

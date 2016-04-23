@@ -1,5 +1,6 @@
 package sealion.domain;
 
+import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Objects;
@@ -23,6 +24,10 @@ public class Salt {
 
     public String getValue() {
         return value;
+    }
+
+    public byte[] join(String password) {
+        return (password + value).getBytes(StandardCharsets.UTF_8);
     }
 
     public static Salt generate() {

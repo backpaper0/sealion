@@ -21,7 +21,7 @@ public class Password {
         case PLAIN:
             return hash.getValue().equals(password);
         case SHA512:
-            return hash.getValue().equals(PasswordHash.hash(password, salt).getValue());
+            return hash.is(PasswordHash.hash(password, salt));
         default:
             throw new RuntimeException();
         }
