@@ -14,6 +14,15 @@ Payara Microで動かす起動コマンドをGradleから実行できるよう�
 gradlew run
 ```
 
+`Deployed 1 wars` というログが出力されたら起動完了です。
+http://localhost:8080/sealion/ をブラウザで開いてください。
+
+用意しているテストデータでは次のユーザーでログインできます。
+
+|メールアドレス  |パスワード|
+|----------------|----------|
+|`root@localhost`|`root`    |
+
 H2データベースをファイルモードで使用しています。
 DBのファイルは `build` ティレクトリ以下に出力されます。
 DBを作り直したい場合は `gradlew clean` してください。
@@ -25,6 +34,8 @@ DBを作り直したい場合は `gradlew clean` してください。
 ```
 gradlew build
 ```
+
+`/build/libs/sealion.war` が出力されます。
 
 ## URL
 
