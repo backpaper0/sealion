@@ -4,6 +4,28 @@ Java EE 7とDoma、ThymeleafでITSを作っています。
 
 [![Circle CI](https://circleci.com/gh/backpaper0/sealion.svg?style=svg)](https://circleci.com/gh/backpaper0/sealion)
 
+## 起動方法
+
+Payara Microで動かす起動コマンドをGradleから実行できるようにしています。
+
+次のコマンドを実行してください。
+
+```
+gradlew run
+```
+
+H2データベースをファイルモードで使用しています。
+DBのファイルは `build` ティレクトリ以下に出力されます。
+DBを作り直したい場合は `gradlew clean` してください。
+
+## ビルド方法
+
+次のコマンドを実行してください。
+
+```
+gradlew build
+```
+
 ## URL
 
 |URL|概要|
