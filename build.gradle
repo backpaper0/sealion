@@ -110,7 +110,7 @@ dockerBuild.dependsOn copyPayaraJar, war
 task uberJar(type: Exec) {
     def payaraJar = configurations.archives.find { it.name == "payara-micro-${payaraVersion}.jar" }
     def warFile = war.archivePath
-    commandLine 'java', '-jar', "${payaraJar}", '--deploy', "${warFile}", '--outputUberJar', './build/sealion.jar'
+    commandLine 'java', '-jar', "${payaraJar}", '--deploy', "${warFile}", '--outputUberJar', "${war.destinationDir}/${war.baseName}.jar"
 }
 
 uberJar.dependsOn war
