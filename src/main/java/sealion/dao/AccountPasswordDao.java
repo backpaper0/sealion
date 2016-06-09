@@ -9,18 +9,18 @@ import org.seasar.doma.Update;
 
 import sealion.domain.Key;
 import sealion.entity.Account;
-import sealion.entity.Password;
+import sealion.entity.AccountPassword;
 
 @Dao
 @CdiManaged
-public interface PasswordDao {
+public interface AccountPasswordDao {
 
     @Select
-    Optional<Password> selectByAccount(Key<Account> account);
+    Optional<AccountPassword> selectByAccount(Key<Account> account);
 
     @Update
-    int update(Password entity);
+    int update(AccountPassword entity);
 
     @Insert
-    int insert(Password entity);
+    int insert(AccountPassword entity);
 }

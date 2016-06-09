@@ -11,7 +11,7 @@ CREATE TABLE Grant (
     FOREIGN KEY (account) REFERENCES Account (id)
 );
 
-CREATE TABLE Password (
+CREATE TABLE AccountPassword (
     account BIGINT NOT NULL,
     hash VARCHAR(200) NOT NULL,
     salt VARCHAR(200) NOT NULL,

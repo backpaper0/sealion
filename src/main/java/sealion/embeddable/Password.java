@@ -1,20 +1,22 @@
-package sealion.entity;
+package sealion.embeddable;
 
-import org.seasar.doma.Entity;
-import org.seasar.doma.Id;
+import org.seasar.doma.Embeddable;
 
 import sealion.domain.HashAlgorithm;
-import sealion.domain.Key;
 import sealion.domain.PasswordHash;
 import sealion.domain.Salt;
 
-@Entity
+@Embeddable
 public class Password {
-    @Id
-    public Key<Account> account;
-    public PasswordHash hash;
-    public Salt salt;
-    public HashAlgorithm hashAlgorithm;
+    private final PasswordHash hash;
+    private final Salt salt;
+    private final HashAlgorithm hashAlgorithm;
+
+    public Password(PasswordHash hash, Salt salt, HashAlgorithm hashAlgorithm) {
+        this.hash = hash;
+        this.salt = salt;
+        this.hashAlgorithm = hashAlgorithm;
+    }
 
     public boolean test(String password) {
         switch (hashAlgorithm) {

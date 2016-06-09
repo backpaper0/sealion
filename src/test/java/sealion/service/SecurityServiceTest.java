@@ -18,19 +18,20 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import sealion.dao.AccountDao;
-import sealion.dao.PasswordDao;
+import sealion.dao.AccountPasswordDao;
 import sealion.domain.EmailAddress;
 import sealion.domain.HashAlgorithm;
 import sealion.domain.Key;
 import sealion.domain.PasswordHash;
+import sealion.embeddable.Password;
 import sealion.entity.Account;
-import sealion.entity.Password;
+import sealion.entity.AccountPassword;
 import sealion.event.SignedInEvent;
 import sealion.session.UserProvider;
 
 public class SecurityServiceTest {
     private AccountDao accountDao = Mockito.mock(AccountDao.class);
-    private PasswordDao passwordDao = Mockito.mock(PasswordDao.class);
+    private AccountPasswordDao passwordDao = Mockito.mock(AccountPasswordDao.class);
     private UserProvider userProvider = Mockito.mock(UserProvider.class);
     private Event<SignedInEvent> event = Mockito.mock(Event.class);
 
@@ -43,9 +44,10 @@ public class SecurityServiceTest {
         account.id = new Key<>(1L);
         Mockito.when(accountDao.selectByEmail(Mockito.any())).thenReturn(Optional.of(account));
 
-        Password password = new Password();
-        password.hashAlgorithm = HashAlgorithm.PLAIN;
-        password.hash = new PasswordHash("secret");
+        AccountPassword password = new AccountPassword();
+        HashAlgorithm hashAlgorithm = HashAlgorithm.PLAIN;
+        PasswordHash hash = new PasswordHash("secret");
+        password.password = new Password(hash, null, hashAlgorithm);
         Mockito.when(passwordDao.selectByAccount(Mockito.any())).thenReturn(Optional.of(password));
 
         EmailAddress email = new EmailAddress("foo@example.com");
@@ -87,9 +89,10 @@ public class SecurityServiceTest {
         account.id = new Key<>(1L);
         Mockito.when(accountDao.selectByEmail(Mockito.any())).thenReturn(Optional.of(account));
 
-        Password password = new Password();
-        password.hashAlgorithm = HashAlgorithm.PLAIN;
-        password.hash = new PasswordHash("secret");
+        AccountPassword password = new AccountPassword();
+        HashAlgorithm hashAlgorithm = HashAlgorithm.PLAIN;
+        PasswordHash hash = new PasswordHash("secret");
+        password.password = new Password(hash, null, hashAlgorithm);
         Mockito.when(passwordDao.selectByAccount(Mockito.any())).thenReturn(Optional.of(password));
 
         EmailAddress email = new EmailAddress("foo@example.com");
@@ -99,9 +102,10 @@ public class SecurityServiceTest {
 
     @Test
     public void update_success() throws Exception {
-        Password password = new Password();
-        password.hash = new PasswordHash("secret");
-        password.hashAlgorithm = HashAlgorithm.PLAIN;
+        AccountPassword password = new AccountPassword();
+        HashAlgorithm hashAlgorithm = HashAlgorithm.PLAIN;
+        PasswordHash hash = new PasswordHash("secret");
+        password.password = new Password(hash, null, hashAlgorithm);
         Mockito.when(passwordDao.selectByAccount(Mockito.any())).thenReturn(Optional.of(password));
 
         Key<Account> account = new Key<>(1L);
@@ -120,9 +124,10 @@ public class SecurityServiceTest {
 
     @Test
     public void update_failure_mistake_old_password() throws Exception {
-        Password password = new Password();
-        password.hash = new PasswordHash("secret");
-        password.hashAlgorithm = HashAlgorithm.PLAIN;
+        AccountPassword password = new AccountPassword();
+        HashAlgorithm hashAlgorithm = HashAlgorithm.PLAIN;
+        PasswordHash hash = new PasswordHash("secret");
+        password.password = new Password(hash, null, hashAlgorithm);
         Mockito.when(passwordDao.selectByAccount(Mockito.any())).thenReturn(Optional.of(password));
 
         Key<Account> account = new Key<>(1L);
@@ -139,7 +144,7 @@ public class SecurityServiceTest {
             protected void configure() {
                 bind(SecurityService.class).to(SecurityService.class);
                 bind(accountDao).to(AccountDao.class);
-                bind(passwordDao).to(PasswordDao.class);
+                bind(passwordDao).to(AccountPasswordDao.class);
                 bind(userProvider).to(UserProvider.class);
                 bind(event).to(new TypeLiteral<Event<SignedInEvent>>() {
                 });
