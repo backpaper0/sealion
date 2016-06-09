@@ -1,4 +1,4 @@
-package sealion.ui;
+package sealion.ui.security;
 
 import java.io.IOException;
 
