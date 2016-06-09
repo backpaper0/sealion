@@ -19,6 +19,27 @@ public class Key<ENTITY> {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(value);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj == null) {
+            return false;
+        } else if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Key<?> other = getClass().cast(obj);
+        if (value.equals(other.value) == false) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public String toString() {
         return value.toString();
     }
