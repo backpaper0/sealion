@@ -20,6 +20,8 @@ import javax.ws.rs.core.UriInfo;
 
 import sealion.domain.EmailAddress;
 import sealion.service.SecurityService;
+import sealion.ui.security.Permissions;
+import sealion.ui.security.permission.NotSignedIn;
 
 @RequestScoped
 @Path("signin")
@@ -29,12 +31,14 @@ public class SigninResource {
     private SecurityService securityService;
 
     @GET
+    @Permissions(NotSignedIn.class)
     public UIResponse get() {
         return UIResponse.render("signin");
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Permissions(NotSignedIn.class)
     public Response signin(@NotNull @FormParam("email") EmailAddress email,
             @NotNull @Size(min = 1) @FormParam("password") String password,
             @Context UriInfo uriInfo) {

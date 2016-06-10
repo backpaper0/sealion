@@ -26,6 +26,9 @@ import sealion.model.MilestoneModel;
 import sealion.model.MilestonesModel;
 import sealion.model.NewMilestoneModel;
 import sealion.service.MilestoneService;
+import sealion.ui.security.Permissions;
+import sealion.ui.security.permission.AllowAll;
+import sealion.ui.security.permission.SignedIn;
 
 @RequestScoped
 @Path("projects/{project:\\d+}/milestones")
@@ -43,12 +46,14 @@ public class MilestoneResource {
     private MilestoneService milestoneService;
 
     @GET
+    @Permissions(AllowAll.class)
     public Optional<UIResponse> list() {
         return milestonesModelBuilder.build(project).map(UIResponse.factory("milestones"));
     }
 
     @Path("new")
     @GET
+    @Permissions(SignedIn.class)
     public Optional<UIResponse> blank() {
         return newMilestoneModelBuilder.build(project).map(UIResponse.factory("new-milestone"));
     }
@@ -56,6 +61,7 @@ public class MilestoneResource {
     @Path("new")
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Permissions(SignedIn.class)
     public Response create(@NotNull @FormParam("name") MilestoneName name,
             @FormParam("fixedDate") FixedDate fixedDate, @Context UriInfo uriInfo) {
         Milestone milestone = milestoneService.create(project, name, fixedDate);
@@ -66,6 +72,7 @@ public class MilestoneResource {
 
     @Path("{id:\\d+}")
     @GET
+    @Permissions(AllowAll.class)
     public Optional<UIResponse> get(@PathParam("id") Key<Milestone> id) {
         return milestoneModelBuilder.build(project, id).map(UIResponse.factory("milestone"));
     }

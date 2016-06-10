@@ -41,6 +41,9 @@ public class UIResponseProvider implements DynamicFeature {
             @Override
             public void filter(ContainerRequestContext requestContext,
                     ContainerResponseContext responseContext) throws IOException {
+                if (responseContext.hasEntity() == false) {
+                    return;
+                }
                 Optional<?> opt = (Optional<?>) responseContext.getEntity();
                 responseContext.setEntity(opt.orElse(null));
                 responseContext.setStatusInfo(

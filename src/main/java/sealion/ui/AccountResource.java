@@ -30,6 +30,9 @@ import sealion.model.AccountsModel;
 import sealion.model.EditAccountModel;
 import sealion.service.AccountService;
 import sealion.service.SecurityService;
+import sealion.ui.security.Permissions;
+import sealion.ui.security.permission.AllowAll;
+import sealion.ui.security.permission.SelfAccount;
 
 @RequestScoped
 @Path("accounts")
@@ -44,6 +47,7 @@ public class AccountResource {
     private SecurityService securityService;
 
     @GET
+    @Permissions(AllowAll.class)
     public UIResponse list() {
         AccountsModel model = accountsModelBuilder.build();
         return UIResponse.render("accounts", model);
@@ -51,6 +55,7 @@ public class AccountResource {
 
     @Path("new")
     @GET
+    @Permissions(roles = AccountRole.ADMIN)
     public UIResponse blank() {
         return UIResponse.render("new-account");
     }
@@ -58,6 +63,7 @@ public class AccountResource {
     @Path("new")
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Permissions(roles = AccountRole.ADMIN)
     public Response create(@NotNull @FormParam("username") Username username,
             @NotNull @FormParam("email") EmailAddress email,
             @NotNull @Size(min = 1) @FormParam("password") String password,
@@ -69,6 +75,7 @@ public class AccountResource {
 
     @Path("{id:\\d+}/edit")
     @GET
+    @Permissions(roles = AccountRole.ADMIN, value = SelfAccount.class)
     public Optional<UIResponse> edit(@PathParam("id") Key<Account> id) {
         return editAccountModelBuilder.build(id).map(UIResponse.factory("edit-account"));
     }
@@ -76,6 +83,7 @@ public class AccountResource {
     @Path("{id:\\d+}/edit")
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Permissions(roles = AccountRole.ADMIN, value = SelfAccount.class)
     public Response update(@PathParam("id") Key<Account> id,
             @NotNull @FormParam("email") EmailAddress email,
             @NotNull @FormParam("roles") List<AccountRole> roles, @Context UriInfo uriInfo)
@@ -88,6 +96,7 @@ public class AccountResource {
     @Path("{id:\\d+}/passwords/update")
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Permissions(roles = AccountRole.ADMIN, value = SelfAccount.class)
     public Response updatePassword(@PathParam("id") Key<Account> id,
             @NotNull @Size(min = 1) @FormParam("oldPassword") String oldPassword,
             @NotNull @Size(min = 1) @FormParam("newPassword") String newPassword,

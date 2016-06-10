@@ -13,6 +13,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import sealion.service.SecurityService;
+import sealion.ui.security.Permissions;
+import sealion.ui.security.permission.SignedIn;
 
 @RequestScoped
 @Path("signout")
@@ -23,6 +25,7 @@ public class SignoutResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Permissions(SignedIn.class)
     public Response signout(@Context UriInfo uriInfo) {
         securityService.signout();
         URI location = uriInfo.getBaseUriBuilder().path(ProjectResource.class).build();

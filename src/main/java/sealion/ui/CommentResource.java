@@ -20,6 +20,8 @@ import sealion.domain.MarkedText;
 import sealion.entity.Project;
 import sealion.entity.Task;
 import sealion.service.CommentService;
+import sealion.ui.security.Permissions;
+import sealion.ui.security.permission.SignedIn;
 
 @RequestScoped
 @Path("projects/{project:\\d+}/tasks/{task:\\d+}/comments")
@@ -36,6 +38,7 @@ public class CommentResource {
     @Path("new")
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Permissions(SignedIn.class)
     public Response create(@NotNull @FormParam("content") MarkedText content,
             @Context UriInfo uriInfo) {
         commentService.create(task, content);

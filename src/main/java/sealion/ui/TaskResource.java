@@ -29,6 +29,9 @@ import sealion.model.NewTaskModel;
 import sealion.model.TaskModel;
 import sealion.model.TasksModel;
 import sealion.service.TaskService;
+import sealion.ui.security.Permissions;
+import sealion.ui.security.permission.AllowAll;
+import sealion.ui.security.permission.SignedIn;
 
 @RequestScoped
 @Path("projects/{project:\\d+}/tasks")
@@ -47,12 +50,14 @@ public class TaskResource {
     private TaskService taskService;
 
     @GET
+    @Permissions(AllowAll.class)
     public Optional<UIResponse> list() {
         return tasksModelBuilder.build(project).map(UIResponse.factory("tasks"));
     }
 
     @Path("new")
     @GET
+    @Permissions(SignedIn.class)
     public Optional<UIResponse> blank() {
         return newTaskModelBuilder.build(project).map(UIResponse.factory("new-task"));
     }
@@ -60,6 +65,7 @@ public class TaskResource {
     @Path("new")
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Permissions(SignedIn.class)
     public Response create(@NotNull @FormParam("title") TaskTitle title,
             @FormParam("content") MarkedText content, @Context UriInfo uriInfo) {
         Task task = taskService.create(project, title, content);
@@ -70,6 +76,7 @@ public class TaskResource {
 
     @Path("{id:\\d+}")
     @GET
+    @Permissions(AllowAll.class)
     public Optional<UIResponse> get(@PathParam("id") Key<Task> id) {
         return taskModelBuilder.build(project, id).map(UIResponse.factory("task"));
     }
@@ -77,6 +84,7 @@ public class TaskResource {
     @Path("{id:\\d+}:status")
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Permissions(SignedIn.class)
     public void changeStatus(@PathParam("id") Key<Task> id,
             @FormParam("status") TaskStatus status) {
         taskService.changeStatus(id, status);
@@ -85,6 +93,7 @@ public class TaskResource {
     @Path("{id:\\d+}:milestone")
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Permissions(SignedIn.class)
     public void setMilestone(@PathParam("id") Key<Task> id,
             @FormParam("milestone") Key<Milestone> milestone) {
         taskService.setMilestone(id, milestone);
@@ -93,6 +102,7 @@ public class TaskResource {
     @Path("{id:\\d+}:assignee")
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Permissions(SignedIn.class)
     public void setAssignee(@PathParam("id") Key<Task> id,
             @FormParam("account") Key<Account> account) {
         taskService.setAssignee(id, account);
