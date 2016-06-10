@@ -39,7 +39,7 @@
                             <div class="buttons">
                                 <input type="hidden" name="csrfToken" data-th-value="${user.csrfToken}"/>
                                 <input class="button submit" type="submit" value="Update user"/>
-                                <a class="cancel" href="accounts.html" data-th-href="@{'/accounts'}">Cancel</a>
+                                <a class="cancel" href="account.html" data-th-href="@{'/accounts/' + ${model.account.id}}">Cancel</a>
                             </div>
                         </div>
                     </form>

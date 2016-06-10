@@ -26,6 +26,7 @@ import sealion.domain.Key;
 import sealion.domain.Username;
 import sealion.entity.Account;
 import sealion.exception.DuplicateEmailException;
+import sealion.model.AccountModel;
 import sealion.model.AccountsModel;
 import sealion.model.EditAccountModel;
 import sealion.service.AccountService;
@@ -40,6 +41,8 @@ public class AccountResource {
     @Inject
     private AccountsModel.Builder accountsModelBuilder;
     @Inject
+    private AccountModel.Builder accountModelBuilder;
+    @Inject
     private EditAccountModel.Builder editAccountModelBuilder;
     @Inject
     private AccountService accountService;
@@ -47,7 +50,7 @@ public class AccountResource {
     private SecurityService securityService;
 
     @GET
-    @Permissions(AllowAll.class)
+    @Permissions(roles = AccountRole.ADMIN)
     public UIResponse list() {
         AccountsModel model = accountsModelBuilder.build();
         return UIResponse.render("accounts", model);
@@ -73,6 +76,13 @@ public class AccountResource {
         return Response.seeOther(location).build();
     }
 
+    @Path("{id:\\d+}")
+    @GET
+    @Permissions(AllowAll.class)
+    public Optional<UIResponse> get(@PathParam("id") Key<Account> id) {
+        return accountModelBuilder.build(id).map(UIResponse.factory("account"));
+    }
+
     @Path("{id:\\d+}/edit")
     @GET
     @Permissions(roles = AccountRole.ADMIN, value = SelfAccount.class)
@@ -89,7 +99,8 @@ public class AccountResource {
             @NotNull @FormParam("roles") List<AccountRole> roles, @Context UriInfo uriInfo)
             throws DuplicateEmailException {
         accountService.update(id, email, roles);
-        URI location = uriInfo.getBaseUriBuilder().path(AccountResource.class).build();
+        URI location = uriInfo.getBaseUriBuilder().path(AccountResource.class).path("{id}")
+                .build(id);
         return Response.seeOther(location).build();
     }
 
@@ -108,7 +119,8 @@ public class AccountResource {
         if (securityService.update(id, oldPassword, newPassword) == false) {
             throw new BadRequestException();
         }
-        URI location = uriInfo.getBaseUriBuilder().path(AccountResource.class).build();
+        URI location = uriInfo.getBaseUriBuilder().path(AccountResource.class).path("{id}")
+                .build(id);
         return Response.seeOther(location).build();
     }
 }

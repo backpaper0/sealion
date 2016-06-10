@@ -14,29 +14,21 @@
         <div class="aui-page-panel">
             <div class="aui-page-panel-inner">
                 <section class="aui-page-panel-content">
+                    <h1 data-th-text="${model.account.username}">sampleuser</h1>
+                    <p><img src="https://www.gravatar.com/avatar/e107c65b007e7abb6b2e53054428fb5a?s=200"
+                            data-th-src="${ui.avatar(model.account.id, 200)}"/></p>
+                    <ul>
+                        <li data-th-each="role : ${model.roles}">
+                            <span data-th-text="${role}">USER</span>
+                        </li>
+                    </ul>
                     <div class="aui-toolbar2">
                         <div class="aui-toolbar2-inner">
-                            <div class="aui-toolbar2-secondary">
-                                <a class="aui-button" href="new-account.html" data-th-href="@{'/accounts/new'}">New Account</a>
+                            <div class="aui-toolbar2-primary">
+                                <a class="aui-button" href="edit-account.html" data-th-href="@{'/accounts/' + ${model.account.id} + '/edit'}">Edit Account</a>
                             </div>
                         </div>
                     </div>
-                    <table class="aui">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr data-th-each="account : ${model.accounts}">
-                                <td><a href="account.html" data-th-href="@{'/accounts/' + ${account.id}}">
-                                    <img src="https://www.gravatar.com/avatar/e107c65b007e7abb6b2e53054428fb5a?s=20"
-                                         data-th-src="${ui.avatar(account, 20)}"/>
-                                    <span data-th-text="${account.username}">sampleuser</span>
-                                </a></td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </section>
             </div>
         </div>
