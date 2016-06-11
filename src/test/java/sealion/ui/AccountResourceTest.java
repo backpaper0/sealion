@@ -27,6 +27,7 @@ import sealion.domain.EmailAddress;
 import sealion.domain.Key;
 import sealion.domain.Username;
 import sealion.entity.Account;
+import sealion.model.AccountModel;
 import sealion.model.AccountsModel;
 import sealion.model.EditAccountModel;
 import sealion.service.AccountService;
@@ -59,7 +60,7 @@ public class AccountResourceTest {
             Entity<Form> entity = Entity.form(form);
             Response response = target("/accounts/1/edit").request().post(entity);
             assertThat(response.getStatus()).isEqualTo(Status.SEE_OTHER.getStatusCode());
-            assertThat(response.getLocation()).isEqualTo(getBaseUri().resolve("/accounts"));
+            assertThat(response.getLocation()).isEqualTo(getBaseUri().resolve("/accounts/1"));
         }
 
         @Test
@@ -71,7 +72,7 @@ public class AccountResourceTest {
             Entity<Form> entity = Entity.form(form);
             Response response = target("/accounts/1/passwords/update").request().post(entity);
             assertThat(response.getStatus()).isEqualTo(Status.SEE_OTHER.getStatusCode());
-            assertThat(response.getLocation()).isEqualTo(getBaseUri().resolve("/accounts"));
+            assertThat(response.getLocation()).isEqualTo(getBaseUri().resolve("/accounts/1"));
         }
 
         @Override
@@ -388,6 +389,7 @@ public class AccountResourceTest {
         @Override
         protected void configure() {
             bind(new AccountsModel.Builder()).to(AccountsModel.Builder.class);
+            bind(new AccountModel.Builder()).to(AccountModel.Builder.class);
             bind(new EditAccountModel.Builder()).to(EditAccountModel.Builder.class);
             bind(new AccountService() {
                 @Override
