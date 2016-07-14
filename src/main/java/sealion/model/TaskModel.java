@@ -9,9 +9,11 @@ import javax.inject.Inject;
 
 import sealion.dao.AccountDao;
 import sealion.dao.CommentDao;
+import sealion.dao.CommentDao.CommentView;
 import sealion.dao.MilestoneDao;
 import sealion.dao.ProjectDao;
 import sealion.dao.TaskDao;
+import sealion.dao.TaskDao.TaskView;
 import sealion.domain.Key;
 import sealion.domain.TaskStatus;
 import sealion.entity.Account;

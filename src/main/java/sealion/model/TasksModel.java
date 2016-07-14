@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import sealion.dao.ProjectDao;
 import sealion.dao.TaskDao;
+import sealion.dao.TaskDao.TaskView;
 import sealion.domain.Key;
 import sealion.entity.Project;
 
